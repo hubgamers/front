@@ -4,3 +4,9 @@
     <p>Bienvenue username</p>
   </div>
 </template>
+
+<style scoped>
+div {
+  background: red;
+}
+</style>

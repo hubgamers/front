@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import Sidebar from '@/components/Sidebar.vue'
+import Rightbar from '@/components/Rightbar.vue'
 </script>
 
 <template>
@@ -12,6 +13,7 @@ import Sidebar from '@/components/Sidebar.vue'
   <div class="container">
     <Sidebar />
     <RouterView />
+    <Rightbar />
   </div>
 </template>
 
