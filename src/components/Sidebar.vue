@@ -3,21 +3,30 @@
 
 <template>
   <div class="sidebar">
-    <div class="user_infos">
-      <div class="avatar">
-        <img src="" alt="">
-      </div>
-      <div class="user_name">
-        <h2>John Doe</h2>
-        <span>Accéder à mon compte</span>
-      </div>
-    </div>
-    
     <nav>
       <ul>
         <li>
-          <i class="fa fa-test"></i>
-          <span>Tableau de bord</span>
+          <div class="user_infos">
+            <div class="avatar">
+              <img src="" alt="">
+            </div>
+            <div class="user_name">
+              <h2>John Doe</h2>
+              <RouterLink to="/profile">Accéder à mon compte</RouterLink>
+            </div>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-gauge"></i>
+          <RouterLink to="/">Tableau de bord</RouterLink>
+        </li>
+        <li>
+          <i class="fa-solid fa-people-group"></i>
+          <RouterLink to="/my-teams">Mes équipes</RouterLink>
+        </li>
+        <li>
+          <i class="fa-solid fa-trophy"></i>
+          <RouterLink to="/my-tournaments">Mes tournois</RouterLink>
         </li>
       </ul>
     </nav>
@@ -26,19 +35,28 @@
 
 <style lang="scss">
 .sidebar {
-  background: yellow;
+  background: rgba(210, 210, 210, 0.49);
+  height: 100vh;
+  
+  .user_infos {
+    display: flex;
+    flex-flow: column;
+    padding: 0 10px;
+  }
   
   nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 3rem;
     li {
       padding: 10px;
       display: flex;
       align-items: center;
-      i {
-        margin-right: 10px;
-      }
+      gap: 1rem;
+      font-size: 1.3rem;
     }
   }
 }

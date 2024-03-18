@@ -8,6 +8,21 @@ const router = createRouter({
       path: '/',
       name: 'dashboard',
       component: Dashboard
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: () => import('@/views/Profile.vue')
+    },
+    {
+      path: '/my-teams',
+      name: 'MyTeams',
+      component: () => import('@/views/teams/Teams.vue')
+    },
+    {
+      path: '/my-tournaments',
+      name: 'MyTournaments',
+      component: () => import('@/views/tournaments/Tournaments.vue')
     }
   ]
 })

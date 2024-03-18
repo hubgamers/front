@@ -2,12 +2,21 @@
   box-sizing: border-box;
   margin: 0 auto;
   width: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #333;
   background-color: #f4f4f4;
+}
+
+i {
+  all: unset;
+}
+
+a {
+  text-decoration-line: none;
+  color: #333;
 }

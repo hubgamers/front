@@ -5,11 +5,7 @@ import Rightbar from '@/components/Rightbar.vue'
 </script>
 
 <template>
-  <header>
-    <h1>HubGamers</h1>
-  </header>
-  
-  
+  <!-- Si rajouter un header il sera pas compris dans la sidebar -->
   <div class="container">
     <Sidebar />
     <RouterView />
@@ -20,7 +16,7 @@ import Rightbar from '@/components/Rightbar.vue'
 <style scoped>
 .container {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 0.5fr 3fr;
   gap: 20px;
 }
 </style>
