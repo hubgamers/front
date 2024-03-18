@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Topbar title="Mon profil" subtitle="test" />
+    <Topbar title="Mon profil" subtitle="Modifier vos informations" />
   </div>
 </template>
 <script setup lang="ts">

@@ -1,5 +1,12 @@
 <template>
   <div>
-    <h1>Mes tournois</h1>
+    <Topbar title="Mes tournois" subtitle="Créer ou rejoindre des tournois." />
   </div>
 </template>
+<script setup lang="ts">
+import Topbar from '@/components/Topbar.vue'
+import { defineComponent } from 'vue'
+defineComponent({
+  name: 'TournamentsPage'
+})
+</script>

@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1>Tableau de bord</h1>
-    <p>Bienvenue username</p>
+    <Topbar title="Tableau de bord" subtitle="Bienvenue sur votre compte" />
   </div>
 </template>
 
-<style scoped>
-div {
-  background: red;
-}
-</style>
+<script setup lang="ts">
+import Topbar from '@/components/Topbar.vue'
+import { defineComponent } from 'vue'
+defineComponent({
+  name: 'DashboardPage'
+})
+</script>
