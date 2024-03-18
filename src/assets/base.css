@@ -23,4 +23,6 @@ i {
 a {
   text-decoration-line: none;
   color: #333;
+  font-size: 1rem;
+  font-weight: bold;
 }

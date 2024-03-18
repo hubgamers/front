@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { defineComponent } from 'vue'
+
+defineComponent({
+  name: 'SidebarComponent'
+})
 </script>
 
 <template>
@@ -8,10 +13,10 @@
         <li>
           <div class="user_infos">
             <div class="avatar">
-              <img src="" alt="">
+              <img class="rounded-full" src="https://picsum.photos/200" alt="Avatar">
             </div>
-            <div class="user_name">
-              <h2>John Doe</h2>
+            <div class="flex flex-col">
+              <span class="text-lg text-center">John Doe</span>
               <RouterLink to="/profile">Accéder à mon compte</RouterLink>
             </div>
           </div>
