@@ -15,6 +15,7 @@ import Rightbar from '@/components/Rightbar.vue'
 
 <style scoped>
 .container {
+  max-width: inherit;
   display: grid;
   grid-template-columns: 0.5fr 3fr;
   gap: 20px;
