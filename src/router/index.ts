@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import('@/views/teams/Teams.vue')
     },
     {
+      path: '/teams/create',
+      name: 'CreateTeam',
+      component: () => import('@/views/teams/TeamEdit.vue')
+    },
+    {
       path: '/my-tournaments',
       name: 'MyTournaments',
       component: () => import('@/views/tournaments/Tournaments.vue')
