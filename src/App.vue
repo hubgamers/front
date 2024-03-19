@@ -1,7 +1,18 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+<script setup>
+import { RouterView } from 'vue-router'
 import Sidebar from '@/components/Sidebar.vue'
 import Rightbar from '@/components/Rightbar.vue'
+
+// Get user from store
+import { useStore } from 'vuex'
+const store = useStore()
+store.dispatch('login', { login: "brietgame",
+  password: "azerty"
+})
+
+setTimeout(() => {
+  store.dispatch('getAllUsers')
+}, 3000)
 </script>
 
 <template>
