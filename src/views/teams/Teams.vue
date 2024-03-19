@@ -1,11 +1,8 @@
 <template>
   <div class="py-10 px-10">
     <Topbar title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes." />
-
-    teams {{store.getters.getTeams}}
-    
-    
     <Table :columns="store.getters.getTeamColumns" :items="store.getters.getTeams" />
+    
   </div>
 </template>
 <script setup lang="ts">
