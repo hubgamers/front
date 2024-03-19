@@ -1,25 +1,28 @@
 import axiosCustom from '@/services/axiosCustom.js'
 
 export default {
-  getColumns() {
+  getAdminColumns() {
     return axiosCustom.get("/admin/user/columns");
   },
+  getColumns() {
+    return axiosCustom.get("/user/columns");
+  },
   getAllUsers () {
-    return axiosCustom.get("/admin/user/all");
+    return axiosCustom.get("/user/all");
   },
   getUserByUsername(username) {
-    return axiosCustom.get(`/admin/user/username/${username}`);
+    return axiosCustom.get(`/user/username/${username}`);
   },
   getUserById(id) {
-    return axiosCustom.get(`/admin/user/id/${id}`);
+    return axiosCustom.get(`/user/id/${id}`);
   },
   createUser(user) {
-    return axiosCustom.post("/admin/user/create", user);
+    return axiosCustom.post("/user/create", user);
   },
   updateUser(user) {
-    return axiosCustom.put("/admin/user/update", user);
+    return axiosCustom.put("/user/update", user);
   },
   deleteUser(id) {
-    return axiosCustom.delete(`/admin/user/delete/${id}`);
+    return axiosCustom.delete(`/user/delete/${id}`);
   }
 }

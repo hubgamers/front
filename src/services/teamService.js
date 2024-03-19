@@ -1,25 +1,28 @@
 import axiosCustom from '@/services/axiosCustom.js'
 
 export default {
-  getColumns() {
+  getAdminColumns() {
     return axiosCustom.get("/admin/team/columns");
   },
+  getColumns() {
+    return axiosCustom.get("/team/columns");
+  },
   getAllTeams () {
-    return axiosCustom.get("/admin/team/all");
+    return axiosCustom.get("/team/all");
   },
   getTeamByName(name) {
-    return axiosCustom.get(`/admin/team/name/${name}`);
+    return axiosCustom.get(`/team/name/${name}`);
   },
   getTeamById(id) {
-    return axiosCustom.get(`/admin/team/id/${id}`);
+    return axiosCustom.get(`/team/id/${id}`);
   },
   createTeam(team) {
-    return axiosCustom.post("/admin/team/create", team);
+    return axiosCustom.post("/team/create", team);
   },
   updateTeam(team) {
-    return axiosCustom.put("/admin/team/update", team);
+    return axiosCustom.put("/team/update", team);
   },
   deleteTeam(id) {
-    return axiosCustom.delete(`/admin/team/delete/${id}`);
+    return axiosCustom.delete(`/team/delete/${id}`);
   }
 }

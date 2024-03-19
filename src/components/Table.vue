@@ -17,6 +17,12 @@ defineProps({
     default: ''
   }
 })
+
+function isLink(value: string | null | undefined) {
+  if (value != null && typeof value === 'string') {
+    return value.startsWith('http://') || value.startsWith('https://');
+  }
+}
 </script>
 <template>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -51,7 +57,17 @@ defineProps({
             </div>
           </div>
         </td>
-        <td v-for="(column, key) in columns" :key="key" class="px-6 py-4">{{ item[column] }}</td>
+        <td v-for="(column, key) in columns" :key="key" class="px-6 py-4">
+          <template v-if="isLink(item[column])">
+            <img :src="item[column]" alt="Image" class="w-[100px]">
+          </template>
+          <template v-if="column == 'players'">
+            <p>{{item[column].length}}</p>
+          </template>
+          <template v-else>
+            {{ item[column] }}
+          </template>
+        </td>
         <td class="px-6 py-4">
           <RouterLink :to="url + 'edit/' + item['id']" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
             Editer
