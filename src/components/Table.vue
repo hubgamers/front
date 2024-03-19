@@ -11,6 +11,10 @@ defineProps({
   },
   items: {
     type: Array,
+  },
+  editUrl: {
+    type: String,
+    default: ''
   }
 })
 </script>
@@ -43,7 +47,9 @@ defineProps({
         </td>
         <td v-for="(column, key) in columns" :key="key" class="px-6 py-4">{{ item[column] }}</td>
         <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+          <RouterLink :to="editUrl + item['id']" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+            Editer
+          </RouterLink>
         </td>
       </tr>
       </tbody>

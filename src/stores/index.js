@@ -10,13 +10,13 @@ export default createStore({
       count: 0,
       userColumns: [],
       users: [],
-      user: {},
+      user: null,
       playerColumns: [],
       players: [],
-      player: {},
+      player: null,
       teamColumns: [],
       teams: [],
-      team: {}
+      team: null
     };
   },
   getters: {

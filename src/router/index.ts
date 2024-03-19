@@ -25,6 +25,16 @@ const router = createRouter({
       component: () => import('@/views/teams/TeamEdit.vue')
     },
     {
+      path: '/teams/edit/:id',
+      name: 'EditTeam',
+      component: () => import('@/views/teams/TeamEdit.vue')
+    },
+    {
+      path: '/teams/:id',
+      name: 'TeamDetail',
+      component: () => import('@/views/teams/TeamDetail.vue')
+    },
+    {
       path: '/my-tournaments',
       name: 'MyTournaments',
       component: () => import('@/views/tournaments/Tournaments.vue')
