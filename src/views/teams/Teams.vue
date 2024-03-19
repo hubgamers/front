@@ -6,7 +6,7 @@
         <ButtonDark>Ajouter une équipe</ButtonDark>
       </RouterLink>
     </div>
-    <Table :columns="store.getters.getTeamColumns" :items="store.getters.getTeams" edit-url="/teams/edit/" />
+    <Table :columns="store.getters.getTeamColumns" :items="store.getters.getTeams" url="/teams/" />
   </div>
 </template>
 <script setup lang="ts">
