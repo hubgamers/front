@@ -26,7 +26,7 @@ defineProps({
           </div>
         </th>
         <th v-for="(column, index) in columns" :key="index" scope="col" class="px-6 py-3">
-          {{ column.name }}
+          {{ column }}
         </th>
         <th scope="col" class="px-6 py-3">
           Action
@@ -34,7 +34,6 @@ defineProps({
       </tr>
       </thead>
       <tbody>
-      items {{items}}
       <tr v-for="(item, index) in items" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <td class="w-4 p-4 bg-[#403f3e]">
           <div class="flex items-center">
@@ -42,7 +41,7 @@ defineProps({
             <label for="checkbox-table-1" class="sr-only">checkbox</label>
           </div>
         </td>
-        <td v-for="column in columns" :key="column.key" class="px-6 py-4">{{ item[column.key] }}</td>
+        <td v-for="(column, key) in columns" :key="key" class="px-6 py-4">{{ item[column] }}</td>
         <td class="px-6 py-4">
           <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
         </td>

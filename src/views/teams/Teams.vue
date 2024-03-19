@@ -1,26 +1,24 @@
 <template>
   <div class="py-10 px-10">
     <Topbar title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes." />
+
+    teams {{store.getters.getTeams}}
     
-    <Table :columns="columns" :items="items" />
+    
+    <Table :columns="store.getters.getTeamColumns" :items="store.getters.getTeams" />
   </div>
 </template>
 <script setup lang="ts">
 import Topbar from '@/components/Topbar.vue'
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Table from '@/components/Table.vue'
+import { useStore } from 'vuex'
 defineComponent({
   name: 'TeamsPage'
 })
 
-let columns: [
-    { key: 'name', label: 'Nom' },
-    { key: 'age', label: 'Âge' },
-    { key: 'email', label: 'Email' }
-  ];
-let items: [
-  { name: 'Alice', age: 30, email: 'alice@example.com' },
-  { name: 'Bob', age: 25, email: 'bob@example.com' },
-  { name: 'Charlie', age: 35, email: 'charlie@example.com' }
-]
+const store = useStore()
+store.dispatch('getAllTeams')
+store.dispatch('getTeamColumns')
+
 </script>
