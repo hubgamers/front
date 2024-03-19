@@ -41,7 +41,7 @@ defineComponent({
 <style lang="scss">
 .sidebar {
   background: rgba(210, 210, 210, 0.49);
-  height: 100vh;
+  height: 100%;
   
   .user_infos {
     display: flex;

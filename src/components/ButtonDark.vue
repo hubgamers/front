@@ -4,14 +4,14 @@
   </div>
 </template>
 <script>
-import { defineComponent, defineProps } from 'vue'
-defineComponent({
-  name: 'ButtonDark'
-});
-defineProps({
-  typeBtn: {
-    type: String,
-    default: 'button'
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'ButtonDark',
+  props: {
+    typeBtn: {
+      type: String,
+      default: 'button'
+    }
   }
-})
+});
 </script>

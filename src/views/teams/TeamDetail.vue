@@ -11,8 +11,9 @@
         <span class="max-w-[5rem] bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"><i class="fa-solid fa-laptop"></i> {{ store.getters.getTeam.platform }}</span>
       </div>
 
-      <div class="flex flex-row">
-        <CardComponent v-for="player in store.getters.getTeam.players" :title="player.username" image="store.getters.getTeam.logo" link="/team/1" linkText="Détails du joueur" />
+      <h3 class="text-2xl font-bold mt-10 mb-5">Membres de l'équipe</h3>
+      <div class="flex flex-row justify-between">
+        <CardComponent v-for="(player, playerKey) in store.getters.getTeam.players" :key="playerKey" :titleCard="player.username" :image="store.getters.getTeam.logo" :link="'/players/' + player.id" linkText="Détails du joueur" />
       </div>
     </div>
   </div>
