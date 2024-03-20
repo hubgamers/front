@@ -24,6 +24,11 @@ export default {
     formData.append("file", file);
     return axiosCustom.post("/team/banner/upload/" + teamId, formData);
   },
+  uploadTeamLogo(teamId, file) {
+    let formData = new FormData();
+    formData.append("file", file);
+    return axiosCustom.post("/team/logo/upload/" + teamId, formData);
+  },
   updateTeam(team) {
     return axiosCustom.put("/team/update", team);
   },

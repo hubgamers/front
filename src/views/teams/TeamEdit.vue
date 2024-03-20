@@ -13,10 +13,10 @@
         </div>
       </div>
       <div>
-<!--        <img v-if="store.getters.getTeam != null" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">-->
+        <img v-if="store.getters.getTeam != null" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">
         <div>
           <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo</label>
-<!--          <input v-model="teamForm.logo" type="file" id="logo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />-->
+          <input @input="uploadTeamLogo" type="file" id="logo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
 </template>
 <script setup lang="ts">
 import Topbar from '@/components/Topbar.vue'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import ButtonDark from '@/components/ButtonDark.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -74,12 +74,9 @@ let teamForm = ref({
 })
 store.dispatch('getAllPlayers')
 
-const router = useRouter()
-const route = useRoute();
-const params = route.params;
-
-console.log(route.name)
-if (route.name === 'EditTeam') {
+const router = useRouter();
+const params = useRoute().params;
+if (params && params.id) {
   store.dispatch('getTeamById', params.id)
   teamForm.value = store.getters.getTeam
 }
@@ -89,6 +86,16 @@ function uploadTeamBanner(e: any) {
   if (!files.length)
     return;
   store.dispatch('uploadTeamBanner', {
+    teamId: params.id,
+    file: files[0]
+  })
+}
+
+function uploadTeamLogo(e: any) {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return;
+  store.dispatch('uploadTeamLogo', {
     teamId: params.id,
     file: files[0]
   })

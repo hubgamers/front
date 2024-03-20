@@ -34,7 +34,6 @@ defineProps({
 })
 
 const store = useStore();
-const router = useRouter()
 const params = useRoute().params;
 if (params && params.id) {
   store.dispatch('getTeamById', params.id)
