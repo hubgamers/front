@@ -330,6 +330,17 @@ export default createStore({
           });
       });
     },
+    uploadTeamBanner(context, { teamId, file }) {
+      return new Promise((resolve, reject) => {
+        teamService.uploadTeamBanner(teamId, file)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
     updateTeam(context, team) {
       return new Promise((resolve, reject) => {
         teamService.updateTeam(team)

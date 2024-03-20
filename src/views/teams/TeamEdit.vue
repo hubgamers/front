@@ -4,6 +4,23 @@
     <!-- TODO: mettre un formulaire avec un select des équipes déjà crée pour les modifier directement -->
     <!-- TODO: penser à ajouter les joueurs -->
 
+    <div class="relative">
+      <div>
+        <img v-if="store.getters.getTeam != null" class="relative max-h-[300px] max-w-full object-cover rounded-b" :src="store.getters.getTeam.banner" alt="banner">
+        <div>
+          <label for="banner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bannière</label>
+          <input @input="uploadTeamBanner" type="file" id="banner" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+        </div>
+      </div>
+      <div>
+<!--        <img v-if="store.getters.getTeam != null" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">-->
+        <div>
+          <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo</label>
+<!--          <input v-model="teamForm.logo" type="file" id="logo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />-->
+        </div>
+      </div>
+    </div>
+
     <form @submit.prevent="submitForm">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
@@ -51,15 +68,30 @@ let teamForm = ref({
   description: '',
   game: '',
   platform: '',
-  players: []
+  players: [],
+  banner: '',
+  logo: ''
 })
 store.dispatch('getAllPlayers')
 
 const router = useRouter()
-const params = useRoute().params;
-if (params && params.id) {
+const route = useRoute();
+const params = route.params;
+
+console.log(route.name)
+if (route.name === 'EditTeam') {
   store.dispatch('getTeamById', params.id)
   teamForm.value = store.getters.getTeam
+}
+
+function uploadTeamBanner(e: any) {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return;
+  store.dispatch('uploadTeamBanner', {
+    teamId: params.id,
+    file: files[0]
+  })
 }
 
 function submitForm() {

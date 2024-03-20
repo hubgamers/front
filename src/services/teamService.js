@@ -19,6 +19,11 @@ export default {
   createTeam(team) {
     return axiosCustom.post("/team/create", team);
   },
+  uploadTeamBanner(teamId, file) {
+    let formData = new FormData();
+    formData.append("file", file);
+    return axiosCustom.post("/team/banner/upload/" + teamId, formData);
+  },
   updateTeam(team) {
     return axiosCustom.put("/team/update", team);
   },
