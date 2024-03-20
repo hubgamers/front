@@ -5,6 +5,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'Home',
+      component: () => import('@/views/Home.vue')
+    },
+    {
       path: '/auth/login',
       name: 'Login',
       component: () => import('@/views/Auth.vue')
@@ -15,55 +20,57 @@ const router = createRouter({
       component: () => import('@/views/Auth.vue')
     },
     {
-      path: '/',
+      path: '/dashboard',
       name: 'dashboard',
-      component: Dashboard
-    },
-    {
-      path: '/profile',
-      name: 'Profile',
-      component: () => import('@/views/Profile.vue')
-    },
-    {
-      path: '/my-teams',
-      name: 'MyTeams',
-      component: () => import('@/views/teams/Teams.vue')
-    },
-    {
-      path: '/teams/create',
-      name: 'CreateTeam',
-      component: () => import('@/views/teams/TeamEdit.vue')
-    },
-    {
-      path: '/teams/edit/:id',
-      name: 'EditTeam',
-      component: () => import('@/views/teams/TeamEdit.vue')
-    },
-    {
-      path: '/teams/:id',
-      name: 'TeamDetail',
-      component: () => import('@/views/teams/TeamDetail.vue')
-    },
-    {
-      path: '/my-tournaments',
-      name: 'MyTournaments',
-      component: () => import('@/views/tournaments/Tournaments.vue')
-    },
-    {
-      path: '/tournaments/create',
-      name: 'CreateTournament',
-      component: () => import('@/views/tournaments/TournamentEdit.vue')
-    },
-    {
-      path: '/tournaments/edit/:id',
-      name: 'EditTournament',
-      component: () => import('@/views/tournaments/TournamentEdit.vue')
-    },
-    {
-      path: '/tournaments/:id',
-      name: 'TournamentDetail',
-      component: () => import('@/views/tournaments/TournamentDetail.vue')
-    },
+      component: Dashboard,
+      children: [
+        {
+          path: '/profile',
+          name: 'Profile',
+          component: () => import('@/views/Profile.vue')
+        },
+        {
+          path: '/my-teams',
+          name: 'MyTeams',
+          component: () => import('@/views/teams/Teams.vue')
+        },
+        {
+          path: '/teams/create',
+          name: 'CreateTeam',
+          component: () => import('@/views/teams/TeamEdit.vue')
+        },
+        {
+          path: '/teams/edit/:id',
+          name: 'EditTeam',
+          component: () => import('@/views/teams/TeamEdit.vue')
+        },
+        {
+          path: '/teams/:id',
+          name: 'TeamDetail',
+          component: () => import('@/views/teams/TeamDetail.vue')
+        },
+        {
+          path: '/my-tournaments',
+          name: 'MyTournaments',
+          component: () => import('@/views/tournaments/Tournaments.vue')
+        },
+        {
+          path: '/tournaments/create',
+          name: 'CreateTournament',
+          component: () => import('@/views/tournaments/TournamentEdit.vue')
+        },
+        {
+          path: '/tournaments/edit/:id',
+          name: 'EditTournament',
+          component: () => import('@/views/tournaments/TournamentEdit.vue')
+        },
+        {
+          path: '/tournaments/:id',
+          name: 'TournamentDetail',
+          component: () => import('@/views/tournaments/TournamentDetail.vue')
+        }
+      ]
+    }
   ]
 })
 
