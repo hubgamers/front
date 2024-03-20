@@ -3,11 +3,11 @@
     <Topbar title="Mes tournois" subtitle="Créer ou rejoindre des tournois." />
 
     <div class="w-1/5 py-3">
-      <RouterLink to="/tournaments/create">
+      <RouterLink to="/dashboard/tournaments/create">
         <ButtonDark>Créer un tournoi</ButtonDark>
       </RouterLink>
     </div>
-    <Table :columns="store.getters.getTournamentColumns" :items="store.getters.getTournaments" url="/tournaments/" />
+    <Table :columns="store.getters.getTournamentColumns" :items="store.getters.getTournaments" url="/dashboard/tournaments/" />
   </div>
 </template>
 <script setup lang="ts">

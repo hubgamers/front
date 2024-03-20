@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="py-10 px-10">
     <Topbar title="Tableau de bord" subtitle="Bienvenue sur votre compte" />
   </div>
 </template>

@@ -7,7 +7,7 @@ defineComponent({
 </script>
 
 <template>
-  <div class="sidebar">
+  <div class="sidebar min-h-screen">
     <nav>
       <ul>
         <li>
@@ -17,21 +17,33 @@ defineComponent({
             </div>
             <div class="flex flex-col">
               <span class="text-lg text-center">John Doe</span>
-              <RouterLink to="/profile">Accéder à mon compte</RouterLink>
+              <RouterLink to="/dashboard/profile">Accéder à mon compte</RouterLink>
             </div>
           </div>
         </li>
         <li>
           <i class="fa-solid fa-gauge"></i>
-          <RouterLink to="/">Tableau de bord</RouterLink>
+          <RouterLink to="/dashboard">Tableau de bord</RouterLink>
         </li>
         <li>
           <i class="fa-solid fa-people-group"></i>
-          <RouterLink to="/my-teams">Mes équipes</RouterLink>
+          <RouterLink to="/dashboard/my-teams">Mes équipes</RouterLink>
         </li>
         <li>
           <i class="fa-solid fa-trophy"></i>
-          <RouterLink to="/my-tournaments">Mes tournois</RouterLink>
+          <RouterLink to="/dashboard/my-tournaments">Mes tournois</RouterLink>
+        </li>
+        <li style="padding: 0">
+          <ul class="w-full">
+            <li class="bg-black text-white">
+              <i class="fa-solid fa-cog"></i>
+              <RouterLink to="/dashboard/options" class="text-white">Paramètres</RouterLink>
+            </li>
+            <li class="bg-red-700 text-white">
+              <i class="fa-solid fa-unlink"></i>
+              <RouterLink to="/auth/logout" class="text-white">Déconnexion</RouterLink>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>
@@ -41,27 +53,42 @@ defineComponent({
 <style lang="scss">
 .sidebar {
   background: rgba(210, 210, 210, 0.49);
-  height: 100%;
-  
+
   .user_infos {
     display: flex;
     flex-flow: column;
     padding: 0 10px;
   }
   
-  nav ul {
+  nav > ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-flow: column nowrap;
-    gap: 3rem;
+    align-items: flex-start;
+    gap: 2rem;
     li {
       padding: 10px;
       display: flex;
       align-items: center;
       gap: 1rem;
       font-size: 1.3rem;
+      width: 100%;
+
+      &:hover {
+        transition: all;
+        transition-duration: 0.5s;
+        cursor: pointer;
+        background: rgba(210, 210, 210, 0.7);
+      }
+
+      ul:last-of-type {
+        display: flex;
+        flex-flow: column;
+        gap: 1rem;
+        padding: 0;
+      }
     }
   }
 }

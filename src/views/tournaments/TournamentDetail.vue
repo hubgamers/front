@@ -1,7 +1,7 @@
 <template>
   <div v-if="store.getters.getTournament !== null">
     <div class="relative">
-      <img class="relative max-h-[300px] max-w-full object-cover rounded-b" :src="store.getters.getTournament.banner" alt="banner">
+      <img class="relative max-h-[300px] w-full object-cover rounded-b" :src="store.getters.getTournament.banner" alt="banner">
       <img class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTournament.logo" alt="logo">
     </div>
     <div class="py-10 px-10">

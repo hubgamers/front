@@ -2,11 +2,11 @@
   <div class="py-10 px-10">
     <Topbar title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes." />
     <div class="w-1/5 py-3">
-      <RouterLink to="/teams/create">
+      <RouterLink to="/dashboard/teams/create">
         <ButtonDark>Ajouter une équipe</ButtonDark>
       </RouterLink>
     </div>
-    <Table :columns="store.getters.getTeamColumns" :items="store.getters.getTeams" url="/teams/" />
+    <Table :columns="store.getters.getTeamColumns" :items="store.getters.getTeams" url="/dashboard/teams/" />
   </div>
 </template>
 <script setup lang="ts">

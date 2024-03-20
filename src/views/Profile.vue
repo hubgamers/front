@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="py-10 px-10">
     <Topbar title="Mon profil" subtitle="Modifier vos informations" />
   </div>
 </template>
