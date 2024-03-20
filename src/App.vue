@@ -1,14 +1,15 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView, useRouter } from 'vue-router'
 import Sidebar from '@/components/Sidebar.vue'
 import Rightbar from '@/components/Rightbar.vue'
 
 // Get user from store
 import { useStore } from 'vuex'
 const store = useStore()
-store.dispatch('login', { login: "brietgame",
-  password: "azerty"
-})
+const router = useRouter()
+if (localStorage.getItem('jwtToken') == null) {
+  router.push('/auth/login')
+}
 
 setTimeout(() => {
   store.dispatch('getAllUsers')
