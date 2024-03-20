@@ -2,8 +2,24 @@
   <div class="py-10 px-10">
     <Topbar title="Gérer mon tournoi" subtitle="Créer ou éditer mon tournoi" />
 
+    <div class="relative" v-if="store.getters.getTournament != null">
+      <div>
+        <img v-if="store.getters.getTournament.banner != ''" class="relative max-h-[300px] max-w-full object-cover rounded-b" :src="store.getters.getTournament.banner" alt="banner">
+        <div>
+          <label for="banner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bannière</label>
+          <input @input="uploadTournamentBanner" type="file" id="banner" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+        </div>
+      </div>
+      <div>
+        <img v-if="store.getters.getTournament.logo != ''" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTournament.logo" alt="logo">
+        <div>
+          <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo</label>
+          <input @input="uploadTournamentLogo" type="file" id="logo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+        </div>
+      </div>
+    </div>
 
-    <form @submit="createTournament">
+    <form @submit.prevent="createTournament">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
           <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom du tournoi</label>
@@ -13,9 +29,9 @@
         <div>
           <label for="tournamentType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sélectionner le type</label>
           <select name="tournamentType" id="tournamentType" v-model="tournamentForm.tournamentType">
-            <option value="TOURNAMENT"></option>
-            <option value="LEAGUE"></option>
-            <option value="LADDER"></option>
+            <option value="TOURNAMENT">Tournoi</option>
+            <option value="LEAGUE">League</option>
+            <option value="LADDER">Ladder</option>
           </select>
         </div>
 
@@ -32,24 +48,13 @@
         <div>
           <label for="platform" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plateforme</label>
           <select name="platform" id="platform" v-model="tournamentForm.platform">
-            <option value="PS4"></option>
-            <option value="PS5"></option>
-            <option value="XBOX"></option>
-            <option value="Switch"></option>
-            <option value="PC"></option>
+            <option value="PS4">PS4</option>
+            <option value="PS5">PS5</option>
+            <option value="XBOX">XBOX</option>
+            <option value="Switch">Switch</option>
+            <option value="PC">PC</option>
           </select>
         </div>
-
-        <div>
-          <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo</label>
-          <input type="text" v-model="tournamentForm.logo">
-        </div>
-
-        <div>
-          <label for="banner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Banner</label>
-          <input type="text" v-model="tournamentForm.banner">
-        </div>
-
 
         <ButtonDark typeBtn="submit">Créer le tournoi</ButtonDark>
       </div>
@@ -79,9 +84,37 @@ let tournamentForm = ref({
 
 const store = useStore();
 const router = useRouter();
-function createTournament() {
-  store.dispatch('createTournament', tournamentForm.value).then(() => {
-    
+const params = router.currentRoute.value.params;
+
+if (params.id) {
+  store.dispatch('getTournamentById', params.id)
+}
+
+function uploadTournamentBanner(e: any) {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return;
+  store.dispatch('uploadTournamentBanner', {
+    teamId: params.id,
+    file: files[0]
+  }).then(() => {
+    store.dispatch('getTournamentById', params.id)
   })
+}
+
+function uploadTournamentLogo(e: any) {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return;
+  store.dispatch('uploadTournamentLogo', {
+    teamId: params.id,
+    file: files[0]
+  }).then(() => {
+    store.dispatch('getTournamentById', params.id)
+  })
+}
+
+function createTournament() {
+  store.dispatch('createTournament', tournamentForm.value);
 }
 </script>

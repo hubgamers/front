@@ -433,6 +433,28 @@ export default createStore({
           });
       });
     },
+    uploadTournamentBanner(context, { teamId, file }) {
+      return new Promise((resolve, reject) => {
+        tournamentService.uploadTournamentBanner(teamId, file)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    uploadTournamentLogo(context, { teamId, file }) {
+      return new Promise((resolve, reject) => {
+        tournamentService.uploadTournamentLogo(teamId, file)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
     updateTournament(context, tournament) {
       return new Promise((resolve, reject) => {
         tournamentService.updateTournament(tournament)

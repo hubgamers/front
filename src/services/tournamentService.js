@@ -16,6 +16,16 @@ export default {
   createTournament(tournament) {
     return axiosCustom.post("/tournament/create", tournament);
   },
+  uploadTournamentBanner(teamId, file) {
+    let formData = new FormData();
+    formData.append("file", file);
+    return axiosCustom.post("/tournament/banner/upload/" + teamId, formData);
+  },
+  uploadTournamentLogo(teamId, file) {
+    let formData = new FormData();
+    formData.append("file", file);
+    return axiosCustom.post("/tournament/logo/upload/" + teamId, formData);
+  },
   updateTournament(tournament) {
     return axiosCustom.put("/tournament/update", tournament);
   },
