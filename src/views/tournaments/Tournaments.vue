@@ -1,22 +1,26 @@
 <template>
   <div>
     <Topbar title="Mes tournois" subtitle="Créer ou rejoindre des tournois." />
-    
-    players {{store.getters.getPlayers}}
 
-    <RouterLink to="/tournaments/create" class="btn btn-primary">
-      Créer un tournoi
-    </RouterLink>
+    <div class="w-1/5 py-3">
+      <RouterLink to="/tournaments/create">
+        <ButtonDark>Créer un tournoi</ButtonDark>
+      </RouterLink>
+    </div>
+    <Table :columns="store.getters.getTournamentColumns" :items="store.getters.getTournaments" url="/tournaments/" />
   </div>
 </template>
 <script setup lang="ts">
 import Topbar from '@/components/Topbar.vue'
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import ButtonDark from '@/components/ButtonDark.vue'
+import Table from '@/components/Table.vue'
 defineComponent({
   name: 'TournamentsPage'
 })
 
 const store = useStore()
-store.dispatch('getAllTeams')
+store.dispatch('getAllTournaments')
+store.dispatch('getTournamentColumns')
 </script>

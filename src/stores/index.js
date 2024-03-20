@@ -3,6 +3,7 @@ import authService from '@/services/authService.js'
 import userService from '@/services/userService.js'
 import playerService from '@/services/playerService.js'
 import teamService from '@/services/teamService.js'
+import tournamentService from '@/services/tournamentService.js'
 
 export default createStore({
   state() {
@@ -16,7 +17,10 @@ export default createStore({
       player: null,
       teamColumns: [],
       teams: [],
-      team: null
+      team: null,
+      tournamentColumns: [],
+      tournaments: [],
+      tournament: null
     };
   },
   getters: {
@@ -46,6 +50,15 @@ export default createStore({
     },
     getTeam(state) {
       return state.team;
+    },
+    getTournamentColumns(state) {
+      return state.tournamentColumns;
+    },
+    getTournaments(state) {
+      return state.tournaments;
+    },
+    getTournament(state) {
+      return state.tournament;
     }
   },
   mutations: {
@@ -78,6 +91,15 @@ export default createStore({
     },
     updateTeam(state, team) {
       state.team = team;
+    },
+    updateTournamentColumns(state, columns) {
+      state.tournamentColumns = columns;
+    },
+    updateTournamentList(state, tournaments) {
+      state.tournaments = tournaments;
+    },
+    updateTournament(state, tournament) {
+      state.tournament = tournament;
     }
   },
   actions: {
@@ -322,6 +344,87 @@ export default createStore({
     deleteTeam(context, id) {
       return new Promise((resolve, reject) => {
         teamService.deleteTeam(id)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getTournamentColumns(context) {
+      return new Promise((resolve, reject) => {
+        tournamentService.getColumns()
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateTournamentColumns', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getAllTournaments(context) {
+      return new Promise((resolve, reject) => {
+        tournamentService.getAllTournaments()
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateTournamentList', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    // getTournamentByName(context, name) {
+    //   return new Promise((resolve, reject) => {
+    //     tournamentService.getTournamentByName(name)
+    //       .then((response) => {
+    //         resolve(response.data.data);
+    //         context.commit('updateTournament', response.data.data);
+    //       })
+    //       .catch((error) => {
+    //         reject(error);
+    //       });
+    //   });
+    // },
+    getTournamentById(context, id) {
+      return new Promise((resolve, reject) => {
+        tournamentService.getTournamentById(id)
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateTournament', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    createTournament(context, tournament) {
+      return new Promise((resolve, reject) => {
+        tournamentService.createTournament(tournament)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    updateTournament(context, tournament) {
+      return new Promise((resolve, reject) => {
+        tournamentService.updateTournament(tournament)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    deleteTournament(context, id) {
+      return new Promise((resolve, reject) => {
+        tournamentService.deleteTournament(id)
           .then((response) => {
             resolve(response.data.data);
           })

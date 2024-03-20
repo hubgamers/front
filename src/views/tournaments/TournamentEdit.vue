@@ -1,74 +1,87 @@
 <template>
-  <div>
+  <div class="py-10 px-10">
     <Topbar title="Gérer mon tournoi" subtitle="Créer ou éditer mon tournoi" />
 
 
     <form @submit="createTournament">
-      <input type="text" v-model="name">
+      <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div>
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom du tournoi</label>
+          <input type="text" v-model="tournamentForm.name">
+        </div>
 
-      <select name="tournamentType" id="tournamentType" v-model="tournamentType">
-        <option value="TOURNAMENT"></option>
-        <option value="LEAGUE"></option>
-        <option value="LADDER"></option>
-      </select>
+        <div>
+          <label for="tournamentType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sélectionner le type</label>
+          <select name="tournamentType" id="tournamentType" v-model="tournamentForm.tournamentType">
+            <option value="TOURNAMENT"></option>
+            <option value="LEAGUE"></option>
+            <option value="LADDER"></option>
+          </select>
+        </div>
 
-      <textarea v-model="description"></textarea>
+        <div>
+          <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+          <textarea v-model="tournamentForm.description"></textarea>
+        </div>
 
-      <input type="text" v-model="game">
+        <div>
+          <label for="game" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jeu</label>
+          <input type="text" v-model="tournamentForm.game">
+        </div>
 
-      <select name="platform" id="platform" v-model="platform">
-        <option value="PS4"></option>
-        <option value="PS5"></option>
-        <option value="XBOX"></option>
-        <option value="Switch"></option>
-        <option value="PC"></option>
-      </select>
+        <div>
+          <label for="platform" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plateforme</label>
+          <select name="platform" id="platform" v-model="tournamentForm.platform">
+            <option value="PS4"></option>
+            <option value="PS5"></option>
+            <option value="XBOX"></option>
+            <option value="Switch"></option>
+            <option value="PC"></option>
+          </select>
+        </div>
+
+        <div>
+          <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo</label>
+          <input type="text" v-model="tournamentForm.logo">
+        </div>
+
+        <div>
+          <label for="banner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Banner</label>
+          <input type="text" v-model="tournamentForm.banner">
+        </div>
 
 
-      <input type="text" v-model="logo">
-
-      <input type="text" v-model="banner">
-      
-      <button type="submit">Créer le tournoi</button>
+        <ButtonDark typeBtn="submit">Créer le tournoi</ButtonDark>
+      </div>
     </form>
   </div>
 </template>
 <script setup lang="ts">
 import Topbar from '@/components/Topbar.vue'
 
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
+import ButtonDark from '@/components/ButtonDark.vue'
+import { useRouter } from 'vue-router'
 defineComponent({
   name: 'TournamentEditPage'
 })
 
-let name = ''
-let tournamentType = ''
-let description = ''
-let game = ''
-let platform = ''
-let logo = ''
-let banner = ''
+let tournamentForm = ref({
+  name: '',
+  description: '',
+  game: '',
+  platform: '',
+  logo: '',
+  banner: '',
+  tournamentType: ''
+});
 
+const store = useStore();
+const router = useRouter();
 function createTournament() {
-  console.log('createTournament')
-  console.log(name)
-  console.log(tournamentType)
-  console.log(description)
-  console.log(game)
-  console.log(platform)
-  console.log(logo)
-  console.log(banner)
-  
-  // Call the store
-  const store = useStore();
-
-  const count = store.state.count;
-  const increment = () => {
-    store.dispatch('increment');
-  };
-  console.log(increment);
-  
-  // TODO : installer le store et faire tous les services api pour créer le CRUD du tournoi
+  store.dispatch('createTournament', tournamentForm.value).then(() => {
+    
+  })
 }
 </script>

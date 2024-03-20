@@ -53,7 +53,17 @@ const router = createRouter({
       path: '/tournaments/create',
       name: 'CreateTournament',
       component: () => import('@/views/tournaments/TournamentEdit.vue')
-    }
+    },
+    {
+      path: '/tournaments/edit/:id',
+      name: 'EditTournament',
+      component: () => import('@/views/tournaments/TournamentEdit.vue')
+    },
+    {
+      path: '/tournaments/:id',
+      name: 'TournamentDetail',
+      component: () => import('@/views/tournaments/TournamentEdit.vue')
+    },
   ]
 })
 
