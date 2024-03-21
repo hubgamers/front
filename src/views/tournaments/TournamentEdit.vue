@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="createTournament">
+    <form @submit.prevent="submitForm">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
           <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom du tournoi</label>
@@ -39,6 +39,16 @@
           <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
           <textarea v-model="tournamentForm.description"></textarea>
         </div>
+        
+        <div>
+          <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de début</label>
+          <input type="datetime-local" v-model="tournamentForm.startDate">
+        </div>
+
+        <div>
+          <label for="endDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de fin</label>
+          <input type="datetime-local" v-model="tournamentForm.endDate">
+        </div>
 
         <div>
           <label for="game" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jeu</label>
@@ -56,7 +66,7 @@
           </select>
         </div>
 
-        <ButtonDark typeBtn="submit">Créer le tournoi</ButtonDark>
+        <ButtonDark typeBtn="submit">Valider</ButtonDark>
       </div>
     </form>
   </div>
@@ -75,6 +85,8 @@ defineComponent({
 let tournamentForm = ref({
   name: '',
   description: '',
+  startDate: '',
+  endDate: '',
   game: '',
   platform: '',
   logo: '',
@@ -88,6 +100,7 @@ const params = router.currentRoute.value.params;
 
 if (params.id) {
   store.dispatch('getTournamentById', params.id)
+  tournamentForm.value = store.getters.getTournament
 }
 
 function uploadTournamentBanner(e: any) {
@@ -114,7 +127,17 @@ function uploadTournamentLogo(e: any) {
   })
 }
 
-function createTournament() {
-  store.dispatch('createTournament', tournamentForm.value);
+function submitForm() {
+  if (params && params.id) {
+    store.dispatch('updateTournament', tournamentForm.value).then(() => {
+      // Redirect to the team page
+      router.push({ name: 'TournamentDetail', params: { id: params.id } })
+    })
+  } else {
+    store.dispatch('createTournament', tournamentForm.value).then(() => {
+      // Redirect to the team page
+      router.push({ name: 'TournamentDetail', params: { id: params.id } })
+    })
+  }
 }
 </script>
