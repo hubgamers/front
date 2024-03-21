@@ -39,6 +39,11 @@
           <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
           <textarea v-model="tournamentForm.description"></textarea>
         </div>
+
+        <div>
+          <label for="rules" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Règles</label>
+          <textarea v-model="tournamentForm.rules"></textarea>
+        </div>
         
         <div>
           <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de début</label>
@@ -85,6 +90,7 @@ defineComponent({
 let tournamentForm = ref({
   name: '',
   description: '',
+  rules: '',
   startDate: '',
   endDate: '',
   game: '',

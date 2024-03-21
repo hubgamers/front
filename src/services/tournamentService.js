@@ -16,6 +16,9 @@ export default {
   createTournament(tournament) {
     return axiosCustom.post("/tournament/create", tournament);
   },
+  addParticipant(tournamentId, participant) {
+    return axiosCustom.post(`/tournament/addParticipant/${tournamentId}`, JSON.stringify(participant));
+  },
   uploadTournamentBanner(teamId, file) {
     let formData = new FormData();
     formData.append("file", file);

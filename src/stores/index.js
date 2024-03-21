@@ -433,6 +433,17 @@ export default createStore({
           });
       });
     },
+    addParticipant(context, { tournamentId, participant }) {
+      return new Promise((resolve, reject) => {
+        tournamentService.addParticipant(tournamentId, participant)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
     uploadTournamentBanner(context, { teamId, file }) {
       return new Promise((resolve, reject) => {
         tournamentService.uploadTournamentBanner(teamId, file)
