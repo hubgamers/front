@@ -1,0 +1,83 @@
+<template>
+  <div class="py-10 px-10">
+    <Topbar title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes." />
+    <div class="py-5">
+      <h3 class="text-lg font-semibold">Mes invitations</h3>
+      <p class="text-sm text-gray-500">Acceptez ou refusez les invitations en attente et créer de nouvelles invitations pour vos équipes.</p>
+      <ButtonDark class="my-3" @click="toggleInvitationModal">Créer une invitation</ButtonDark>
+      <Table :columns="store.getters.getInvitationColumns" :items="store.getters.getInvitations" url="/dashboard/teams/invitations/" />
+
+      <div v-if="invitationModal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <form @submit.prevent="sendInvitation" class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div>
+                      <label for="playerId">Sélectionner un joueur</label>
+                      <select v-model="invitationForm.playerId" name="playerId" id="playerId">
+                        <option v-for="(player, playerIndex) in store.getters.getPlayers" :key="playerIndex" :value="player.id">{{player.username}}</option>
+                      </select>
+                    </div>
+                  <div>
+                    <label for="teamId">Sélectionner une équipe</label>
+                    <select v-model="invitationForm.teamId" name="teamId" id="teamId">
+                      <option v-for="(team, teamIndex) in store.getters.getTeams" :key="teamIndex" :value="team.id">{{team.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button type="submit" class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Envoyer l'invitation</button>
+                <button type="button" @click="toggleInvitationModal" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Annuler</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-5">
+      <h3 class="text-lg font-semibold">Mes équipes</h3>
+      <p class="text-sm text-gray-500">Gérer l'ensemble de vos équipes.</p>
+      <RouterLink to="/dashboard/teams/create">
+        <ButtonDark class="my-3">Ajouter une équipe</ButtonDark>
+      </RouterLink>
+      <Table :columns="store.getters.getTeamColumns" :items="store.getters.getTeams" url="/dashboard/teams/" />
+    </div>
+  </div>
+</template>
+<script setup lang="ts">
+import Topbar from '@/components/Topbar.vue'
+import { defineComponent, ref } from 'vue'
+import Table from '@/components/Table.vue'
+import { useStore } from 'vuex'
+import ButtonDark from '@/components/ButtonDark.vue'
+defineComponent({
+  name: 'TeamsPage'
+})
+
+const store = useStore()
+store.dispatch('getAllInvitations')
+store.dispatch('getInvitationColumns')
+store.dispatch('getAllTeams')
+store.dispatch('getTeamColumns')
+store.dispatch('getAllPlayers')
+
+let invitationModal = ref(false)
+let invitationForm = ref({
+  playerId: null,
+  teamId: null,
+  type: 'RECRUIT_PLAYER'
+})
+
+function toggleInvitationModal() {
+  invitationModal.value = !invitationModal.value
+}
+
+function sendInvitation() {
+  store.dispatch('createInvitation', invitationForm.value)
+}
+</script>

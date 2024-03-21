@@ -4,6 +4,7 @@ import userService from '@/services/userService.js'
 import playerService from '@/services/playerService.js'
 import teamService from '@/services/teamService.js'
 import tournamentService from '@/services/tournamentService.js'
+import invitationService from '@/services/invitationService.js'
 
 export default createStore({
   state() {
@@ -20,7 +21,10 @@ export default createStore({
       team: null,
       tournamentColumns: [],
       tournaments: [],
-      tournament: null
+      tournament: null,
+      invitations: [],
+      invitation: null,
+      invitationColumns: []
     };
   },
   getters: {
@@ -59,6 +63,15 @@ export default createStore({
     },
     getTournament(state) {
       return state.tournament;
+    },
+    getInvitations(state) {
+      return state.invitations;
+    },
+    getInvitation(state) {
+      return state.invitation;
+    },
+    getInvitationColumns(state) {
+      return state.invitationColumns;
     }
   },
   mutations: {
@@ -100,6 +113,15 @@ export default createStore({
     },
     updateTournament(state, tournament) {
       state.tournament = tournament;
+    },
+    updateInvitations(state, invitations) {
+      state.invitations = invitations;
+    },
+    updateInvitation(state, invitation) {
+      state.invitation = invitation;
+    },
+    updateInvitationColumns(state, columns) {
+      state.invitationColumns = columns;
     }
   },
   actions: {
@@ -480,6 +502,111 @@ export default createStore({
     deleteTournament(context, id) {
       return new Promise((resolve, reject) => {
         tournamentService.deleteTournament(id)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getAllInvitations(context) {
+      return new Promise((resolve, reject) => {
+        invitationService.getAllInvitations()
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateInvitations', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getInvitationColumns(context) {
+      return new Promise((resolve, reject) => {
+        invitationService.getColumns()
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateInvitationColumns', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getInvitationById(context, id) {
+      return new Promise((resolve, reject) => {
+        invitationService.getInvitationById(id)
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateInvitation', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getAllInvitationsByTeamId(context, teamId) {
+      return new Promise((resolve, reject) => {
+        invitationService.getAllInvitationsByTeamId(teamId)
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateInvitations', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getAllJoinInvitationByTeamId(context, teamId) {
+      return new Promise((resolve, reject) => {
+        invitationService.getAllJoinInvitationByTeamId(teamId)
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateInvitations', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getAllRecruitPlayerInvitationByTeamId(context, teamId) {
+      return new Promise((resolve, reject) => {
+        invitationService.getAllRecruitPlayerInvitationByTeamId(teamId)
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateInvitations', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    createInvitation(context, invitation) {
+      return new Promise((resolve, reject) => {
+        invitationService.createInvitation(invitation)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    updateInvitation(context, invitation) {
+      return new Promise((resolve, reject) => {
+        invitationService.updateInvitation(invitation)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    deleteInvitation(context, id) {
+      return new Promise((resolve, reject) => {
+        invitationService.deleteInvitation(id)
           .then((response) => {
             resolve(response.data.data);
           })

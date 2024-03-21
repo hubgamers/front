@@ -64,6 +64,11 @@ function isLink(value: string | null | undefined) {
           <template v-if="column == 'players'">
             <p>{{item[column].length}}</p>
           </template>
+          <template v-if="column == 'status'">
+              <span v-if="item[column] == 'PENDING'" class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"><i class="fa fa-hourglass"></i> En attente</span>
+              <span v-if="item[column] == 'ACCEPTED'" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"><i class="fa fa-check"></i> Accepté</span>
+              <span v-if="item[column] == 'REFUSED'" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"><i class="fa fa-x"></i> Refusé</span>
+          </template>
           <template v-else>
             {{ item[column] }}
           </template>
