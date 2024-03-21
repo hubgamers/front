@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="py-10 px-10">
     <Topbar title="Mes tournois" subtitle="Créer ou rejoindre des tournois." />
 
     <div class="w-1/5 py-3">
