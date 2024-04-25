@@ -15,15 +15,15 @@
         </li>
         <li class="li">
           <i class="fa fa-people-group"></i>
-          <RouterLink to="/my-teams">Mes équipes</RouterLink>
+          <RouterLink to="/dashboard/my-teams">Mes équipes</RouterLink>
         </li>
         <li class="li">
           <i class="fa fa-trophy"></i>
-          <RouterLink to="/tournaments">Tournois <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
+          <RouterLink to="/dashboard/tournaments">Tournois <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
         </li>
         <li class="li">
           <i class="fa fa-satellite-dish"></i>
-          <RouterLink to="/production">Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
+          <RouterLink to="/dashboarD/production">Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
         </li>
       </ul>
       <ul class="autres">
