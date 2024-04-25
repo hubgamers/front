@@ -1,3 +1,61 @@
+<template>
+  <div class="sidebar">
+    <div class="profile">
+      <div class="avatar">
+        <img src="https://picsum.photos/150/150" alt="avatar" />
+      </div>
+      <RouterLink to="/profile">Mon profil</RouterLink>
+    </div>
+    <nav>
+      <ul class="menu">
+        <li>MENU</li>
+        <li class="li">
+          <i class="fa fa-dashboard"></i>
+          <RouterLink to="/dashboard">Tableau de bord</RouterLink>
+        </li>
+        <li class="li">
+          <i class="fa fa-people-group"></i>
+          <RouterLink to="/my-teams">Mes équipes</RouterLink>
+        </li>
+        <li class="li">
+          <i class="fa fa-trophy"></i>
+          <RouterLink to="/tournaments">Tournois <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
+        </li>
+        <li class="li">
+          <i class="fa fa-satellite-dish"></i>
+          <RouterLink to="/production">Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
+        </li>
+      </ul>
+      <ul class="autres">
+        <li>AUTRES</li>
+        <li class="li">
+          <i class="fa fa-gear"></i>
+          <RouterLink to="/settings">Paramètres</RouterLink>
+        </li>
+        <li class="li">
+          <i class="fa fa-wallet"></i>
+          <RouterLink to="/payments">Paiements</RouterLink>
+        </li>
+        <li class="li">
+          <i class="fa fa-circle-user"></i>
+          <RouterLink to="/account">Compte</RouterLink>
+        </li>
+        <li class="li">
+          <i class="fa fa-circle-info"></i>
+          <RouterLink to="/help">Besoin d'aide</RouterLink>
+        </li>
+      </ul>
+      
+      <ul>
+        <li class="li">
+          <i class="fa fa-door-open"></i>
+          <RouterLink to="/logout">Se déconnecter</RouterLink>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { defineComponent } from 'vue'
 
@@ -6,88 +64,51 @@ defineComponent({
 })
 </script>
 
-<template>
-  <div class="sidebar min-h-screen">
-    <nav>
-      <ul>
-        <li>
-          <div class="user_infos">
-            <div class="avatar">
-              <img class="rounded-full" src="https://picsum.photos/200" alt="Avatar">
-            </div>
-            <div class="flex flex-col">
-              <span class="text-lg text-center">John Doe</span>
-              <RouterLink to="/dashboard/profile">Accéder à mon compte</RouterLink>
-            </div>
-          </div>
-        </li>
-        <li>
-          <i class="fa-solid fa-gauge"></i>
-          <RouterLink to="/dashboard">Tableau de bord</RouterLink>
-        </li>
-        <li>
-          <i class="fa-solid fa-people-group"></i>
-          <RouterLink to="/dashboard/my-teams">Mes équipes</RouterLink>
-        </li>
-        <li>
-          <i class="fa-solid fa-trophy"></i>
-          <RouterLink to="/dashboard/my-tournaments">Mes tournois</RouterLink>
-        </li>
-        <li style="padding: 0">
-          <ul class="w-full">
-            <li class="bg-black text-white">
-              <i class="fa-solid fa-cog"></i>
-              <RouterLink to="/dashboard/options" class="text-white">Paramètres</RouterLink>
-            </li>
-            <li class="bg-red-700 text-white">
-              <i class="fa-solid fa-unlink"></i>
-              <RouterLink to="/auth/logout" class="text-white">Déconnexion</RouterLink>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</template>
-
 <style lang="scss">
 .sidebar {
-  background: rgba(210, 210, 210, 0.49);
-
-  .user_infos {
+  background: #F1F2F7;
+  height: 100vh;
+  padding: 2rem 0;
+  
+  .profile {
     display: flex;
-    flex-flow: column;
-    padding: 0 10px;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
   }
   
-  nav > ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: flex-start;
-    gap: 2rem;
-    li {
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: 1.3rem;
-      width: 100%;
-
-      &:hover {
-        transition: all;
-        transition-duration: 0.5s;
-        cursor: pointer;
-        background: rgba(210, 210, 210, 0.7);
+  nav {
+    padding: 2rem;
+    
+    ul > li {
+      padding: 1rem;
+      transition: all .5s;
+      border-radius: 5px;
+      color: #082431;
+      &.li:hover {
+        transition: all .5s;
+        background-color: #8aa6b4;
       }
-
-      ul:last-of-type {
-        display: flex;
-        flex-flow: column;
-        gap: 1rem;
-        padding: 0;
+      a {
+        font-weight: 600;
+        color: #6b2865;
+      }
+      i {
+        padding-right: 1rem;
       }
     }
   }
