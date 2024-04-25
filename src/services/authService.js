@@ -7,5 +7,8 @@ export default {
         localStorage.setItem('jwtToken', response.data.data.jwtToken);
       }
     });
+  },
+  register (username, email, password) {
+    return axiosCustom.post("/auth/register", { username, email, password });
   }
 }

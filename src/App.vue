@@ -10,9 +10,11 @@ const currentRoute = useRoute()
 const router = useRouter();
 
 const isDashboardRoute = ref(false)
+const isAuthRoute = ref(false)
 // Vérifie si la route actuelle commence par "/dashboard"
 watchEffect(() => {
   isDashboardRoute.value = currentRoute.path.startsWith('/dashboard')
+  isAuthRoute.value = currentRoute.path.startsWith('/auth')
 })
 
 if (currentRoute.path.startsWith('/dashboard') && localStorage.getItem('jwtToken') == null) {
@@ -26,6 +28,9 @@ if (currentRoute.path.startsWith('/dashboard') && localStorage.getItem('jwtToken
     <Sidebar />
     <RouterView />
     <Rightbar />
+  </div>
+  <div v-else-if="isAuthRoute">
+    <RouterView />
   </div>
   <div v-else>
     <Navbar />

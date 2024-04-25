@@ -128,6 +128,9 @@ export default createStore({
     increment(context) {
       context.commit('increment');
     },
+    register(context, {username, email, password}) {
+      return authService.register(username, email, password);
+    },
     login(context, { login, password }) {
       return authService.login(login, password);
     },

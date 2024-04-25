@@ -1,12 +1,25 @@
 <template>
   <div class="containerAuth">
-    <h1>Créer un compte</h1>
+    <h1 v-if="isLogin">Se connecter</h1>
+    <h1 v-else>Créer un compte</h1>
     <div class="containerForm">
-      <input-text v-model="auth.username" type="string" label="Nom d'utilisateur" placeholder="Nom d'utilisateur" :required="true" />
-      <input-text v-model="auth.email" type="string" label="Email" placeholder="Email" :required="true" />
+      <input-text v-if="!isLogin" v-model="auth.username" type="string" label="Nom d'utilisateur" placeholder="Nom d'utilisateur" :required="true" />
+      <input-text v-if="!isLogin" v-model="auth.email" type="string" label="Email" placeholder="example@hubgamers.fr" :required="true" />
+      <input-text v-if="isLogin" v-model="auth.login" type="string" label="Identifiant" placeholder="example@hubgamers.fr" :required="true" />
       <input-text v-model="auth.password" type="password" label="Mot de passe" placeholder="•••••••••" :required="true" />
+      <input-text v-if="!isLogin" type="checkbox" label="J'accepte les conditions générales d'utilisation." :required="true" />
     </div>
-    <button-dark @click="register">Créer un compte</button-dark>
+    <RouterLink v-if="isLogin" to="/auth/forgotPassword" class="info">Mot de passe oublié ?</RouterLink>
+    <template v-if="isLogin">
+      <button @click="login" class="info">Se connecter</button>
+      <p class="thin big">OU</p>
+      <button @click="() => isLogin = false" class="green">Créer mon compte</button>
+    </template>
+    <template v-else>
+      <button @click="register" class="info">Créer un compte</button>
+      <p class="thin big">OU</p>
+      <button @click="() => isLogin = true" class="green">Se connecter</button>
+    </template>
   </div>
 </template>
 <script setup lang="ts">
@@ -14,11 +27,11 @@ import { defineComponent, ref, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import router from '@/router'
 import { useRoute } from 'vue-router'
-import ButtonDark from '@/components/ButtonDark.vue'
 import InputText from '@/components/InputText.vue'
 defineComponent({
   name: 'AuthentificationPage',
 })
+
 
 const store = useStore();
 const route = useRoute();
