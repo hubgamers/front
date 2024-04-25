@@ -1,8 +1,8 @@
 <template>
   <div>
     <input type="search" placeholder="Rechercher" v-model="search">
-    <h1>Tableau de bord</h1>
-    <h2>Bienvenue JohnDoe sur votre tableau de bord</h2>
+    <h1 v-if="title !== null">{{title}}</h1>
+    <h2 v-if="subtitle !== null">{{subtitle}}</h2>
   </div>
 </template>
 

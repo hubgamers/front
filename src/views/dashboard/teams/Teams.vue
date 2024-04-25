@@ -1,6 +1,11 @@
 <template>
   <div class="py-10 px-10">
     <Topbar title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes." />
+    
+    <div class="flex flex-row justify-between">
+      <CardComponent v-for="(team, key) in store.getters.getTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" :link-two="'/dashboard/teams/' + team.id + '/join'" link-two-text="Rejoindre l'équipe" />
+    </div>
+    
     <div class="py-5">
       <h3 class="text-lg font-semibold">Mes invitations</h3>
       <p class="text-sm text-gray-500">Acceptez ou refusez les invitations en attente et créer de nouvelles invitations pour vos équipes.</p>
@@ -61,6 +66,7 @@ import { defineComponent, ref } from 'vue'
 import Table from '@/components/Table.vue'
 import { useStore } from 'vuex'
 import ButtonDark from '@/components/ButtonDark.vue'
+import CardComponent from '@/components/CardComponent.vue'
 defineComponent({
   name: 'TeamsPage'
 })
