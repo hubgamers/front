@@ -12,10 +12,14 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   config => {
+    let isAuth = config.url.includes('/auth');
     const token = localStorage.getItem('jwtToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
       console.log('Bearer ' + token);
+    }
+    if (isAuth) {
+      delete config.headers.Authorization;
     }
     return config;
   },
