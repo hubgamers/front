@@ -17,6 +17,7 @@ export default createStore({
       players: [],
       player: null,
       teamColumns: [],
+      myTeams: [],
       teams: [],
       team: null,
       tournamentColumns: [],
@@ -48,6 +49,9 @@ export default createStore({
     },
     getTeamColumns(state) {
       return state.teamColumns;
+    },
+    getMyTeams(state) {
+      return state.teams;
     },
     getTeams(state) {
       return state.teams;
@@ -98,6 +102,9 @@ export default createStore({
     },
     updateTeamColumns(state, columns) {
       state.teamColumns = columns;
+    },
+    updateMyTeams(state, teams) {
+      state.myTeams = teams;
     },
     updateTeamList(state, teams) {
       state.teams = teams;
@@ -308,9 +315,33 @@ export default createStore({
           });
       });
     },
+    getAllMyTeams(context) {
+      return new Promise((resolve, reject) => {
+        teamService.getAllMyTeams()
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateMyTeams', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
     getAllTeams(context) {
       return new Promise((resolve, reject) => {
         teamService.getAllTeams()
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateTeamList', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getAllTeamsByName(context, name) {
+      return new Promise((resolve, reject) => {
+        teamService.getAllTeamsByName(name)
           .then((response) => {
             resolve(response.data.data);
             context.commit('updateTeamList', response.data.data);
