@@ -68,7 +68,7 @@ defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .sidebar {
   background: #F1F2F7;
   height: 100vh;

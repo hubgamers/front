@@ -25,7 +25,24 @@
       </div>
       <div v-if="tabStatus == 'gestion'">
         <Topbar title="Gestion de l'équipe" subtitle="Modifier votre équipe" />
-        <SidebarOnPage />
+        <div class="flex mt-2 gap-10">
+          <SidebarOnTeamDetails :team="store.getters.getTeam" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" />
+          <div v-if="sideBarStatus == 'tournaments_registrations'">
+            <h3>Inscriptions aux tournois</h3>
+          </div>
+          <div v-if="sideBarStatus == 'messages'">
+            <h3>Messages</h3>
+          </div>
+          <div v-if="sideBarStatus == 'compositon'">
+            <h3>Composition</h3>
+          </div>
+          <div v-if="sideBarStatus == 'configuration'">
+            <h3>Configuration</h3>
+          </div>
+          <div v-if="sideBarStatus == 'dangerous_area'">
+            <h3>Zone dangereuse</h3>
+          </div>
+        </div>
       </div>
 
 <!--      <h3 class="text-2xl font-bold mt-10 mb-5">Membres de l'équipe</h3>-->
@@ -38,10 +55,9 @@
 <script setup lang="ts">
 import Topbar from '@/components/Topbar.vue'
 import { useStore } from 'vuex'
-import { useRoute, useRouter } from 'vue-router'
-import CardComponent from '@/components/CardComponent.vue'
+import { useRoute } from 'vue-router'
 import { defineComponent, defineProps, ref } from 'vue'
-import SidebarOnPage from '@/components/SidebarOnPage.vue'
+import SidebarOnTeamDetails from '@/components/SidebarOnTeamDetails.vue'
 
 defineComponent({
   name: 'TeamDetailPage'
@@ -60,6 +76,12 @@ if (params && params.id) {
 let tabStatus = ref('palmarès')
 function changeTabStatus(tab: string) {
   tabStatus.value = tab
+}
+
+let sideBarStatus = ref('')
+function changeSideBarStatus(tab: string) {
+  console.log(tab)
+  sideBarStatus.value = tab
 }
 </script>
 <style lang="scss" scoped>
