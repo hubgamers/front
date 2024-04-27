@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="search" placeholder="Rechercher" v-model="search">
+    <input v-if="showSearchBar" type="search" placeholder="Rechercher" v-model="search">
     <h1 v-if="title !== null">{{title}}</h1>
     <h2 v-if="subtitle !== null">{{subtitle}}</h2>
   </div>
@@ -15,7 +15,11 @@ defineComponent({
 
 defineProps({
   title: String,
-  subtitle: String
+  subtitle: String,
+  showSearchBar: {
+    type: Boolean,
+    default: false
+  }
 })
 
 let search = ref('');

@@ -1,6 +1,6 @@
 <template>
   <div class="py-10 px-10">
-    <Topbar title="Tableau de bord" subtitle="Bienvenue sur votre compte" />
+    <Topbar title="Tableau de bord" subtitle="Bienvenue sur votre compte" :show-search-bar="true" />
   </div>
 </template>
 
