@@ -25,6 +25,7 @@
       </div>
       <div v-if="tabStatus == 'gestion'">
         <Topbar title="Gestion de l'équipe" subtitle="Modifier votre équipe" />
+        <SidebarOnPage />
       </div>
 
 <!--      <h3 class="text-2xl font-bold mt-10 mb-5">Membres de l'équipe</h3>-->
@@ -40,6 +41,7 @@ import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import CardComponent from '@/components/CardComponent.vue'
 import { defineComponent, defineProps, ref } from 'vue'
+import SidebarOnPage from '@/components/SidebarOnPage.vue'
 
 defineComponent({
   name: 'TeamDetailPage'

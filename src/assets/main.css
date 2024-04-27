@@ -26,12 +26,16 @@ body {
     background-color: #fff;
 }
 
-h1 {
+h1, h2, h3, p {
     color: var(--blue);
+}
+
+h1 {
     font-size: 2rem;
     font-weight: bold;
     margin: 3rem 0;
 }
+
 
 i {
     all: unset;
