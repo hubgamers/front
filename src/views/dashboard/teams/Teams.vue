@@ -9,7 +9,7 @@
     <Topbar class="mt-20" title="Equipes publiques" subtitle="Vous pouvez rejoindre une équipe parmi la liste" />
     <div class="flex justify-between mt-10">
       <div class="flex flex-col max-w-[300px] w-full">
-        <input-text v-model="search" label="Recherche" placeholder="Rechercher une équipe" required />
+        <input-text v-model:model-value="search" label="Recherche" placeholder="Rechercher une équipe" required />
         <button @click="searchInTeams" class="info">Rechercher</button>
       </div>
       <div class="flex flex-row gap-5">
@@ -29,8 +29,6 @@ defineComponent({
 })
 
 const store = useStore()
-store.dispatch('getAllInvitations')
-store.dispatch('getInvitationColumns')
 store.dispatch('getAllMyTeams')
 store.dispatch('getAllTeams')
 store.dispatch('getTeamColumns')
@@ -40,6 +38,10 @@ let search = ref('')
 
 function searchInTeams() {
   console.log('search', search.value)
-  store.dispatch('getAllTeamsByName', search.value)
+  if (search.value === '') {
+    store.dispatch('getAllTeams')
+  } else {
+    store.dispatch('getAllTeamsByName', search.value)
+  }
 }
 </script>

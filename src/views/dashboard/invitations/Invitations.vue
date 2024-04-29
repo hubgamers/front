@@ -52,6 +52,8 @@ defineComponent({
   name: 'InvitationsPage'
 })
 const store = useStore()
+store.dispatch('getAllInvitations')
+store.dispatch('getInvitationColumns')
 
 let invitationModal = ref(false)
 let invitationForm = ref({

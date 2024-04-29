@@ -13,9 +13,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { defineProps } from 'vue';
+const model = defineModel();
 
-const props = defineProps({
+defineProps({
   label: {
     type: String,
     default: 'Label'
@@ -23,10 +24,6 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: 'Placeholder'
-  },
-  model: {
-    type: String,
-    default: ''
   },
   type: {
     type: String,
@@ -40,10 +37,11 @@ const props = defineProps({
     type: String,
     default: ''
   }
-})
+});
 
-let model = ref(props.model)
 </script>
+
+
 
 <style scoped>
 div {
