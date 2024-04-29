@@ -51,7 +51,7 @@ export default createStore({
       return state.teamColumns;
     },
     getMyTeams(state) {
-      return state.teams;
+      return state.myTeams;
     },
     getTeams(state) {
       return state.teams;
