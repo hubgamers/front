@@ -24,6 +24,8 @@ export default createStore({
       tournaments: [],
       tournament: null,
       invitations: [],
+      invitationsByTeam: [],
+      invitationsByPlayer: [],
       invitation: null,
       invitationColumns: []
     };
@@ -70,6 +72,12 @@ export default createStore({
     },
     getInvitations(state) {
       return state.invitations;
+    },
+    getInvitationsByTeamId(state) {
+      return state.invitationsByTeam;
+    },
+    getInvitationsByPlayerId(state) {
+      return state.invitationsByPlayer;
     },
     getInvitation(state) {
       return state.invitation;
@@ -123,6 +131,12 @@ export default createStore({
     },
     updateInvitations(state, invitations) {
       state.invitations = invitations;
+    },
+    updateInvitationsByTeam(state, invitations) {
+      state.invitationsByTeam = invitations;
+    },
+    updateInvitationsByPlayer(state, invitations) {
+      state.invitationsByPlayer = invitations;
     },
     updateInvitation(state, invitation) {
       state.invitation = invitation;
@@ -261,6 +275,18 @@ export default createStore({
     getPlayerById(context, id) {
       return new Promise((resolve, reject) => {
         playerService.getPlayerById(id)
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updatePlayer', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getPlayerByUserId(context, userId) {
+      return new Promise((resolve, reject) => {
+        playerService.getPlayerByUserId(userId)
           .then((response) => {
             resolve(response.data.data);
             context.commit('updatePlayer', response.data.data);
@@ -585,12 +611,24 @@ export default createStore({
         invitationService.getAllInvitationsByTeamId(teamId)
           .then((response) => {
             resolve(response.data.data);
-            context.commit('updateInvitations', response.data.data);
+            context.commit('updateInvitationsByTeam', response.data.data);
           })
           .catch((error) => {
             reject(error);
           });
       });
+    },
+    getAllInvitationsbyPlayerId(context, playerId) {
+      return new Promise((resolve, reject) => {
+        invitationService.getAllInvitationsByPlayerId(playerId)
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateInvitationsByPlayer', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      })
     },
     getAllJoinInvitationByTeamId(context, teamId) {
       return new Promise((resolve, reject) => {
@@ -619,6 +657,17 @@ export default createStore({
     createInvitation(context, invitation) {
       return new Promise((resolve, reject) => {
         invitationService.createInvitation(invitation)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    acceptInvitation(context, invitationId) {
+      return new Promise((resolve, reject) => {
+        invitationService.acceptInvitation(invitationId)
           .then((response) => {
             resolve(response.data.data);
           })

@@ -43,19 +43,21 @@
             <h3>Messages</h3>
           </div>
           <div v-if="sideBarStatus == 'compositon'">
-            <h3>Composition</h3>
+            <h3 class="text-2xl mt-5 mb-3">Composition</h3>
             <ul v-if="store.getters.getTeam.players != null && store.getters.getTeam.players.length > 0">
               <li v-for="(player, index) in store.getters.getTeam.players" :key="index">
                 <span>{{player.username}}</span>
               </li>
             </ul>
-            <form>
+            <h3 class="text-2xl mt-5 mb-3">Invitations</h3>
+            <Table :columns="store.getters.getInvitationColumns.filter((column: any) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/teams/invitations/" />
+            <form class="mt-10">
               <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une équipe" required />
                 <button @click="searchPlayer" class="info">Rechercher</button>
                 <ul>
                   <li v-for="(player, key) in store.getters.getPlayers" :key="key">
-                    <span>{{player.username}} <button class="info" @click.prevent="invitePlayer(player.id)">Inviter</button></span>
+                    <span>{{player.username}} <button :class="invitationStatus == 'success' ? 'green' : 'info'" :disabled="invitationStatus !== ''" @click.prevent="invitePlayer(player.id)">Inviter</button></span>
                   </li>
                 </ul>
               </div>
@@ -84,6 +86,7 @@ import { useRoute } from 'vue-router'
 import { defineComponent, defineProps, ref } from 'vue'
 import SidebarOnTeamDetails from '@/components/SidebarOnTeamDetails.vue'
 import InputText from '@/components/InputText.vue'
+import Table from '@/components/Table.vue'
 
 defineComponent({
   name: 'TeamDetailPage'
@@ -113,16 +116,24 @@ function changeSideBarStatus(tab: string) {
 // Feat : ajout de joueur à une équipe
 let playerSearch = ref('');
 store.dispatch('getAllPlayers');
+store.dispatch('getAllInvitationsByTeamId', params.id);
+store.dispatch('getInvitationColumns')
 function searchPlayer() {
   store.dispatch('getPlayerByUsername', playerSearch.value);
 }
-function invitePlayer(playerId: string) {
+let invitationStatus = ref('');
+async function invitePlayer(playerId: string) {
   console.log('add player')
-  store.dispatch('createInvitation', {
+  invitationStatus.value = 'disabled';
+  await store.dispatch('createInvitation', {
     playerId: playerId,
     teamId: params.id,
     type: 'RECRUIT_PLAYER'
   })
+  invitationStatus.value = 'success';
+  setTimeout(() => {
+    invitationStatus.value = '';
+  }, 3000)
 }
 </script>
 <style lang="scss" scoped>

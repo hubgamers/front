@@ -13,6 +13,9 @@ export default {
   getAllInvitationsByTeamId (teamId) {
     return axiosCustom.get(`/invitation/allByTeamId/${teamId}`);
   },
+  getAllInvitationsByPlayerId (playerId) {
+    return axiosCustom.get(`/invitation/allByPlayerId/${playerId}`);
+  },
   getAllJoinInvitationByTeamId (teamId) {
     return axiosCustom.get(`/invitation/allJoinByTeamId/${teamId}`);
   },
@@ -24,6 +27,9 @@ export default {
   },
   createInvitation(invitation) {
     return axiosCustom.post("/invitation/create", invitation);
+  },
+  acceptInvitation(invitationId) {
+    return axiosCustom.post(`/invitation/accept/${invitationId}`);
   },
   updateInvitation(invitation) {
     return axiosCustom.put("/invitation/update", invitation);
