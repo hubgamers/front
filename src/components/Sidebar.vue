@@ -72,6 +72,7 @@ defineComponent({
 .sidebar {
   height: 100vh;
   padding: 2rem 0;
+  min-width: 220px;
   
   .profile {
     display: flex;

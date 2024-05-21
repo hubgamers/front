@@ -1,11 +1,11 @@
 <template>
   <div v-if="store.getters.getTeam !== null">
-    <h1>{{store.getters.getTeam.name}}</h1>
     <div class="relative">
       <img class="relative max-h-[300px] w-full object-cover rounded-b" :src="store.getters.getTeam.banner" alt="banner">
       <img class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">
     </div>
-    <div class="py-10">
+    <div class="py-10 px-10">
+      <h1>{{store.getters.getTeam.name}}</h1>
       <p>{{store.getters.getTeam.description}}</p>
       <nav class="border-b text-sm flex justify-start">
         <span :class="tabStatus == 'palmarès' ? 'active' : ''" @click="changeTabStatus('palmarès')">Palmarès</span>
@@ -25,7 +25,7 @@
       </div>
       <div v-if="tabStatus == 'gestion'">
         <Topbar title="Gestion de l'équipe" subtitle="Modifier votre équipe" />
-        <div class="flex mt-2 gap-10">
+        <div class="flex mt-10 gap-10">
           <SidebarOnTeamDetails :team="store.getters.getTeam" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" />
           <div v-if="sideBarStatus == 'tournaments_registrations'">
             <h3>Inscriptions aux tournois</h3>

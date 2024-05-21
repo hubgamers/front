@@ -6,14 +6,14 @@
 
     <div class="relative">
       <div>
-        <img v-if="store.getters.getTeam != null" class="relative max-h-[300px] max-w-full object-cover rounded-b" :src="store.getters.getTeam.banner" alt="banner">
+        <img v-if="!createdPage && store.getters.getTeam != null" class="relative max-h-[300px] max-w-full object-cover rounded-b" :src="store.getters.getTeam.banner" alt="banner">
         <div>
           <label for="banner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bannière</label>
           <input @input="uploadTeamBanner" type="file" id="banner" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
         </div>
       </div>
       <div>
-        <img v-if="store.getters.getTeam != null" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">
+        <img v-if="!createdPage && store.getters.getTeam != null" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">
         <div>
           <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo</label>
           <input @input="uploadTeamLogo" type="file" id="logo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
@@ -39,12 +39,6 @@
           <label for="platform" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Platforme</label>
           <input v-model="teamForm.platform" type="text" id="platform" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="PC" required />
         </div>
-        <div>
-          <label for="players" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Joueurs</label>
-          <select v-model="teamForm.players" multiple name="players" id="players">
-            <option v-for="(player, key) in store.getters.getPlayers" :key="key" :value="{id: player.id}">{{player.username}}</option>
-          </select>
-        </div>
       </div>
       <ButtonDark typeBtn="submit">Créer l'équipe</ButtonDark>
     </form>
@@ -68,17 +62,19 @@ let teamForm = ref({
   description: '',
   game: '',
   platform: '',
-  players: [],
   banner: '',
   logo: ''
 })
 store.dispatch('getAllPlayers')
 
+let createdPage = ref(false);
 const router = useRouter();
 const params = useRoute().params;
 if (params && params.id) {
   store.dispatch('getTeamById', params.id)
   teamForm.value = store.getters.getTeam
+} else {
+  createdPage.value = true;
 }
 
 function uploadTeamBanner(e: any) {
@@ -110,7 +106,7 @@ function submitForm() {
   } else {
     store.dispatch('createTeam', teamForm.value).then(() => {
       // Redirect to the team page
-      router.push({ name: 'TeamDetail', params: { id: params.id } })
+      router.push({ name: 'MyTeams'})
     })
   }
 }

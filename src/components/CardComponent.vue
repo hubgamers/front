@@ -6,7 +6,7 @@
     <div class="infos">
       <div>
         <h3>{{ titleCard }}</h3>
-        <p>{{desc}}</p>
+        <p>{{desc.length > 180 ? desc.substring(0, 180) + '...' : desc}}</p>
 
         <ul class="tags">
           <li>
@@ -21,7 +21,7 @@
         </ul>
       </div>
       
-      <div class="actions">
+      <div class="actions mt-2">
         <button class="yellow">
           <RouterLink :to="linkOne">{{linkOneText}}</RouterLink>
         </button>
