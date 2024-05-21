@@ -70,7 +70,6 @@ defineComponent({
 
 <style lang="scss" scoped>
 .sidebar {
-  background: #F1F2F7;
   height: 100vh;
   padding: 2rem 0;
   
@@ -96,7 +95,7 @@ defineComponent({
   }
   
   nav {
-    padding: 2rem;
+    padding: 1rem;
     
     ul > li {
       padding: 1rem;
