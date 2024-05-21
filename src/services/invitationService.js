@@ -31,6 +31,9 @@ export default {
   acceptInvitation(invitationId) {
     return axiosCustom.post(`/invitation/accept/${invitationId}`);
   },
+  declineInvitation(invitationId) {
+    return axiosCustom.post(`/invitation/decline/${invitationId}`);
+  },
   updateInvitation(invitation) {
     return axiosCustom.put("/invitation/update", invitation);
   },

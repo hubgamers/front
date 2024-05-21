@@ -676,6 +676,17 @@ export default createStore({
           });
       });
     },
+    declineInvitation(context, invitationId) {
+      return new Promise((resolve, reject) => {
+        invitationService.declineInvitation(invitationId)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
     updateInvitation(context, invitation) {
       return new Promise((resolve, reject) => {
         invitationService.updateInvitation(invitation)
