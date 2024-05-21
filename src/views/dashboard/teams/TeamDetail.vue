@@ -15,16 +15,25 @@
       </nav>
 
       <div v-if="tabStatus == 'palmarès'">
-        <Topbar title="Palmarès de l'équipe" subtitle="Historique d'activité" />
+        <Topbar title="Palmarès de l'équipe" subtitle="Historique d'activité" class="mb-10" />
       </div>
       <div v-if="tabStatus == 'composition'">
-        <Topbar title="Composition de l'équipe" subtitle="Des joueurs au staff" />
+        <Topbar title="Composition de l'équipe" subtitle="Des joueurs au staff" class="mb-10" />
+        <ul v-if="store.getters.getTeam.players != null && store.getters.getTeam.players.length > 0">
+          <li v-for="(player, index) in store.getters.getTeam.players" :key="index">
+            <span>{{player.username}}</span>
+          </li>
+        </ul>
+        <div v-else>
+          <p>Aucun joueur dans l'équipe.</p>
+          <button class="info">Ajouter des joueurs</button>
+        </div>
       </div>
       <div v-if="tabStatus == 'tournois'">
-        <Topbar title="Tournois terminés" subtitle="Historique des tournois" />
+        <Topbar title="Tournois terminés" subtitle="Historique des tournois" class="mb-10" />
       </div>
       <div v-if="tabStatus == 'gestion'">
-        <Topbar title="Gestion de l'équipe" subtitle="Modifier votre équipe" />
+        <Topbar title="Gestion de l'équipe" subtitle="Modifier votre équipe" class="mb-10" />
         <div class="flex mt-10 gap-10">
           <SidebarOnTeamDetails :team="store.getters.getTeam" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" />
           <div v-if="sideBarStatus == 'tournaments_registrations'">
@@ -35,6 +44,22 @@
           </div>
           <div v-if="sideBarStatus == 'compositon'">
             <h3>Composition</h3>
+            <ul v-if="store.getters.getTeam.players != null && store.getters.getTeam.players.length > 0">
+              <li v-for="(player, index) in store.getters.getTeam.players" :key="index">
+                <span>{{player.username}}</span>
+              </li>
+            </ul>
+            <form>
+              <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une équipe" required />
+                <button @click="searchPlayer" class="info">Rechercher</button>
+                <ul>
+                  <li v-for="(player, key) in store.getters.getPlayers" :key="key">
+                    <span>{{player.username}} <button class="info" @click.prevent="invitePlayer(player.id)">Inviter</button></span>
+                  </li>
+                </ul>
+              </div>
+            </form>
           </div>
           <div v-if="sideBarStatus == 'configuration'">
             <h3>Configuration</h3>
@@ -58,6 +83,7 @@ import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { defineComponent, defineProps, ref } from 'vue'
 import SidebarOnTeamDetails from '@/components/SidebarOnTeamDetails.vue'
+import InputText from '@/components/InputText.vue'
 
 defineComponent({
   name: 'TeamDetailPage'
@@ -82,6 +108,21 @@ let sideBarStatus = ref('')
 function changeSideBarStatus(tab: string) {
   console.log(tab)
   sideBarStatus.value = tab
+}
+
+// Feat : ajout de joueur à une équipe
+let playerSearch = ref('');
+store.dispatch('getAllPlayers');
+function searchPlayer() {
+  store.dispatch('getPlayerByUsername', playerSearch.value);
+}
+function invitePlayer(playerId: string) {
+  console.log('add player')
+  store.dispatch('createInvitation', {
+    playerId: playerId,
+    teamId: params.id,
+    type: 'RECRUIT_PLAYER'
+  })
 }
 </script>
 <style lang="scss" scoped>

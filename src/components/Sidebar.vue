@@ -4,7 +4,7 @@
       <div class="avatar">
         <img src="https://picsum.photos/150/150" alt="avatar" />
       </div>
-      <RouterLink to="/profile">Mon profil</RouterLink>
+      <RouterLink to="/dashboard/profile">Mon profil</RouterLink>
     </div>
     <nav>
       <ul class="menu">
