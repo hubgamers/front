@@ -1,85 +1,52 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { RouterView, useRoute, useRouter } from 'vue-router'
+import Sidebar from '@/components/Sidebar.vue'
+import Rightbar from '@/components/Rightbar.vue'
+
+// Get user from store
+import Navbar from '@/components/Navbar.vue'
+import { ref, watchEffect } from 'vue'
+const currentRoute = useRoute()
+const router = useRouter();
+
+const isDashboardRoute = ref(false)
+const isAuthRoute = ref(false)
+// Vérifie si la route actuelle commence par "/dashboard"
+watchEffect(() => {
+  isDashboardRoute.value = currentRoute.path.startsWith('/dashboard')
+  isAuthRoute.value = currentRoute.path.startsWith('/auth')
+})
+
+if (currentRoute.path.startsWith('/dashboard') && localStorage.getItem('jwtToken') == null) {
+  router.push('/auth/login')
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <!-- Si rajouter un header il sera pas compris dans la sidebar -->
+  <div v-if="isDashboardRoute" class="container">
+    <Sidebar />
+    <RouterView />
+    <Rightbar />
+  </div>
+  <div v-else-if="isAuthRoute">
+    <RouterView />
+  </div>
+  <div v-else>
+    <Navbar />
+    <RouterView />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<style lang="scss" scoped>
+.container {
+  max-width: inherit;
+  display: grid;
+  grid-template-columns: 0.5fr 3fr;
+  gap: 20px;
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  & > div:last-of-type {
+    background-color: #fff;
   }
 }
 </style>
