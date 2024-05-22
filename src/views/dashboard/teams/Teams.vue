@@ -2,9 +2,10 @@
   <div class="py-5 px-5">
     <Topbar title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes." />
     <div v-if="store.getters.getMyTeams.length > 0" class="flex flex-wrap flex-row gap-5 mt-10">
-      <button class="info">
+      <button class="info my-4">
         <RouterLink to="/dashboard/teams/create">Créer une équipe</RouterLink>
-      </button><CardComponent v-for="(team, key) in store.getters.getMyTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" :link-two="'/dashboard/teams/' + team.id + '/join'" link-two-text="Rejoindre l'équipe" />
+      </button>
+      <CardComponent v-for="(team, key) in store.getters.getMyTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" :link-two="'/dashboard/teams/' + team.id + '/join'" link-two-text="Rejoindre l'équipe" />
     </div>
     <div class="mt-10" v-else>
       <p class="pb-3">Aucune équipe de créée.</p>

@@ -3,11 +3,11 @@
     <div v-if="showProfile" class="header">
       <div class="profile">
         <div>
-          <div class="avatar">
-            <img src="https://picsum.photos/150/150" alt="avatar" />
+          <div v-if="team.logo" class="avatar">
+            <img :src="team.logo" alt="avatar" />
           </div>
           <div>
-            <h3 class="font-bold">Vitality</h3>
+            <h3 class="font-bold">{{ team.name }}</h3>
             <p>Offre gratuite</p>
           </div>
         </div>
@@ -126,6 +126,7 @@ defineEmits({
       height: 50px;
       border-radius: 50%;
       overflow: hidden;
+      margin-right: .5rem;
 
       img {
         width: 100%;

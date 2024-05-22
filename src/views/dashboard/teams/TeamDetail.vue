@@ -1,8 +1,8 @@
 <template>
   <div v-if="store.getters.getTeam !== null">
-    <div class="relative">
-      <img class="relative max-h-[300px] w-full object-cover rounded-b" :src="store.getters.getTeam.banner" alt="banner">
-      <img class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">
+    <div v-if="store.getters.getTeam.banner || store.getters.getTeam.logo" class="relative">
+      <img v-if="store.getters.getTeam.banner" class="relative max-h-[300px] w-full object-cover rounded-b" :src="store.getters.getTeam.banner" alt="banner">
+      <img v-if="store.getters.getTeam.logo" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">
     </div>
     <div class="py-10 px-10">
       <h1>{{store.getters.getTeam.name}}</h1>

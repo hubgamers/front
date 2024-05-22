@@ -6,7 +6,7 @@
     <div class="infos">
       <div>
         <h3>{{ titleCard }}</h3>
-        <p>{{desc.length > 180 ? desc.substring(0, 180) + '...' : desc}}</p>
+        <p>{{desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
 
         <ul class="tags">
           <li>
@@ -82,11 +82,10 @@ export default defineComponent({
   border: 1px solid rgba(0, 0, 0, 0.1);
   
   .image {
-    padding: .5rem;
     img {
-      width: 200px;
-      height: 200px;
-      border-radius: 20px;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
       object-fit: cover;
     }
   }
@@ -96,8 +95,7 @@ export default defineComponent({
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    
+
     h3, p {
       color: #28536B;
     }
