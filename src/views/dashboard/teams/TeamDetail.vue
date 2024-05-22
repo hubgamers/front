@@ -64,7 +64,18 @@
             </form>
           </div>
           <div v-if="sideBarStatus == 'configuration'">
-            <h3>Configuration</h3>
+            <h3 class="text-2xl mt-5 mb-3">Configuration</h3>
+            <form @submit.prevent="updateTeam" class="mt-10">
+              <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" />
+                <input-text v-model="teamForm.description" type="textarea" label="Description" placeholder="Saisissez une description" />
+                <input-text v-model="teamForm.game" label="Jeu" placeholder="Rainbow Six Siege" />
+                <input-text v-model="teamForm.platform" label="Plateforme" placeholder="PC" />
+                <input-text type="file" label="Bannière" @uploadFile="uploadTeamBanner" />
+                <input-text type="file" label="Logo" @uploadFile="uploadTeamLogo" />
+                <button class="info">Modifier</button>
+              </div>
+            </form>
           </div>
           <div v-if="sideBarStatus == 'dangerous_area'">
             <h3>Zone dangereuse</h3>
@@ -98,8 +109,15 @@ defineProps({
 
 const store = useStore();
 const params = useRoute().params;
+let teamForm = ref({
+  name: '',
+  description: '',
+  game: '',
+  platform: ''
+});
 if (params && params.id) {
   store.dispatch('getTeamById', params.id)
+  teamForm.value = store.getters.getTeam
 }
 
 let tabStatus = ref('palmarès')
@@ -134,6 +152,37 @@ async function invitePlayer(playerId: string) {
   setTimeout(() => {
     invitationStatus.value = '';
   }, 3000)
+}
+
+// Feat : modification de l'équipe
+function updateTeam() {
+  store.dispatch('updateTeam', {
+    id: params.id,
+    name: teamForm.value.name,
+    description: teamForm.value.description,
+    game: teamForm.value.game,
+    platform: teamForm.value.platform
+  })
+}
+
+function uploadTeamBanner(e: any) {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return;
+  store.dispatch('uploadTeamBanner', {
+    teamId: params.id,
+    file: files[0]
+  })
+}
+
+function uploadTeamLogo(e: any) {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return;
+  store.dispatch('uploadTeamLogo', {
+    teamId: params.id,
+    file: files[0]
+  })
 }
 </script>
 <style lang="scss" scoped>
