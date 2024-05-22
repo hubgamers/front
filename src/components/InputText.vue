@@ -12,6 +12,12 @@
       <label>{{ label }} <span v-if="required" class="required">*</span></label>
       <input :type="type" @change="uploadFile" v-model="model">
     </template>
+    <template v-else-if="type === 'select'">
+      <label>{{ label }} <span v-if="required" class="required">*</span></label>
+      <select v-model="model">
+        <slot></slot>
+      </select>
+    </template>
     <template v-else>
       <label>{{ label }} <span v-if="required" class="required">*</span></label>
       <input :type="type" :placeholder="placeholder" v-model="model">
@@ -69,7 +75,7 @@ label {
 span.required {
   color: #ED0131;
 }
-input, textarea {
+input, textarea, select {
   background-color: #e8f6fd;
   padding: .5rem 1rem;
   border: none;

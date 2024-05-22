@@ -30,7 +30,7 @@
 import Topbar from '@/components/Topbar.vue'
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
-import CardComponent from '@/components/CardComponent.vue'
+import CardComponent from '@/components/TeamCardComponent.vue'
 import InputText from '@/components/InputText.vue'
 defineComponent({
   name: 'TeamsPage'

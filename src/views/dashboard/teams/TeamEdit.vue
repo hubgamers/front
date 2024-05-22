@@ -17,7 +17,7 @@
         <input-text v-model="teamForm.game" label="Description" placeholder="Une équipe de choc" />
         <input-text v-model="teamForm.platform" label="Description" placeholder="Une équipe de choc" />
       </div>
-      <ButtonDark typeBtn="submit">Créer l'équipe</ButtonDark>
+      <button type="submit" class="info my-4">Créer l'équipe</button>
     </form>
 
   </div>

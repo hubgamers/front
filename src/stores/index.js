@@ -21,6 +21,7 @@ export default createStore({
       teams: [],
       team: null,
       tournamentColumns: [],
+      myTournaments: [],
       tournaments: [],
       tournament: null,
       invitations: [],
@@ -63,6 +64,9 @@ export default createStore({
     },
     getTournamentColumns(state) {
       return state.tournamentColumns;
+    },
+    getMyTournaments(state) {
+      return state.myTournaments;
     },
     getTournaments(state) {
       return state.tournaments;
@@ -122,6 +126,9 @@ export default createStore({
     },
     updateTournamentColumns(state, columns) {
       state.tournamentColumns = columns;
+    },
+    updateMyTournaments(state, teams) {
+      state.myTournaments = teams;
     },
     updateTournamentList(state, tournaments) {
       state.tournaments = tournaments;
@@ -462,6 +469,18 @@ export default createStore({
           .then((response) => {
             resolve(response.data.data);
             context.commit('updateTournamentColumns', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getMyTournaments(context) {
+      return new Promise((resolve, reject) => {
+        tournamentService.getMyTournaments()
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateMyTournaments', response.data.data);
           })
           .catch((error) => {
             reject(error);

@@ -119,3 +119,21 @@ button.yellow:hover {
     background-color: #F4D06F;
     color: var(--black);
 }
+
+/* TABS */
+nav.tabs {
+    span {
+        cursor: pointer;
+        padding: 10px 20px;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s;
+        &:hover {
+            border-color: #FF8811;
+            color: #FF8811;
+        }
+    }
+    .active {
+        border-color: #FF8811;
+        color: #FF8811;
+    }
+}

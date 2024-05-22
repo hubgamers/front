@@ -7,7 +7,7 @@
     <div class="py-10 px-10">
       <h1>{{store.getters.getTeam.name}}</h1>
       <p>{{store.getters.getTeam.description}}</p>
-      <nav class="border-b text-sm flex justify-start">
+      <nav class="tabs border-b text-sm flex justify-start">
         <span :class="tabStatus == 'palmarès' ? 'active' : ''" @click="changeTabStatus('palmarès')">Palmarès</span>
         <span :class="tabStatus == 'composition' ? 'active' : ''" @click="changeTabStatus('composition')">Composition</span>
         <span :class="tabStatus == 'tournois' ? 'active' : ''" @click="changeTabStatus('tournois')">Tournois</span>
@@ -120,6 +120,7 @@ if (params && params.id) {
   teamForm.value = store.getters.getTeam
 }
 
+// TODO: faire la gestion des onglets avec tab=... dans l'url
 let tabStatus = ref('palmarès')
 function changeTabStatus(tab: string) {
   tabStatus.value = tab
@@ -185,21 +186,3 @@ function uploadTeamLogo(e: any) {
   })
 }
 </script>
-<style lang="scss" scoped>
-nav {
-  span {
-    cursor: pointer;
-    padding: 10px 20px;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s;
-    &:hover {
-      border-color: #FF8811;
-      color: #FF8811;
-    }
-  }
-  .active {
-    border-color: #FF8811;
-    color: #FF8811;
-  }
-}
-</style>

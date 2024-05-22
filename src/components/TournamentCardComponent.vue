@@ -37,7 +37,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'CardComponent',
+  name: 'TournamentCardComponent',
   props: {
     titleCard: {
       type: String,
