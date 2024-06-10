@@ -4,7 +4,7 @@
       <div class="avatar">
         <img src="https://picsum.photos/150/150" alt="avatar" />
       </div>
-      <RouterLink to="/profile">Mon profil</RouterLink>
+      <RouterLink to="/dashboard/profile">Mon profil</RouterLink>
     </div>
     <nav>
       <ul class="menu">
@@ -70,9 +70,9 @@ defineComponent({
 
 <style lang="scss" scoped>
 .sidebar {
-  background: #F1F2F7;
   height: 100vh;
   padding: 2rem 0;
+  min-width: 220px;
   
   .profile {
     display: flex;
@@ -96,7 +96,7 @@ defineComponent({
   }
   
   nav {
-    padding: 2rem;
+    padding: 1rem;
     
     ul > li {
       padding: 1rem;

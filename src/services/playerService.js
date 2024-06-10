@@ -16,6 +16,9 @@ export default {
   getPlayerById(id) {
     return axiosCustom.get(`/player/id/${id}`);
   },
+  getPlayerByUserId(userId) {
+    return axiosCustom.get(`/player/userId/${userId}`);
+  },
   createPlayer(player) {
     return axiosCustom.post("/player/create", player);
   },

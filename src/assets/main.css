@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
 :root {
     box-sizing: border-box;
@@ -23,7 +24,7 @@ body {
     font-size: 16px;
     line-height: 1.5;
     color: #333;
-    background-color: #fff;
+    background-color: #F1F2F7;
 }
 
 h1, h2, h3, p {
@@ -117,4 +118,22 @@ button.yellow:hover {
     transition: all 0.3s;
     background-color: #F4D06F;
     color: var(--black);
+}
+
+/* TABS */
+nav.tabs {
+    span {
+        cursor: pointer;
+        padding: 10px 20px;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s;
+        &:hover {
+            border-color: #FF8811;
+            color: #FF8811;
+        }
+    }
+    .active {
+        border-color: #FF8811;
+        color: #FF8811;
+    }
 }

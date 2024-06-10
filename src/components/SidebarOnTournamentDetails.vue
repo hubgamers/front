@@ -3,11 +3,11 @@
     <div v-if="showProfile" class="header">
       <div class="profile">
         <div>
-          <div v-if="team.logo" class="avatar">
-            <img :src="team.logo" alt="avatar" />
+          <div v-if="tournament.logo" class="avatar">
+            <img :src="tournament.logo" alt="avatar" />
           </div>
           <div>
-            <h3 class="font-bold">{{ team.name }}</h3>
+            <h3 class="font-bold">{{ tournament.name }}</h3>
             <p>Offre gratuite</p>
           </div>
         </div>
@@ -77,7 +77,7 @@ defineProps({
     type: Boolean,
     default: true
   },
-  team: {
+  tournament: {
     type: Object,
     required: true
   },

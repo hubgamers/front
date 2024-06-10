@@ -4,74 +4,35 @@
 
     <div class="relative" v-if="store.getters.getTournament != null">
       <div>
-        <img v-if="store.getters.getTournament.banner != ''" class="relative max-h-[300px] max-w-full object-cover rounded-b" :src="store.getters.getTournament.banner" alt="banner">
-        <div>
-          <label for="banner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bannière</label>
-          <input @input="uploadTournamentBanner" type="file" id="banner" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-        </div>
+        <input-text type="file" label="Bannière" @uploadFile="uploadTournamentBanner" />
       </div>
       <div>
-        <img v-if="store.getters.getTournament.logo != ''" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTournament.logo" alt="logo">
-        <div>
-          <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo</label>
-          <input @input="uploadTournamentLogo" type="file" id="logo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-        </div>
+        <input-text type="file" label="Logo" @uploadFile="uploadTournamentLogo" />
       </div>
     </div>
 
     <form @submit.prevent="submitForm">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <div>
-          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom du tournoi</label>
-          <input type="text" v-model="tournamentForm.name">
-        </div>
+        <input-text v-model="tournamentForm.name" label="Nom" placeholder="Les p't" />
+        <input-text v-model="tournamentForm.tournamentType" type="select" label="Sélectionner le type" placeholder="Les p't">
+          <option value="TOURNAMENT">Tournoi</option>
+          <option value="LEAGUE">League</option>
+          <option value="LADDER">Ladder</option>
+        </input-text>
+        <input-text v-model="tournamentForm.description" type="textarea" label="Description" placeholder="Les p't" />
+        <input-text v-model="tournamentForm.rules" type="textarea" label="Règes" placeholder="Les p't" />
+        <input-text v-model="tournamentForm.startDate" type="datetime-local" label="Date de début" placeholder="Les p't" />
+        <input-text v-model="tournamentForm.endDate" type="datetime-local" label="Date de fin" placeholder="Les p't" />
+        <input-text v-model="tournamentForm.game" label="Jeu" placeholder="Les p't" />
+        <input-text v-model="tournamentForm.platform" type="select" label="Sélectionner la plateforme" placeholder="Les p't">
+          <option value="PS4">PS4</option>
+          <option value="PS5">PS5</option>
+          <option value="XBOX">XBOX</option>
+          <option value="Switch">Switch</option>
+          <option value="PC">PC</option>
+        </input-text>
 
-        <div>
-          <label for="tournamentType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sélectionner le type</label>
-          <select name="tournamentType" id="tournamentType" v-model="tournamentForm.tournamentType">
-            <option value="TOURNAMENT">Tournoi</option>
-            <option value="LEAGUE">League</option>
-            <option value="LADDER">Ladder</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-          <textarea v-model="tournamentForm.description"></textarea>
-        </div>
-
-        <div>
-          <label for="rules" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Règles</label>
-          <textarea v-model="tournamentForm.rules"></textarea>
-        </div>
-        
-        <div>
-          <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de début</label>
-          <input type="datetime-local" v-model="tournamentForm.startDate">
-        </div>
-
-        <div>
-          <label for="endDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de fin</label>
-          <input type="datetime-local" v-model="tournamentForm.endDate">
-        </div>
-
-        <div>
-          <label for="game" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jeu</label>
-          <input type="text" v-model="tournamentForm.game">
-        </div>
-
-        <div>
-          <label for="platform" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plateforme</label>
-          <select name="platform" id="platform" v-model="tournamentForm.platform">
-            <option value="PS4">PS4</option>
-            <option value="PS5">PS5</option>
-            <option value="XBOX">XBOX</option>
-            <option value="Switch">Switch</option>
-            <option value="PC">PC</option>
-          </select>
-        </div>
-
-        <ButtonDark typeBtn="submit">Valider</ButtonDark>
+        <button type="submit" class="info my-4">Créer le tournoi</button>
       </div>
     </form>
   </div>
@@ -83,6 +44,7 @@ import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import ButtonDark from '@/components/ButtonDark.vue'
 import { useRouter } from 'vue-router'
+import InputText from '@/components/InputText.vue'
 defineComponent({
   name: 'TournamentEditPage'
 })
@@ -142,7 +104,7 @@ function submitForm() {
   } else {
     store.dispatch('createTournament', tournamentForm.value).then(() => {
       // Redirect to the team page
-      router.push({ name: 'TournamentDetail', params: { id: params.id } })
+      router.push({ name: 'MyTournaments' })
     })
   }
 }

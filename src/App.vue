@@ -38,11 +38,15 @@ if (currentRoute.path.startsWith('/dashboard') && localStorage.getItem('jwtToken
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   max-width: inherit;
   display: grid;
   grid-template-columns: 0.5fr 3fr;
   gap: 20px;
+
+  & > div:last-of-type {
+    background-color: #fff;
+  }
 }
 </style>

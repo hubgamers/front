@@ -4,6 +4,20 @@
       <input :type="type" :placeholder="placeholder" v-model="model">
       <label>{{ label }} <span v-if="required" class="required">*</span></label>
     </div>
+    <template v-else-if="type === 'textarea'">
+      <label>{{ label }} <span v-if="required" class="required">*</span></label>
+      <textarea :placeholder="placeholder" v-model="model"></textarea>
+    </template>
+    <template v-else-if="type === 'file'">
+      <label>{{ label }} <span v-if="required" class="required">*</span></label>
+      <input :type="type" @change="uploadFile" v-model="model">
+    </template>
+    <template v-else-if="type === 'select'">
+      <label>{{ label }} <span v-if="required" class="required">*</span></label>
+      <select v-model="model">
+        <slot></slot>
+      </select>
+    </template>
     <template v-else>
       <label>{{ label }} <span v-if="required" class="required">*</span></label>
       <input :type="type" :placeholder="placeholder" v-model="model">
@@ -15,6 +29,11 @@
 <script setup>
 import { defineProps } from 'vue';
 const model = defineModel();
+const emit = defineEmits(['uploadFile'])
+function uploadFile($event) {
+  // Emit an event to the parent component
+  emit('uploadFile', $event)
+}
 
 defineProps({
   label: {
@@ -56,7 +75,7 @@ label {
 span.required {
   color: #ED0131;
 }
-input {
+input, textarea, select {
   background-color: #e8f6fd;
   padding: .5rem 1rem;
   border: none;
@@ -69,6 +88,9 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
   background-color: #9fe1ff;
+}
+textarea {
+  min-height: 100px;
 }
 p.info {
   color: #1b9cf8;

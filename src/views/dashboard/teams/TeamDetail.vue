@@ -1,13 +1,13 @@
 <template>
   <div v-if="store.getters.getTeam !== null">
-    <h1>{{store.getters.getTeam.name}}</h1>
-    <div class="relative">
-      <img class="relative max-h-[300px] w-full object-cover rounded-b" :src="store.getters.getTeam.banner" alt="banner">
-      <img class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">
+    <div v-if="store.getters.getTeam.banner || store.getters.getTeam.logo" class="relative">
+      <img v-if="store.getters.getTeam.banner" class="relative max-h-[300px] w-full object-cover rounded-b" :src="store.getters.getTeam.banner" alt="banner">
+      <img v-if="store.getters.getTeam.logo" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">
     </div>
-    <div class="py-10">
+    <div class="py-10 px-10">
+      <h1>{{store.getters.getTeam.name}}</h1>
       <p>{{store.getters.getTeam.description}}</p>
-      <nav class="border-b text-sm flex justify-start">
+      <nav class="tabs border-b text-sm flex justify-start">
         <span :class="tabStatus == 'palmarès' ? 'active' : ''" @click="changeTabStatus('palmarès')">Palmarès</span>
         <span :class="tabStatus == 'composition' ? 'active' : ''" @click="changeTabStatus('composition')">Composition</span>
         <span :class="tabStatus == 'tournois' ? 'active' : ''" @click="changeTabStatus('tournois')">Tournois</span>
@@ -15,17 +15,26 @@
       </nav>
 
       <div v-if="tabStatus == 'palmarès'">
-        <Topbar title="Palmarès de l'équipe" subtitle="Historique d'activité" />
+        <Topbar title="Palmarès de l'équipe" subtitle="Historique d'activité" class="mb-10" />
       </div>
       <div v-if="tabStatus == 'composition'">
-        <Topbar title="Composition de l'équipe" subtitle="Des joueurs au staff" />
+        <Topbar title="Composition de l'équipe" subtitle="Des joueurs au staff" class="mb-10" />
+        <ul v-if="store.getters.getTeam.players != null && store.getters.getTeam.players.length > 0">
+          <li v-for="(player, index) in store.getters.getTeam.players" :key="index">
+            <span>{{player.username}}</span>
+          </li>
+        </ul>
+        <div v-else>
+          <p>Aucun joueur dans l'équipe.</p>
+          <button class="info">Ajouter des joueurs</button>
+        </div>
       </div>
       <div v-if="tabStatus == 'tournois'">
-        <Topbar title="Tournois terminés" subtitle="Historique des tournois" />
+        <Topbar title="Tournois terminés" subtitle="Historique des tournois" class="mb-10" />
       </div>
       <div v-if="tabStatus == 'gestion'">
-        <Topbar title="Gestion de l'équipe" subtitle="Modifier votre équipe" />
-        <div class="flex mt-2 gap-10">
+        <Topbar title="Gestion de l'équipe" subtitle="Modifier votre équipe" class="mb-10" />
+        <div class="flex mt-10 gap-10">
           <SidebarOnTeamDetails :team="store.getters.getTeam" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" />
           <div v-if="sideBarStatus == 'tournaments_registrations'">
             <h3>Inscriptions aux tournois</h3>
@@ -34,10 +43,39 @@
             <h3>Messages</h3>
           </div>
           <div v-if="sideBarStatus == 'compositon'">
-            <h3>Composition</h3>
+            <h3 class="text-2xl mt-5 mb-3">Composition</h3>
+            <ul v-if="store.getters.getTeam.players != null && store.getters.getTeam.players.length > 0">
+              <li v-for="(player, index) in store.getters.getTeam.players" :key="index">
+                <span>{{player.username}}</span>
+              </li>
+            </ul>
+            <h3 class="text-2xl mt-5 mb-3">Invitations</h3>
+            <Table :columns="store.getters.getInvitationColumns.filter((column: any) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/teams/invitations/" />
+            <form class="mt-10">
+              <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une équipe" required />
+                <button @click="searchPlayer" class="info">Rechercher</button>
+                <ul>
+                  <li v-for="(player, key) in store.getters.getPlayers" :key="key">
+                    <span>{{player.username}} <button :class="invitationStatus == 'success' ? 'green' : 'info'" :disabled="invitationStatus !== ''" @click.prevent="invitePlayer(player.id)">Inviter</button></span>
+                  </li>
+                </ul>
+              </div>
+            </form>
           </div>
           <div v-if="sideBarStatus == 'configuration'">
-            <h3>Configuration</h3>
+            <h3 class="text-2xl mt-5 mb-3">Configuration</h3>
+            <form @submit.prevent="updateTeam" class="mt-10">
+              <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" />
+                <input-text v-model="teamForm.description" type="textarea" label="Description" placeholder="Saisissez une description" />
+                <input-text v-model="teamForm.game" label="Jeu" placeholder="Rainbow Six Siege" />
+                <input-text v-model="teamForm.platform" label="Plateforme" placeholder="PC" />
+                <input-text type="file" label="Bannière" @uploadFile="uploadTeamBanner" />
+                <input-text type="file" label="Logo" @uploadFile="uploadTeamLogo" />
+                <button class="info">Modifier</button>
+              </div>
+            </form>
           </div>
           <div v-if="sideBarStatus == 'dangerous_area'">
             <h3>Zone dangereuse</h3>
@@ -58,6 +96,8 @@ import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { defineComponent, defineProps, ref } from 'vue'
 import SidebarOnTeamDetails from '@/components/SidebarOnTeamDetails.vue'
+import InputText from '@/components/InputText.vue'
+import Table from '@/components/Table.vue'
 
 defineComponent({
   name: 'TeamDetailPage'
@@ -69,10 +109,18 @@ defineProps({
 
 const store = useStore();
 const params = useRoute().params;
+let teamForm = ref({
+  name: '',
+  description: '',
+  game: '',
+  platform: ''
+});
 if (params && params.id) {
   store.dispatch('getTeamById', params.id)
+  teamForm.value = store.getters.getTeam
 }
 
+// TODO: faire la gestion des onglets avec tab=... dans l'url
 let tabStatus = ref('palmarès')
 function changeTabStatus(tab: string) {
   tabStatus.value = tab
@@ -83,22 +131,58 @@ function changeSideBarStatus(tab: string) {
   console.log(tab)
   sideBarStatus.value = tab
 }
-</script>
-<style lang="scss" scoped>
-nav {
-  span {
-    cursor: pointer;
-    padding: 10px 20px;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s;
-    &:hover {
-      border-color: #FF8811;
-      color: #FF8811;
-    }
-  }
-  .active {
-    border-color: #FF8811;
-    color: #FF8811;
-  }
+
+// Feat : ajout de joueur à une équipe
+let playerSearch = ref('');
+store.dispatch('getAllPlayers');
+store.dispatch('getAllInvitationsByTeamId', params.id);
+store.dispatch('getInvitationColumns')
+function searchPlayer() {
+  store.dispatch('getPlayerByUsername', playerSearch.value);
 }
-</style>
+let invitationStatus = ref('');
+async function invitePlayer(playerId: string) {
+  console.log('add player')
+  invitationStatus.value = 'disabled';
+  await store.dispatch('createInvitation', {
+    playerId: playerId,
+    teamId: params.id,
+    type: 'RECRUIT_PLAYER'
+  })
+  invitationStatus.value = 'success';
+  setTimeout(() => {
+    invitationStatus.value = '';
+  }, 3000)
+}
+
+// Feat : modification de l'équipe
+function updateTeam() {
+  store.dispatch('updateTeam', {
+    id: params.id,
+    name: teamForm.value.name,
+    description: teamForm.value.description,
+    game: teamForm.value.game,
+    platform: teamForm.value.platform
+  })
+}
+
+function uploadTeamBanner(e: any) {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return;
+  store.dispatch('uploadTeamBanner', {
+    teamId: params.id,
+    file: files[0]
+  })
+}
+
+function uploadTeamLogo(e: any) {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return;
+  store.dispatch('uploadTeamLogo', {
+    teamId: params.id,
+    file: files[0]
+  })
+}
+</script>

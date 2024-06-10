@@ -7,6 +7,9 @@ export default {
   getColumns() {
     return axiosCustom.get("/tournament/columns");
   },
+  getMyTournaments() {
+    return axiosCustom.get("/tournament/my-tournaments");
+  },
   getAllTournaments () {
     return axiosCustom.get("/tournament/all");
   },

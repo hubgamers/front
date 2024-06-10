@@ -1,29 +1,26 @@
 <template>
   <div class="py-10 px-10" v-if="teamForm != null">
     <Topbar title="Gérer mon équipe" :subtitle="store.getters.getTeam != null ? 'Editer mon équipe' :' Créer une équipe'" />
-    <!-- TODO: mettre un formulaire avec un select des équipes déjà crée pour les modifier directement -->
-    <!-- TODO: penser à ajouter les joueurs -->
-    
-    <div class="flex gap-5">
-      <InputText v-model="teamForm.name" label="Nom publique" placeholder="HubGamers's Team" required />
-      <InputText v-model="teamForm.tag" label="Tag" placeholder="HGR" required />
-      <InputText v-model="teamForm.visibility" label="Visibilité" placeholder="HGR" required />
+    <div v-if="store.getters.getTeam != null" class="relative">
       <div>
-        <img v-if="store.getters.getTeam != null" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo" alt="logo">
-        <div>
-          <label for="logo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logo</label>
-          <input @input="uploadTeamLogo" type="file" id="logo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-        </div>
-        <div>
-          <img v-if="store.getters.getTeam != null" class="relative max-h-[300px] max-w-full object-cover rounded-b" :src="store.getters.getTeam.banner" alt="banner">
-          <div>
-            <label for="banner" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bannière</label>
-            <input @input="uploadTeamBanner" type="file" id="banner" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-          </div>
-        </div>
+        <input-text type="file" label="Bannière" @uploadFile="uploadTeamBanner" />
+      </div>
+      <div>
+        <input-text type="file" label="Logo" @uploadFile="uploadTeamLogo" />
       </div>
       <InputText v-model="teamForm.description" label="Description" placeholder="HubGamers's Team" required />
     </div>
+
+    <form @submit.prevent="submitForm">
+      <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" />
+        <input-text v-model="teamForm.description" label="Description" placeholder="Une équipe de choc" />
+        <input-text v-model="teamForm.game" label="Description" placeholder="Une équipe de choc" />
+        <input-text v-model="teamForm.platform" label="Description" placeholder="Une équipe de choc" />
+      </div>
+      <button type="submit" class="info my-4">Créer l'équipe</button>
+    </form>
+
   </div>
 </template>
 <script setup lang="ts">
@@ -53,11 +50,14 @@ const teamForm = ref<TeamDTO>({
 })
 store.dispatch('getAllPlayers')
 
+let createdPage = ref(false);
 const router = useRouter();
 const params = useRoute().params;
 if (params && params.id) {
   store.dispatch('getTeamById', params.id)
   teamForm.value = store.getters.getTeam
+} else {
+  createdPage.value = true;
 }
 
 function uploadTeamBanner(e: any) {
@@ -89,7 +89,7 @@ function submitForm() {
   } else {
     store.dispatch('createTeam', teamForm.value).then(() => {
       // Redirect to the team page
-      router.push({ name: 'TeamDetail', params: { id: params.id } })
+      router.push({ name: 'MyTeams'})
     })
   }
 }
