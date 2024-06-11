@@ -1,7 +1,5 @@
 <template>
-  <div class="py-10 px-10">
-    <Topbar title="Gérer mon tournoi" subtitle="Créer ou éditer mon tournoi" />
-
+  <DashboardLayout title="Gérer mon tournoi" subtitle="Créer ou éditer mon tournoi">
     <div class="relative" v-if="store.getters.getTournament != null">
       <div>
         <input-text type="file" label="Bannière" @uploadFile="uploadTournamentBanner" />
@@ -35,16 +33,14 @@
         <button type="submit" class="info my-4">Créer le tournoi</button>
       </div>
     </form>
-  </div>
+  </DashboardLayout>
 </template>
 <script setup lang="ts">
-import Topbar from '@/components/Topbar.vue'
-
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
-import ButtonDark from '@/components/ButtonDark.vue'
 import { useRouter } from 'vue-router'
 import InputText from '@/components/InputText.vue'
+import DashboardLayout from '@/layout/DashboardLayout.vue'
 defineComponent({
   name: 'TournamentEditPage'
 })

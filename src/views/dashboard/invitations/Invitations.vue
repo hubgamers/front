@@ -1,6 +1,5 @@
 <template>
-  <div class="py-10 px-10">
-    <Topbar title="Mes invitations" subtitle="Acceptez ou refusez les invitations en attente et créer de nouvelles invitations pour vos équipes." />
+  <DashboardLayout title="Mes invitations" subtitle="Acceptez ou refusez les invitations en attente et créer de nouvelles invitations pour vos équipes.">
     <button class="info my-3" @click="toggleInvitationModal">Créer une invitation</button>
     <Table :columns="store.getters.getInvitationColumns" :items="store.getters.getInvitations" url="/dashboard/teams/invitations/" />
 
@@ -40,13 +39,13 @@
         </div>
       </div>
     </div>
-  </div>
+  </DashboardLayout>
 </template>
 <script setup lang="ts">
 import Table from '@/components/Table.vue'
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
-import Topbar from '@/components/Topbar.vue'
+import DashboardLayout from '@/layout/DashboardLayout.vue'
 
 defineComponent({
   name: 'InvitationsPage'

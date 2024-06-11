@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: () => import('@/views/Home.vue')
+      component: () => import('@/views/vitrine/Home.vue')
     },
     {
       path: '/teams',
@@ -79,6 +79,21 @@ const router = createRouter({
       name: 'Invitations',
       component: () => import('@/views/dashboard/invitations/Invitations.vue')
     },
+    {
+      path: '/checkout',
+      name: 'Checkout',
+      component: () => import('@/views/checkout/Checkout.vue')
+    },
+    {
+      path: '/checkout/success',
+      name: 'CheckoutSuccess',
+      component: () => import('@/views/checkout/CheckoutSuccess.vue')
+    },
+    {
+      path: '/checkout/cancel',
+      name: 'CheckoutCancel',
+      component: () => import('@/views/checkout/CheckoutCancel.vue')
+    }
   ]
 })
 

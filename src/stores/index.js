@@ -5,6 +5,7 @@ import playerService from '@/services/playerService.js'
 import teamService from '@/services/teamService.js'
 import tournamentService from '@/services/tournamentService.js'
 import invitationService from '@/services/invitationService.js'
+import stripeService from '@/services/stripeService.js'
 
 export default createStore({
   state() {
@@ -720,6 +721,17 @@ export default createStore({
     deleteInvitation(context, id) {
       return new Promise((resolve, reject) => {
         invitationService.deleteInvitation(id)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    createCheckoutSession(context, lookupKey) {
+      return new Promise((resolve, reject) => {
+        stripeService.createCheckoutSession(lookupKey)
           .then((response) => {
             resolve(response.data.data);
           })
