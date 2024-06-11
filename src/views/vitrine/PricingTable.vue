@@ -72,9 +72,11 @@ const props = defineProps({
 
 const store = useStore();
 function subscribe() {
-  console.log('Subscribe')
-  store.dispatch('createCheckoutSession', props.priceStripId).then((response) => {
-    console.log(response)
+  let priceStripId = props.priceStripId
+  if (props.period === 'yearly') {
+    priceStripId += '_yearly'
+  }
+  store.dispatch('createCheckoutSession', priceStripId).then((response) => {
     window.location.href = response
   })
 }
