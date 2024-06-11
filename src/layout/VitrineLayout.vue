@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <Navbar />
-    <div class="container">
+    <div class="wrap">
       <slot />
     </div>
   </div>
@@ -19,7 +19,7 @@ defineComponent({
   .body {
     background: #1C1C1C;
   }
-  .container {
+  .wrap {
     display: flex;
     justify-content: center;
     align-items: center;
