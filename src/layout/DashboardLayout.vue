@@ -25,7 +25,7 @@ defineProps({
 })
 </script>
 
-<style>
+<style scoped>
   .container {
     max-width: inherit;
     display: grid;

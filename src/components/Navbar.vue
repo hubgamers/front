@@ -11,7 +11,7 @@
             <RouterLink to="/features">Fonctionnalités</RouterLink>
           </li>
           <li>
-            <RouterLink to="/tarifs">Tarifs</RouterLink>
+            <RouterLink to="/pricing">Tarifs</RouterLink>
           </li>
           <li>
             <RouterLink to="/about">A propos</RouterLink>

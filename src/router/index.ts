@@ -10,6 +10,26 @@ const router = createRouter({
       component: () => import('@/views/vitrine/Home.vue')
     },
     {
+      path: '/features',
+      name: 'Features',
+      component: () => import('@/views/vitrine/Features.vue')
+    },
+    {
+      path: '/pricing',
+      name: 'Pricing',
+      component: () => import('@/views/vitrine/Pricing.vue')
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: () => import('@/views/vitrine/About.vue')
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: () => import('@/views/vitrine/Contact.vue')
+    },
+    {
       path: '/teams',
       name: 'Teams',
       component: () => import('@/views/teams/PublicTeams.vue')
