@@ -1,6 +1,5 @@
 <template>
-  <div class="py-5 px-5">
-    <Topbar title="Mes tournois" subtitle="Gérer l'ensemble de vos tournois." />
+  <DashboardLayout title="Mes tournois" subtitle="Gérer l'ensemble de vos tournois.">
     <div v-if="store.getters.getMyTournaments.length > 0" class="flex flex-wrap flex-row gap-5 mt-10">
       <button class="info my-4">
         <RouterLink to="/dashboard/tournaments/create">Créer un tournoi</RouterLink>
@@ -13,13 +12,13 @@
         <RouterLink to="/dashboard/tournaments/create">Créer un tournoi dès maintenant</RouterLink>
       </button>
     </div>
-  </div>
+  </DashboardLayout>
 </template>
 <script setup lang="ts">
-import Topbar from '@/components/Topbar.vue'
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import TournamentCardComponent from '@/components/TournamentCardComponent.vue'
+import DashboardLayout from '@/layout/DashboardLayout.vue'
 defineComponent({
   name: 'TournamentsPage'
 })

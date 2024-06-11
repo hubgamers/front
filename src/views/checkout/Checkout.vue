@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <VitrineLayout>
     <h1>Checkout</h1>
     <p>Checkout page content</p>
 
@@ -24,12 +24,13 @@
         <button id="checkout-and-portal-button" type="submit">Checkout</button>
       </form>
     </section>
-  </div>
+  </VitrineLayout>
 </template>
 
 <script setup>
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
+import VitrineLayout from '@/layout/VitrineLayout.vue'
 
 defineComponent({
   name: 'CheckoutStripe',

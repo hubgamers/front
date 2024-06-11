@@ -1,6 +1,5 @@
 <template>
-  <div class="py-10 px-10">
-    <Topbar title="Mon profil" subtitle="Modifier vos informations" />
+  <DashboardLayout title="Mon profil" subtitle="Modifier vos informations">
     <div class="bg-gray-200 rounded-2xl p-4 mt-5" v-if="store.getters.getPlayer == null">
       <h3 class="text-2xl mb-3">Mode joueur</h3>
       <p>Vous pouvez activer le mode joueur afin d'être visible auprès des équipes pour recevoir des invitations.</p>
@@ -18,13 +17,12 @@
         </div>
       </li>
     </ul>
-  </div>
+  </DashboardLayout>
 </template>
 <script setup lang="ts">
-import Topbar from '@/components/Topbar.vue'
-
 import { defineComponent, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
+import DashboardLayout from '@/layout/DashboardLayout.vue'
 defineComponent({
   name: 'ProfilePage'
 })

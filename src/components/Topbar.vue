@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-if="title !== null">
     <input v-if="showSearchBar" type="search" placeholder="Rechercher" v-model="search">
-    <h1 v-if="title !== null">{{title}}</h1>
+    <h1>{{title}}</h1>
     <h2 v-if="subtitle !== null">{{subtitle}}</h2>
   </div>
 </template>

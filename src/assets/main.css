@@ -90,11 +90,11 @@ button.info:hover {
 button.green {
     transition: all 0.3s;
     background-color: var(--green);
-    color: var(--white);
+    color: var(--black);
 }
 button.green:hover {
     transition: all 0.3s;
-    background-color: #7FC6B6;
+    background-color: var(--blue);
     color: var(--white);
 }
 

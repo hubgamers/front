@@ -1,9 +1,14 @@
 <template>
   <VitrineLayout>
-    <h1>Checkout Success</h1>
-    <p>Checkout success page content</p>
+    <h1>Home Page</h1>
   </VitrineLayout>
 </template>
-<script setup lang="ts">
+
+<script setup>
+import { defineComponent } from 'vue'
 import VitrineLayout from '@/layout/VitrineLayout.vue'
+
+defineComponent({
+  name: 'HomePage'
+})
 </script>

@@ -1,7 +1,6 @@
 <template>
-  <div class="py-10 px-10" v-if="teamForm != null">
-    <Topbar title="Gérer mon équipe" :subtitle="store.getters.getTeam != null ? 'Editer mon équipe' :' Créer une équipe'" />
-    <div v-if="store.getters.getTeam != null" class="relative">
+  <DashboardLayout title="Gérer mon équipe" :subtitle="store.getters.getTeam != null ? 'Editer mon équipe' :' Créer une équipe'">
+    <div v-if="teamForm !== null && store.getters.getTeam != null" class="relative">
       <div>
         <input-text type="file" label="Bannière" @uploadFile="uploadTeamBanner" />
       </div>
@@ -21,15 +20,15 @@
       <button type="submit" class="info my-4">Créer l'équipe</button>
     </form>
 
-  </div>
+  </DashboardLayout>
 </template>
 <script setup lang="ts">
-import Topbar from '@/components/Topbar.vue'
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import InputText from '@/components/InputText.vue'
 import type { TeamDTO } from '@/models/TeamDTO'
+import DashboardLayout from '@/layout/DashboardLayout.vue'
 
 defineComponent({
   name: 'TeamEditPage'

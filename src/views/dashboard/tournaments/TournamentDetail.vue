@@ -1,5 +1,6 @@
 <template>
-  <div v-if="store.getters.getTournament !== null">
+  <DashboardLayout>
+    <div v-if="store.getters.getTournament !== null">
     <div v-if="store.getters.getTournament.banner || store.getters.getTournament.logo" class="relative">
       <img v-if="store.getters.getTournament.banner" class="relative max-h-[300px] w-full object-cover rounded-b" :src="store.getters.getTournament.banner" alt="banner">
       <img v-if="store.getters.getTournament.logo" class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTournament.logo" alt="logo">
@@ -91,6 +92,7 @@
       </div>
     </div>
   </div>
+  </DashboardLayout>
 </template>
 <script setup lang="ts">
 import Topbar from '@/components/Topbar.vue'
@@ -101,6 +103,7 @@ import moment from 'moment';
 import InputText from '@/components/InputText.vue'
 import Table from '@/components/Table.vue'
 import SidebarOnTournamentDetails from '@/components/SidebarOnTournamentDetails.vue'
+import DashboardLayout from '@/layout/DashboardLayout.vue'
 
 defineComponent({
   name: 'TournamentDetailPage'

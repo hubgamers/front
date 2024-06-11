@@ -1,6 +1,5 @@
 <template>
-  <div class="py-5 px-5">
-    <Topbar title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes." />
+  <DashboardLayout title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes.">
     <div v-if="store.getters.getMyTeams.length > 0" class="flex flex-wrap flex-row gap-5 mt-10">
       <button class="info my-4">
         <RouterLink to="/dashboard/teams/create">Créer une équipe</RouterLink>
@@ -24,7 +23,7 @@
         <CardComponent v-for="(team, key) in store.getters.getTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" :link-two="'/dashboard/teams/' + team.id + '/join'" link-two-text="Rejoindre l'équipe" />
       </div>
     </div>
-  </div>
+  </DashboardLayout>
 </template>
 <script setup lang="ts">
 import Topbar from '@/components/Topbar.vue'
@@ -32,6 +31,7 @@ import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import CardComponent from '@/components/TeamCardComponent.vue'
 import InputText from '@/components/InputText.vue'
+import DashboardLayout from '@/layout/DashboardLayout.vue'
 defineComponent({
   name: 'TeamsPage'
 })
