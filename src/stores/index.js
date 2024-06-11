@@ -739,6 +739,17 @@ export default createStore({
             reject(error);
           });
       });
+    },
+    createPortalSession(context, sessionId) {
+      return new Promise((resolve, reject) => {
+        stripeService.createPortalSession(sessionId)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     }
   }
 });
