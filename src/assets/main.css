@@ -16,6 +16,25 @@
     --black: #000000;
 }
 
+.bg-blue {
+    background-color: var(--blue);
+}
+.bg-yellow {
+    background-color: var(--yellow);
+}
+.bg-orange {
+    background-color: var(--orange);
+}
+.bg-green {
+    background-color: var(--green);
+}
+.bg-white {
+    background-color: var(--white);
+}
+.bg-black {
+    background-color: var(--black);
+}
+
 * {
     font-family: "Figtree", sans-serif;
 }
