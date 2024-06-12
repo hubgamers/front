@@ -166,3 +166,24 @@ nav.tabs {
 .gap-3 {
     gap: 3rem;
 }
+.mt-2 {
+    margin-top: 2rem;
+}
+.mt-3 {
+    margin-top: 3rem;
+}
+.mt-4 {
+    margin-top: 4rem;
+}
+.p2 {
+    padding: 2rem;
+}
+.w100 {
+    width: 100%;
+}
+.w80 {
+    width: 80%;
+}
+.w50 {
+    width: 50%;
+}

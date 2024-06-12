@@ -1,6 +1,6 @@
 <template>
   <VitrineLayout>
-    <div class="flex">
+    <div class="row">
       <div class="text">
         <h1>Créez votre équipe en quelques clics</h1>
         <p>Recrutez vos prochains joueurs</p>
@@ -28,32 +28,30 @@ defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.flex {
-  .text {
-    padding: 0 2rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    height: 100%;
-    
-    h1, p {
-      color: #FFFFFF;
-    }
-    
-    h1 {
-      font-size: 3rem;
-      margin: inherit inherit 1rem;
-    }
-    
-    p {
-      font-size: 1.3rem;
-      padding: 1rem 0;
-    }
+.text {
+  padding: 0 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  height: 100%;
+
+  h1, p {
+    color: #FFFFFF;
   }
-  .image {
-    flex: 1;
+
+  h1 {
+    font-size: 3rem;
+    margin: inherit inherit 1rem;
   }
+
+  p {
+    font-size: 1.3rem;
+    padding: 1rem 0;
+  }
+}
+.image {
+  flex: 1;
 }
 
 </style>

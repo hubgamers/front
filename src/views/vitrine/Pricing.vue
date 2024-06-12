@@ -1,6 +1,6 @@
 <template>
   <VitrineLayout>
-    <div class="flex">
+    <div class="columns align-items-center">
       <h1>Tarification</h1>
       <div class="togglePeriod">
         <span>Mensuel</span>
@@ -12,7 +12,7 @@
       </div>
       
       
-      <div class="columns">
+      <div class="row gap-2">
         <PricingTable
           :period="period"
           title-price="Silver"
@@ -141,30 +141,24 @@ function togglePeriod() {
 </script>
 
 <style lang="scss" scoped>
-.flex {
+h1 {
+  color: #FFFFFF;
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.togglePeriod {
   display: flex;
-  flex-flow: column;
   align-items: center;
-  
-  h1 {
-    color: #FFFFFF;
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
-  
-  .togglePeriod {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: #FFFFFF;
-  }
-  
-  .columns {
-    display: flex;
-    gap: 3rem;
-    padding: 4rem 1rem;
-  }
+  gap: 1rem;
+  color: #FFFFFF;
+}
+
+.columns {
+  display: flex;
+  gap: 3rem;
+  padding: 4rem 1rem;
 }
 
 

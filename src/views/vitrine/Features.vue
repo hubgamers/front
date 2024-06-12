@@ -1,6 +1,6 @@
 <template>
   <VitrineLayout>
-    <div class="flex">
+    <div class="columns align-items-center">
       <h3>Fonctionnalités</h3>
       <h2>Créer son équipe</h2>
       <p class="description">Vous pouvez créer une équipe de x joueurs tout en incluant des personnes faisant partis du staff afin de participer aux tournois, ou simplement enchainez des parties de ranked.</p>
@@ -70,31 +70,24 @@ defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.flex {
+h2, h3, h4, p, i {
+  color: #FFFFFF;
+}
+
+h2 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.description {
+  width: 400px;
+  text-align: center;
+}
+
+.feats {
+  padding: 4rem 1rem;
   display: flex;
-  flex-flow: column;
-  align-items: center;
-
-  h2, h3, h4, p, i {
-    color: #FFFFFF;
-  }
-
-  h2 {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
-
-  .description {
-    width: 400px;
-    text-align: center;
-  }
-
-  .feats {
-    padding: 4rem 1rem;
-    display: flex;
-    gap: 6rem;
-  }
-
+  gap: 6rem;
 }
 </style>

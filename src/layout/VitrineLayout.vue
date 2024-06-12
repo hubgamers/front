@@ -24,4 +24,14 @@ defineComponent({
     justify-content: center;
     align-items: center;
   }
+
+  h2, h3, h4, p, i {
+    color: #FFFFFF;
+  }
+
+  h2 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
 </style>
