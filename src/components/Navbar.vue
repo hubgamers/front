@@ -68,6 +68,7 @@ header {
       color: #FFFFFF;
       font-size: 1.5rem;
       font-weight: 700;
+      margin: inherit;
     }
     
     nav ul {
