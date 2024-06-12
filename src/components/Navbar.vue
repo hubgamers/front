@@ -58,6 +58,7 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
+  margin-bottom: 5rem;
   .menu {
     display: flex;
     align-items: center;
