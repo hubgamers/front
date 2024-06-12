@@ -23,7 +23,9 @@
       </nav>
     </div>
     <div class="actions">
-      <button class="green">S'inscrire gratuitement</button>
+      <button class="green">
+        <RouterLink to="/auth/register">S'inscrire gratuitement</RouterLink>
+      </button>
       <ul class="socials">
         <li>
           <a href="https://linkedin.com/in/alexis-briet" target="_blank">
@@ -90,6 +92,13 @@ header {
     display: flex;
     gap: 2rem;
     align-items: center;
+
+    a {
+      color: #000;
+      &:hover {
+        color: #FFF;
+      }
+    }
     
     ul {
       display: flex;
