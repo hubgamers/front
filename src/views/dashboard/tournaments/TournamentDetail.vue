@@ -98,7 +98,7 @@
 import Topbar from '@/components/Topbar.vue'
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import moment from 'moment';
 import InputText from '@/components/InputText.vue'
 import Table from '@/components/Table.vue'
@@ -138,10 +138,17 @@ function formatDate(date: any, formatDate= 'yyyy-MM-dd') {
   return moment(date).format(formatDate)
 }
 
+const router = useRouter()
 let sideBarStatus = ref('')
+if (router.currentRoute.value.query.tab) {
+  // @ts-ignore
+  sideBarStatus.value = router.currentRoute.value.query.tab
+} else {
+  sideBarStatus.value = 'invitations'
+}
 function changeSideBarStatus(tab: string) {
-  console.log(tab)
   sideBarStatus.value = tab
+  router.push({ query: { tab: tab } })
 }
 
 function updateTournament() {

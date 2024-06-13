@@ -14,6 +14,7 @@ import { defineComponent } from 'vue'
 import Sidebar from '@/components/Sidebar.vue'
 import Rightbar from '@/components/Rightbar.vue'
 import Topbar from '@/components/Topbar.vue'
+import { useStore } from 'vuex'
 defineComponent({
   name: 'DashboardLayout'
 })
@@ -23,6 +24,8 @@ defineProps({
   subtitle: String,
   showSearchBar: Boolean
 })
+const store = useStore()
+store.dispatch('getUserById', localStorage.getItem('userId'))
 </script>
 
 <style scoped>

@@ -22,7 +22,7 @@
         </li>
         <li class="li">
           <i class="fa fa-envelope-open"></i>
-          <RouterLink to="/dashboard/my-invitations">Mes invitations</RouterLink>
+          <RouterLink to="/dashboard/profile?tab=invitations">Mes invitations</RouterLink>
         </li>
         <li class="li">
           <i class="fa fa-trophy"></i>
@@ -30,22 +30,18 @@
         </li>
         <li class="li">
           <i class="fa fa-satellite-dish"></i>
-          <RouterLink to="/dashboarD/production">Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
+          <RouterLink to="/dashboard/production">Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
         </li>
       </ul>
       <ul class="autres">
         <li>AUTRES</li>
         <li class="li">
           <i class="fa fa-gear"></i>
-          <RouterLink to="/settings">Paramètres</RouterLink>
+          <RouterLink to="/dashboard/settings">Paramètres</RouterLink>
         </li>
         <li class="li">
           <i class="fa fa-wallet"></i>
-          <RouterLink to="/payments">Paiements</RouterLink>
-        </li>
-        <li class="li">
-          <i class="fa fa-circle-user"></i>
-          <RouterLink to="/account">Compte</RouterLink>
+          <RouterLink to="/dashboard/subscriptions">Paiements</RouterLink>
         </li>
         <li class="li">
           <i class="fa fa-circle-info"></i>
@@ -108,14 +104,18 @@ const store = useStore()
       padding: 1rem;
       transition: all .5s;
       border-radius: 5px;
-      color: #082431;
+      color: #28536B;
       &.li:hover {
         transition: all .5s;
         background-color: #8aa6b4;
+        color: #fff;
       }
       a {
         font-weight: 600;
-        color: #6b2865;
+        color: #28536B;
+        &:hover {
+          color: #fff;
+        }
       }
       i {
         padding-right: 1rem;

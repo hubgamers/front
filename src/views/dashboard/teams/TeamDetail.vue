@@ -95,7 +95,7 @@
 <script setup lang="ts">
 import Topbar from '@/components/Topbar.vue'
 import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { defineComponent, defineProps, ref } from 'vue'
 import InputText from '@/components/InputText.vue'
 import Table from '@/components/Table.vue'
@@ -129,10 +129,17 @@ function changeTabStatus(tab: string) {
   tabStatus.value = tab
 }
 
+const router = useRouter()
 let sideBarStatus = ref('')
+if (router.currentRoute.value.query.tab) {
+  // @ts-ignore
+  sideBarStatus.value = router.currentRoute.value.query.tab
+} else {
+  sideBarStatus.value = 'invitations'
+}
 function changeSideBarStatus(tab: string) {
-  console.log(tab)
   sideBarStatus.value = tab
+  router.push({ query: { tab: tab } })
 }
 
 // Feat : ajout de joueur à une équipe

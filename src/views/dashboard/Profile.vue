@@ -38,13 +38,22 @@ import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import SidebarOnPage from '@/components/SidebarOnPage.vue'
+import { useRouter } from 'vue-router'
 defineComponent({
   name: 'ProfilePage'
 })
 
+const router = useRouter()
 let sideBarStatus = ref('')
+if (router.currentRoute.value.query.tab) {
+  // @ts-ignore
+  sideBarStatus.value = router.currentRoute.value.query.tab
+} else {
+  sideBarStatus.value = 'invitations'
+}
 function changeSideBarStatus(tab: string) {
   sideBarStatus.value = tab
+  router.push({ query: { tab: tab } })
 }
 
 const store = useStore();
