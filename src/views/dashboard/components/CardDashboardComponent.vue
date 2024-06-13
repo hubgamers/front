@@ -31,6 +31,7 @@ defineProps({
 <style lang="scss" scoped>
 .card {
   border-radius: 20px;
+  flex-flow: column;
 
   &.wfull {
     width: 100%;
