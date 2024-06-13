@@ -24,7 +24,8 @@
     </div>
     <div class="actions">
       <button class="green">
-        <RouterLink to="/auth/register">S'inscrire gratuitement</RouterLink>
+        <RouterLink v-if="isConnected" to="/dashboard">Tableau de bord</RouterLink>
+        <RouterLink v-else to="/auth/register">S'inscrire gratuitement</RouterLink>
       </button>
       <ul class="socials">
         <li>
@@ -47,11 +48,16 @@
   </header>
 </template>
 <script setup lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 defineComponent({
   name: 'NavbarComponent',
 })
+
+let isConnected = ref(false)
+if (localStorage.getItem('userId')) {
+  isConnected.value = true
+}
 </script>
 
 <style lang="scss" scoped>

@@ -29,7 +29,8 @@ export default createStore({
       invitationsByTeam: [],
       invitationsByPlayer: [],
       invitation: null,
-      invitationColumns: []
+      invitationColumns: [],
+      stripeProduct: null
     };
   },
   getters: {
@@ -89,6 +90,9 @@ export default createStore({
     },
     getInvitationColumns(state) {
       return state.invitationColumns;
+    },
+    getStripeProduct(state) {
+      return state.stripeProduct;
     }
   },
   mutations: {
@@ -151,6 +155,9 @@ export default createStore({
     },
     updateInvitationColumns(state, columns) {
       state.invitationColumns = columns;
+    },
+    updateStripeProduct(state, product) {
+      state.stripeProduct = product;
     }
   },
   actions: {
@@ -751,11 +758,12 @@ export default createStore({
           });
       });
     },
-    updateSubscription(context, payload) {
+    getProductByUser(context) {
       return new Promise((resolve, reject) => {
-        stripeService.updateSubscription(payload.sessionId, payload.newPriceId)
+        stripeService.getProductByUser()
           .then((response) => {
             resolve(response.data.data);
+            context.commit('updateStripeProduct', response.data.data);
           })
           .catch((error) => {
             reject(error);

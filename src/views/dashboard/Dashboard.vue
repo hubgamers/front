@@ -16,8 +16,9 @@
        bg-color="blue"
      />
      <CardActionDashboardComponent
+       v-if="store.getters.getStripeProduct !== null"
        title="Status d'abonnement"
-       subtitle="Platinum"
+       :subtitle="store.getters.getStripeProduct.name"
        btnUri="/dashboard/subscriptions"
        btnText="Voir mon abonnement"
        bg-color="green"
@@ -31,9 +32,13 @@
 import { defineComponent } from 'vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import CardActionDashboardComponent from '@/views/dashboard/components/CardDashboardComponent.vue'
+import { useStore } from 'vuex'
 defineComponent({
   name: 'DashboardPage'
 })
+
+const store = useStore();
+store.dispatch('getProductByUser')
 </script>
 
 <style lang="scss" scoped>
