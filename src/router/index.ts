@@ -50,6 +50,11 @@ const router = createRouter({
       component: Dashboard,
     },
     {
+      path: '/dashboard/subscriptions',
+      name: 'SubscriptionsDashboard',
+      component: () => import('@/views/dashboard/subscriptions/Subscriptions.vue')
+    },
+    {
       path: '/dashboard/profile',
       name: 'Profile',
       component: () => import('@/views/dashboard/Profile.vue')

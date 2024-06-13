@@ -6,5 +6,8 @@ export default {
   },
   createPortalSession(sessionId) {
     return axiosCustom.post("/stripe/create-portal-session?session_id=" + sessionId);
+  },
+  updateSubscription(sessionId, newPriceId) {
+    return axiosCustom.post("/stripe/update-subscription?session_id=" + sessionId + "&newPriceId=" + newPriceId);
   }
 }

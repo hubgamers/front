@@ -750,6 +750,17 @@ export default createStore({
             reject(error);
           });
       });
+    },
+    updateSubscription(context, payload) {
+      return new Promise((resolve, reject) => {
+        stripeService.updateSubscription(payload.sessionId, payload.newPriceId)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     }
   }
 });

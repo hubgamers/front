@@ -28,13 +28,14 @@
           <span>{{feat.content}}</span>
         </li>
       </ul>
-      <button class="green" @click="subscribe">Souscrire</button>
+      <button v-if="stripeSessionId" class="green" @click="editPlan">Modifier mon abonnement</button>
+      <button v-else class="green" @click="subscribe">Souscrire</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 
 defineComponent({
@@ -67,6 +68,9 @@ const props = defineProps({
   feats: {
     type: Array,
     default: () => []
+  },
+  stripeSessionId: {
+    type: String
   }
 })
 
@@ -77,6 +81,13 @@ function subscribe() {
     priceStripId += '_yearly'
   }
   store.dispatch('createCheckoutSession', priceStripId).then((response) => {
+    window.location.href = response
+  })
+}
+
+function editPlan() {
+  console.info('editPlan', props.stripeSessionId)
+  store.dispatch('createPortalSession', props.stripeSessionId).then((response) => {
     window.location.href = response
   })
 }
