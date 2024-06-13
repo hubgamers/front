@@ -36,7 +36,7 @@
       <div v-if="tabStatus == 'gestion'">
         <Topbar title="Gestion" subtitle="" class="mb-10" />
         <div class="flex mt-10 gap-10">
-          <SidebarOnTournamentDetails :tournament="store.getters.getTournament" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" />
+          <SidebarOnPage :entity="store.getters.getTournament" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus"  type-sidebar="tournament"/>
           <div v-if="sideBarStatus == 'tournaments_registrations'">
             <h3>Inscriptions aux tournois</h3>
           </div>
@@ -102,8 +102,8 @@ import { useRoute } from 'vue-router'
 import moment from 'moment';
 import InputText from '@/components/InputText.vue'
 import Table from '@/components/Table.vue'
-import SidebarOnTournamentDetails from '@/components/SidebarOnTournamentDetails.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
+import SidebarOnPage from '@/components/SidebarOnPage.vue'
 
 defineComponent({
   name: 'TournamentDetailPage'

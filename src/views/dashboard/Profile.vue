@@ -6,28 +6,46 @@
       <button class="info" @click="activatePlayerMode">Activer le mode joueur</button>
     </div>
 
-
-    <h3 class="text-2xl mt-5 mb-3">Invitations en attente</h3>
-    <ul>
-      <li v-for="(invitation, key) in store.getters.getInvitationsByPlayerId.filter((invitation: any) => invitation.status == 'PENDING')" :key="key">
-        <span>{{invitation.id}}</span>
-        <div class="flex gap-1">
-          <button class="info" @click="acceptInvitation(invitation.id)">Accepter</button>
-          <button class="warning" @click="declineInvitation(invitation.id)">Refuser</button>
-        </div>
-      </li>
-    </ul>
+    <div class="row mt-10 gap-10">
+      <SidebarOnPage :entity="store.getters.getUser" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" :show-profile="true"  type-sidebar="profile"/>
+      <div v-if="sideBarStatus == 'invitations'">
+        <h3 class="text-2xl mt-5 mb-3">Invitations en attente</h3>
+        <ul>
+          <li class="mb-2" v-for="(invitation, key) in store.getters.getInvitationsByPlayerId.filter((invitation: any) => invitation.status == 'PENDING')" :key="key">
+            <span>{{invitation.title}}</span>
+            <div class="flex gap-1">
+              <button class="info" @click="acceptInvitation(invitation.id)">Accepter</button>
+              <button class="warning" @click="declineInvitation(invitation.id)">Refuser</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div v-if="sideBarStatus == 'notifications'">
+        <h3>Notifications</h3>
+      </div>
+      <div v-if="sideBarStatus == 'messages'">
+        <h3>Messages</h3>
+      </div>
+    </div>
+    
   </DashboardLayout>
 </template>
 <script setup lang="ts">
-import { defineComponent, onBeforeMount } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
+import SidebarOnPage from '@/components/SidebarOnPage.vue'
 defineComponent({
   name: 'ProfilePage'
 })
 
+let sideBarStatus = ref('')
+function changeSideBarStatus(tab: string) {
+  sideBarStatus.value = tab
+}
+
 const store = useStore();
+store.dispatch('getUserById', localStorage.getItem('userId'))
 onBeforeMount(async () => {
   await store.dispatch('getPlayerByUserId', localStorage.getItem('userId'))
   if (store.getters.getPlayer !== null) {
@@ -35,7 +53,6 @@ onBeforeMount(async () => {
   }
 })
 async function activatePlayerMode() {
-  await store.dispatch('getUserById', localStorage.getItem('userId'))
   let player = {
     userId: store.getters.getUser.id,
     username: store.getters.getUser.username

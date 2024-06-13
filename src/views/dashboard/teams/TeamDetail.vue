@@ -36,7 +36,7 @@
         <div v-if="tabStatus == 'gestion'">
           <Topbar title="Gestion de l'équipe" subtitle="Modifier votre équipe" class="mb-10" />
           <div class="flex mt-10 gap-10">
-            <SidebarOnTeamDetails :team="store.getters.getTeam" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" />
+            <SidebarOnPage :entity="store.getters.getTeam" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus"  type-sidebar="team"/>
             <div v-if="sideBarStatus == 'tournaments_registrations'">
               <h3>Inscriptions aux tournois</h3>
             </div>
@@ -97,10 +97,10 @@ import Topbar from '@/components/Topbar.vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { defineComponent, defineProps, ref } from 'vue'
-import SidebarOnTeamDetails from '@/components/SidebarOnTeamDetails.vue'
 import InputText from '@/components/InputText.vue'
 import Table from '@/components/Table.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
+import SidebarOnPage from '@/components/SidebarOnPage.vue'
 
 defineComponent({
   name: 'TeamDetailPage'
