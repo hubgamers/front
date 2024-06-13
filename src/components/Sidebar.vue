@@ -4,7 +4,10 @@
       <div class="avatar">
         <img src="https://picsum.photos/150/150" alt="avatar" />
       </div>
-      <RouterLink to="/dashboard/profile">Mon profil</RouterLink>
+      <RouterLink to="/dashboard/profile">
+        <p>{{store.getters.getUser.username}}</p>
+        <p>Accéder à mon profil</p>
+      </RouterLink>
     </div>
     <nav>
       <ul class="menu">
@@ -62,10 +65,13 @@
 
 <script setup lang="ts">
 import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 defineComponent({
   name: 'SidebarComponent'
 })
+
+const store = useStore()
 </script>
 
 <style lang="scss" scoped>

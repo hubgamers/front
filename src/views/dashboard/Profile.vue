@@ -26,6 +26,9 @@
       <div v-if="sideBarStatus == 'messages'">
         <h3>Messages</h3>
       </div>
+      <div v-if="sideBarStatus == 'gestion'">
+        <h3>Gestion de mon compte</h3>
+      </div>
     </div>
     
   </DashboardLayout>

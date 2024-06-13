@@ -57,6 +57,10 @@
             <span @click="$emit('changeSideBarStatus', 'messages')">Messages</span>
           </li>
           <li>
+            <i class="fa fa-file-edit"></i>
+            <span @click="$emit('changeSideBarStatus', 'gestion')">Gestion de mon compte</span>
+          </li>
+          <li>
             <i class="fa fa-wallet"></i>
             <RouterLink to="/dashboard/subscriptions">Abonnement</RouterLink>
           </li>
