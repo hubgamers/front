@@ -14,8 +14,6 @@
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" />
         <input-text v-model="teamForm.description" label="Description" placeholder="Une équipe de choc" />
-        <input-text v-model="teamForm.game" label="Description" placeholder="Une équipe de choc" />
-        <input-text v-model="teamForm.platform" label="Description" placeholder="Une équipe de choc" />
       </div>
       <button type="submit" class="info my-4">Créer l'équipe</button>
     </form>
@@ -29,19 +27,20 @@ import { useRoute, useRouter } from 'vue-router'
 import InputText from '@/components/InputText.vue'
 import type { TeamDTO } from '@/models/TeamDTO'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
+import { useNotification } from "@kyvg/vue3-notification";
 
 defineComponent({
   name: 'TeamEditPage'
 })
 
+
+const { notify }  = useNotification()
 const store = useStore();
 const teamForm = ref<TeamDTO>({
   name: '',
   tag: '',
   description: '',
   visibility: false,
-  game: '',
-  platform: '',
   players: [],
   organizerId: '',
   logo: '',
@@ -82,11 +81,21 @@ function uploadTeamLogo(e: any) {
 function submitForm() {
   if (params && params.id) {
     store.dispatch('updateTeam', teamForm.value).then(() => {
+      notify({
+        title: "Mis à jour",
+        text: "Votre équipe a été mise à jour avec succès",
+        type: "success"
+      });
       // Redirect to the team page
       router.push({ name: 'TeamDetail', params: { id: params.id } })
     })
   } else {
     store.dispatch('createTeam', teamForm.value).then(() => {
+      notify({
+        title: "Création",
+        text: "Votre équipe a été créée avec succès",
+        type: "success"
+      });
       // Redirect to the team page
       router.push({ name: 'MyTeams'})
     })

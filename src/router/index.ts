@@ -100,11 +100,6 @@ const router = createRouter({
       component: () => import('@/views/dashboard/tournaments/TournamentDetail.vue')
     },
     {
-      path: '/dashboard/my-invitations',
-      name: 'Invitations',
-      component: () => import('@/views/dashboard/invitations/Invitations.vue')
-    },
-    {
       path: '/checkout',
       name: 'Checkout',
       component: () => import('@/views/checkout/Checkout.vue')
