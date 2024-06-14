@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Sidebar />
-    <div class="py-10 px-10">
+    <div>
       <Topbar :title="title" :subtitle="subtitle" :show-search-bar="showSearchBar" />
       <slot />
     </div>
@@ -38,7 +38,12 @@ store.dispatch('getUserById', localStorage.getItem('userId'))
       gap: 20px;
     }
     & > div:last-of-type {
+      width: 100%;
       background-color: #fff;
+      padding: 1rem;
+      @media screen and (min-width: 768px) {
+        padding: 2.5rem;
+      }
     }
   }
 </style>

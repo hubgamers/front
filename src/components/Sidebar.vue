@@ -80,13 +80,10 @@
 
 <script setup lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
 
 defineComponent({
   name: 'SidebarComponent'
 })
-
-const store = useStore()
 </script>
 
 <style lang="scss" scoped>
@@ -122,13 +119,16 @@ const store = useStore()
   }
 
   nav {
-    padding: 1rem;
+    @media screen and (min-width: 768px) {
+      padding: 1rem;
+    }
     ul {
       display: flex;
       flex-flow: column;
       align-items: center;
       @media screen and (min-width: 1400px) {
         align-items: start;
+        gap: 1rem;
       }
       li {
         padding: .5rem;
