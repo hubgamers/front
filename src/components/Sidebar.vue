@@ -1,58 +1,77 @@
 <template>
   <div class="sidebar">
     <div class="profile">
-      <div class="avatar">
-        <img src="https://picsum.photos/150/150" alt="avatar" />
-      </div>
       <RouterLink to="/dashboard/profile">
-        <p>{{store.getters.getUser.username}}</p>
-        <p>Accéder à mon profil</p>
+        <div class="avatar">
+          <img src="https://picsum.photos/150/150" alt="avatar" />
+        </div>
+       <div>
+         <p>Accéder à mon profil</p>
+       </div>
       </RouterLink>
     </div>
     <nav>
       <ul class="menu">
         <li>MENU</li>
         <li class="li">
-          <i class="fa fa-dashboard"></i>
-          <RouterLink to="/dashboard">Tableau de bord</RouterLink>
+          <RouterLink to="/dashboard">
+            <i class="fa fa-dashboard"></i>
+            <span>Tableau de bord</span>
+          </RouterLink>
         </li>
         <li class="li">
-          <i class="fa fa-people-group"></i>
-          <RouterLink to="/dashboard/my-teams">Mes équipes</RouterLink>
+          <RouterLink to="/dashboard/my-teams">
+            <i class="fa fa-people-group"></i>
+            <span>Mes équipes</span>
+          </RouterLink>
         </li>
         <li class="li">
-          <i class="fa fa-envelope-open"></i>
-          <RouterLink to="/dashboard/profile?tab=invitations">Mes invitations</RouterLink>
+          <RouterLink to="/dashboard/profile?tab=invitations">
+            <i class="fa fa-envelope-open"></i>
+            <span>Mes invitations</span>
+          </RouterLink>
         </li>
         <li class="li">
-          <i class="fa fa-trophy"></i>
-          <RouterLink to="/dashboard/tournaments">Tournois <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
+          <RouterLink to="/dashboard/tournaments">
+            <i class="fa fa-trophy"></i>
+            <span>Tournois <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></span>
+          </RouterLink>
         </li>
         <li class="li">
-          <i class="fa fa-satellite-dish"></i>
-          <RouterLink to="/dashboard/production">Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></RouterLink>
+          <RouterLink to="/dashboard/production">
+            <i class="fa fa-satellite-dish"></i>
+            <span>Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></span>
+          </RouterLink>
         </li>
       </ul>
       <ul class="autres">
         <li>AUTRES</li>
         <li class="li">
-          <i class="fa fa-gear"></i>
-          <RouterLink to="/dashboard/settings">Paramètres</RouterLink>
+          <RouterLink to="/dashboard/settings">
+            <i class="fa fa-gear"></i>
+            <span>Paramètres</span>
+          </RouterLink>
         </li>
         <li class="li">
-          <i class="fa fa-wallet"></i>
-          <RouterLink to="/dashboard/subscriptions">Paiements</RouterLink>
+          <RouterLink to="/dashboard/subscriptions">
+            <i class="fa fa-wallet"></i>
+            <span>Paramètres</span>
+          </RouterLink>
         </li>
         <li class="li">
-          <i class="fa fa-circle-info"></i>
-          <RouterLink to="/help">Besoin d'aide</RouterLink>
+          <RouterLink to="/help">
+            <i class="fa fa-circle-info"></i>
+            <span>Besoin d'aide</span>
+          </RouterLink>
         </li>
       </ul>
       
       <ul>
         <li class="li">
-          <i class="fa fa-door-open"></i>
-          <RouterLink to="/logout">Se déconnecter</RouterLink>
+          <RouterLink to="/help">
+            <i class="fa fa-door-open"></i>
+            <span>Se déconnecter</span>
+          </RouterLink>
         </li>
       </ul>
     </nav>
@@ -72,53 +91,74 @@ const store = useStore()
 
 <style lang="scss" scoped>
 .sidebar {
-  height: 100vh;
-  padding: 2rem 0;
-  min-width: 220px;
-  
+  padding: 1rem 0;
   .profile {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: 2rem;
-    
-    .avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      overflow: hidden;
-      
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    a {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      div:last-of-type {
+        display: none;
+        @media screen and (min-width: 768px) {
+          display: block;
+          text-align: center;
+          color: #28536B;
+        }
       }
     }
   }
-  
+
   nav {
     padding: 1rem;
-    
-    ul > li {
-      padding: 1rem;
-      transition: all .5s;
-      border-radius: 5px;
-      color: #28536B;
-      &.li:hover {
-        transition: all .5s;
-        background-color: #8aa6b4;
-        color: #fff;
+    ul {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      @media screen and (min-width: 1400px) {
+        align-items: start;
       }
-      a {
-        font-weight: 600;
-        color: #28536B;
-        &:hover {
-          color: #fff;
+      li {
+        padding: .5rem;
+        a {
+          @media screen and (min-width: 768px) {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            text-align: center;
+            @media screen and (min-width: 1400px) {
+              flex-flow: row;
+              align-items: start;
+              gap: .5rem;
+            }
+            color: #28536B;
+            &:hover {
+              transition: all .5s;
+              color: #9DD9D2;
+            }
+          }
+          i {
+            font-size: 1.3rem;
+          }
+          span {
+            display: none;
+            @media screen and (min-width: 768px) {
+              display: block;
+            }
+          }
         }
-      }
-      i {
-        padding-right: 1rem;
       }
     }
   }

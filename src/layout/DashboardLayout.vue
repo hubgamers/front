@@ -33,8 +33,10 @@ store.dispatch('getUserById', localStorage.getItem('userId'))
     max-width: inherit;
     display: grid;
     grid-template-columns: 0.5fr 3fr;
-    gap: 20px;
 
+    @media screen and (min-width: 768px) {
+      gap: 20px;
+    }
     & > div:last-of-type {
       background-color: #fff;
     }
