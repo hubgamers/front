@@ -21,7 +21,7 @@
         </ul>
       </div>
       
-      <div class="actions mt-2">
+      <div class="actions mt-1">
         <button class="yellow">
           <RouterLink :to="linkOne">{{linkOneText}}</RouterLink>
         </button>

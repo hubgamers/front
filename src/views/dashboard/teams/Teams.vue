@@ -1,7 +1,7 @@
 <template>
   <DashboardLayout title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes.">
     <div v-if="store.getters.getMyTeams.length > 0" class="flex flex-wrap flex-row gap-5 mt-10">
-      <button class="info my-4">
+      <button class="info my-4 w-full">
         <RouterLink to="/dashboard/teams/create">Créer une équipe</RouterLink>
       </button>
       <CardComponent v-for="(team, key) in store.getters.getMyTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" :link-two="'/dashboard/teams/' + team.id + '/join'" link-two-text="Rejoindre l'équipe" />

@@ -42,7 +42,7 @@ store.dispatch('getUserById', localStorage.getItem('userId'))
       background-color: #fff;
       padding: 1rem;
       @media screen and (min-width: 768px) {
-        padding: 2.5rem;
+        padding: 2rem;
       }
     }
   }
