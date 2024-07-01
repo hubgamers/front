@@ -28,7 +28,8 @@
           <span>{{feat.content}}</span>
         </li>
       </ul>
-      <button v-if="stripeSessionId" class="green" @click="editPlan">Modifier mon abonnement</button>
+      <button v-if="!isConnected" class="green" @click="goRegister">Se connecter</button>
+      <button v-else-if="stripeSessionId" class="green" @click="editPlan">Modifier mon abonnement</button>
       <button v-else class="green" @click="subscribe">Souscrire</button>
     </div>
   </div>
@@ -37,6 +38,7 @@
 <script setup>
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 defineComponent({
   name: 'PricingTable'
@@ -75,6 +77,7 @@ const props = defineProps({
 })
 
 const store = useStore();
+const isConnected = ref(localStorage.getItem('userId'));
 function subscribe() {
   let priceStripId = props.priceStripId
   if (props.period === 'yearly') {
@@ -90,6 +93,11 @@ function editPlan() {
   store.dispatch('createPortalSession', props.stripeSessionId).then((response) => {
     window.location.href = response
   })
+}
+
+const router = useRouter();
+function goRegister() {
+  router.push({ name: 'Register' })
 }
 </script>
 
