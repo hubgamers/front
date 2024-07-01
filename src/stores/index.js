@@ -165,10 +165,31 @@ export default createStore({
       context.commit('increment');
     },
     register(context, {username, email, password}) {
-      return authService.register(username, email, password);
+      return new Promise((resolve, reject) => {
+        authService.register(username, email, password)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error.response.data.error)
+          })
+      })
     },
     login(context, { login, password }) {
-      return authService.login(login, password);
+      return new Promise((resolve, reject) => {
+        authService.login(login, password)
+          .then((response) => {
+            if (response.status === 200) {
+              console.info('jwtToken', response.data);
+              localStorage.setItem('jwtToken', response.data.data.jwtToken);
+              localStorage.setItem('userId', response.data.data.userId);
+            }
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error.response.data.error)
+          })
+      })
     },
     getUserColumns(context) {
       return new Promise((resolve, reject) => {

@@ -18,10 +18,10 @@
         <RouterLink v-else to="/auth/login" class="info">Déjà un compte ? Se connecter</RouterLink>
       </div>
       <div v-if="isLogin">
-        <button @click="login" class="info">Se connecter</button>
+        <button @click="login" :disabled="isSubmitted" class="info">Se connecter</button>
       </div>
       <template v-else>
-        <button @click="register" class="info">Créer un compte</button>
+        <button @click="register" :disabled="isSubmitted" class="info">Créer un compte</button>
       </template>
     </div>
   </VitrineLayout>
@@ -33,6 +33,7 @@ import router from '@/router'
 import { useRoute } from 'vue-router'
 import InputText from '@/components/InputText.vue'
 import VitrineLayout from '@/layout/VitrineLayout.vue'
+import { useNotification } from '@kyvg/vue3-notification'
 defineComponent({
   name: 'AuthentificationPage',
 })
@@ -52,23 +53,60 @@ let auth = ref({
   password: ''
 })
 
+const isSubmitted = ref(false);
+const { notify }  = useNotification()
 function register() {
+  isSubmitted.value = true;
   store.dispatch('register', {
     username: auth.value.username,
     email: auth.value.email,
     password: auth.value.password
-  }).then(() => {
-    router.push('/dashboard')
   })
+    .then(() => {
+      notify({
+        title: 'Succès',
+        text: 'Votre compte a été créé, veuillez patientez pendant la redirection',
+        type: 'success'
+      })
+      auth.value.login = auth.value.email;
+      login();
+    })
+    .catch((error: any) => {
+      console.log(error)
+      notify({
+        title: 'Erreur',
+        text: error,
+        type: 'error'
+      })
+      isSubmitted.value = false;
+    })
 }
 
 function login() {
-  store.dispatch('login', { 
+  isSubmitted.value = true;
+  store.dispatch('login', {
     login: auth.value.login, 
     password: auth.value.password
-  }).then(() => {
-    router.push('/dashboard')
   })
+    .then(() => {
+      notify({
+        title: 'Succès',
+        text: 'Vous êtes connecté',
+        type: 'success'
+      })
+      setTimeout(() => {
+        router.push('/dashboard')
+      }, 300)
+     })
+    .catch((error: any) => {
+      console.log(error)
+      notify({
+        title: 'Erreur',
+        text: error,
+        type: 'error'
+      })
+      isSubmitted.value = false;
+    })
 }
 </script>
 
