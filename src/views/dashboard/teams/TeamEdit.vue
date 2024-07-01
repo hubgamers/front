@@ -66,6 +66,20 @@ function uploadTeamBanner(e: any) {
     teamId: params.id,
     file: files[0]
   })
+    .then(() => {
+      notify({
+        title: "Mis à jour",
+        text: "Votre bannière a été mise à jour avec succès",
+        type: "success"
+      });
+    })
+    .catch(() => {
+      notify({
+        title: "Erreur",
+        text: "Une erreur est survenue lors de la mise à jour de la bannière",
+        type: "error"
+      });
+    });
 }
 
 function uploadTeamLogo(e: any) {
@@ -76,6 +90,20 @@ function uploadTeamLogo(e: any) {
     teamId: params.id,
     file: files[0]
   })
+    .then(() => {
+      notify({
+        title: "Mis à jour",
+        text: "Votre logo a été mis à jour avec succès",
+        type: "success"
+      });
+    })
+    .catch(() => {
+      notify({
+        title: "Erreur",
+        text: "Une erreur est survenue lors de la mise à jour du logo",
+        type: "error"
+      });
+    });
 }
 
 function submitForm() {
@@ -89,6 +117,13 @@ function submitForm() {
       // Redirect to the team page
       router.push({ name: 'TeamDetail', params: { id: params.id } })
     })
+      .catch(() => {
+        notify({
+          title: "Erreur",
+          text: "Une erreur est survenue lors de la mise à jour de l'équipe",
+          type: "error"
+        });
+      });
   } else {
     store.dispatch('createTeam', teamForm.value).then(() => {
       notify({
@@ -99,6 +134,13 @@ function submitForm() {
       // Redirect to the team page
       router.push({ name: 'MyTeams'})
     })
+      .catch(() => {
+        notify({
+          title: "Erreur",
+          text: "Une erreur est survenue lors de la création de l'équipe",
+          type: "error"
+        });
+      });
   }
 }
 </script>
