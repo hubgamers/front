@@ -26,6 +26,7 @@
        type="large"
      />
      <CardActionDashboardComponent
+       v-else
        title="Status d'abonnement"
        subtitle="Non abonné"
        btnUri="/dashboard/subscriptions"
