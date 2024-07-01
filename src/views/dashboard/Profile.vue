@@ -1,11 +1,6 @@
 <template>
   <DashboardLayout title="Mon profil" subtitle="Modifier vos informations">
-    <div class="bg-gray-200 rounded-2xl p-4 mt-5" v-if="store.getters.getPlayer == null">
-      <h3 class="text-2xl mb-3">Mode joueur</h3>
-      <p>Vous pouvez activer le mode joueur afin d'être visible auprès des équipes pour recevoir des invitations.</p>
-      <button class="info" @click="activatePlayerMode">Activer le mode joueur</button>
-    </div>
-
+    <PlayerModeComponent />
     <div class="row mt-10 gap-10">
       <SidebarOnPage :entity="store.getters.getUser" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" :show-profile="true"  type-sidebar="profile"/>
       <div v-if="sideBarStatus == 'invitations'">
@@ -39,6 +34,7 @@ import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import SidebarOnPage from '@/components/SidebarOnPage.vue'
 import { useRouter } from 'vue-router'
+import PlayerModeComponent from '@/views/dashboard/components/PlayerModeComponent.vue'
 defineComponent({
   name: 'ProfilePage'
 })
@@ -64,13 +60,6 @@ onBeforeMount(async () => {
     await store.dispatch('getAllInvitationsbyPlayerId', store.getters.getPlayer.id)
   }
 })
-async function activatePlayerMode() {
-  let player = {
-    userId: store.getters.getUser.id,
-    username: store.getters.getUser.username
-  }
-  store.dispatch('createPlayer', player)
-}
 
 function acceptInvitation(invitationId: string) {
   store.dispatch('acceptInvitation', invitationId)
