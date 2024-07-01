@@ -1,11 +1,12 @@
-<script setup lang="ts">
+<script setup>
 import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 defineComponent({
   name: 'TableComponent'
 });
 
-defineProps({
+const props = defineProps({
   columns: {
     type: Array,
   },
@@ -18,10 +19,23 @@ defineProps({
   }
 })
 
-function isLink(value: string | null | undefined) {
+function isLink(value) {
   if (value != null && typeof value === 'string') {
     return value.startsWith('http://') || value.startsWith('https://');
   }
+}
+
+const store = useStore();
+props.items.forEach(item => {
+  props.columns.forEach(column => {
+    if (column === 'playerId') {
+      getPlayerById(item[column])
+    }
+  });
+});
+
+function getPlayerById(playerId) {
+  store.dispatch('getPlayerById', playerId);
 }
 </script>
 <template>
@@ -61,13 +75,16 @@ function isLink(value: string | null | undefined) {
           <template v-if="isLink(item[column])">
             <img :src="item[column]" alt="Image" class="w-[100px]">
           </template>
-          <template v-if="column == 'players'">
+          <template v-else-if="column === 'players'">
             <p>{{item[column].length}}</p>
           </template>
-          <template v-if="column == 'status'">
-              <span v-if="item[column] == 'PENDING'" class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"><i class="fa fa-hourglass"></i> En attente</span>
-              <span v-if="item[column] == 'ACCEPTED'" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"><i class="fa fa-check"></i> Accepté</span>
-              <span v-if="item[column] == 'REFUSED'" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"><i class="fa fa-x"></i> Refusé</span>
+          <template v-else-if="column === 'status'">
+              <span v-if="item[column] === 'PENDING'" class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"><i class="fa fa-hourglass"></i> En attente</span>
+              <span v-if="item[column] === 'ACCEPTED'" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"><i class="fa fa-check"></i> Accepté</span>
+              <span v-if="item[column] === 'REFUSED'" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"><i class="fa fa-x"></i> Refusé</span>
+          </template>
+          <template v-else-if="column === 'playerId' && store.getters.getPlayer !== null">
+            <span>{{store.getters.getPlayer.username}}</span>
           </template>
           <template v-else>
             {{ item[column] }}

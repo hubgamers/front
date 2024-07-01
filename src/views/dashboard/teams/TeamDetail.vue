@@ -25,10 +25,7 @@
               <span>{{player.username}}</span>
             </li>
           </ul>
-          <div v-else>
-            <p>Aucun joueur dans l'équipe.</p>
-            <button class="info">Ajouter des joueurs</button>
-          </div>
+          <p>Aucun joueur dans la composition de l'équipe. Pour ajouter, rendez-vous dans l'onglet "Gestion > Equipe > Composition".</p>
         </div>
         <div v-if="tabStatus == 'tournois'">
           <Topbar title="Tournois terminés" subtitle="Historique des tournois" class="mb-10" />
