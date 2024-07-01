@@ -50,15 +50,17 @@
                   <span>{{player.username}}</span>
                 </li>
               </ul>
+              <p v-else>Aucun joueur dans l'équipe. Vous pouvez inviter des joueurs ci-dessous.</p>
               <h3 class="text-2xl mt-5 mb-3">Invitations</h3>
               <Table :columns="store.getters.getInvitationColumns.filter((column: any) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/teams/invitations/" />
               <form class="mt-10">
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                   <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une équipe" required />
                   <button @click="searchPlayer" class="info">Rechercher</button>
-                  <ul>
-                    <li v-for="(player, key) in store.getters.getPlayers" :key="key">
-                      <span>{{player.username}} <button :class="invitationStatus == 'success' ? 'green' : 'info'" :disabled="invitationStatus !== ''" @click.prevent="invitePlayer(player.id)">Inviter</button></span>
+                  <ul class="row gap-1 table-odd">
+                    <li v-for="(player, key) in store.getters.getPlayers" :key="key" class="row items-center gap-1">
+                      <span>{{player.username}}</span>
+                      <button :class="invitationStatus == 'success' ? 'green' : 'info'" :disabled="invitationStatus !== ''" @click.prevent="invitePlayer(player.id)">Inviter</button>
                     </li>
                   </ul>
                 </div>
@@ -101,6 +103,7 @@ import InputText from '@/components/InputText.vue'
 import Table from '@/components/Table.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import SidebarOnPage from '@/components/SidebarOnPage.vue'
+import { useNotification } from '@kyvg/vue3-notification'
 
 defineComponent({
   name: 'TeamDetailPage'
@@ -112,6 +115,7 @@ defineProps({
 
 const store = useStore();
 const params = useRoute().params;
+const { notify } = useNotification();
 let teamForm = ref({
   name: '',
   description: '',
@@ -159,6 +163,21 @@ async function invitePlayer(playerId: string) {
     teamId: params.id,
     type: 'RECRUIT_PLAYER'
   })
+    .then(() => {
+      notify({
+        type: 'success',
+        title: 'Invitation envoyée',
+        text: 'Le joueur a bien été invité dans votre équipe.'
+      })
+      store.dispatch('getAllInvitationsByTeamId', params.id)
+    })
+    .catch(() => {
+      notify({
+        type: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de l\'invitation du joueur.'
+      })
+    });
   invitationStatus.value = 'success';
   setTimeout(() => {
     invitationStatus.value = '';
@@ -174,6 +193,20 @@ function updateTeam() {
     game: teamForm.value.game,
     platform: teamForm.value.platform
   })
+    .then(() => {
+      notify({
+        type: 'success',
+        title: 'Équipe modifiée',
+        text: 'Votre équipe a bien été modifiée.'
+      })
+    })
+    .catch(() => {
+      notify({
+        type: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la modification de votre équipe.'
+      })
+    });
 }
 
 function uploadTeamBanner(e: any) {
@@ -184,6 +217,20 @@ function uploadTeamBanner(e: any) {
     teamId: params.id,
     file: files[0]
   })
+    .then(() => {
+      notify({
+        type: 'success',
+        title: 'Bannière modifiée',
+        text: 'La bannière de votre équipe a bien été modifiée.'
+      })
+    })
+    .catch(() => {
+      notify({
+        type: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la modification de la bannière de votre équipe.'
+      })
+    });
 }
 
 function uploadTeamLogo(e: any) {
@@ -194,5 +241,19 @@ function uploadTeamLogo(e: any) {
     teamId: params.id,
     file: files[0]
   })
+    .then(() => {
+      notify({
+        type: 'success',
+        title: 'Logo modifié',
+        text: 'Le logo de votre équipe a bien été modifié.'
+      })
+    })
+    .catch(() => {
+      notify({
+        type: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la modification du logo de votre équipe.'
+      })
+    });
 }
 </script>

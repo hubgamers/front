@@ -210,3 +210,10 @@ nav.tabs {
 .w50 {
     width: 50%;
 }
+
+.table-odd li {
+    padding: 1rem;
+}
+.table-odd li:nth-child(odd) {
+    background-color: #b6b5b5;
+}
