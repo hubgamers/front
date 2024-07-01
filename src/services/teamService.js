@@ -10,8 +10,8 @@ export default {
   getAllMyTeams() {
     return axiosCustom.get("/team/my-teams");
   },
-  getAllTeams () {
-    return axiosCustom.get("/team/all");
+  getAllPublicTeams () {
+    return axiosCustom.get("/team/all-public");
   },
   getAllTeamsByName(name) {
     return axiosCustom.get(`/team/all/name/${name}`);

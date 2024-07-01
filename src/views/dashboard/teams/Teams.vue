@@ -38,7 +38,7 @@ defineComponent({
 
 const store = useStore()
 store.dispatch('getAllMyTeams')
-store.dispatch('getAllTeams')
+store.dispatch('getAllPublicTeams')
 store.dispatch('getTeamColumns')
 store.dispatch('getAllPlayers')
 
@@ -47,7 +47,7 @@ let search = ref('')
 function searchInTeams() {
   console.log('search', search.value)
   if (search.value === '') {
-    store.dispatch('getAllTeams')
+    store.dispatch('getAllPublicTeams')
   } else {
     store.dispatch('getAllTeamsByName', search.value)
   }

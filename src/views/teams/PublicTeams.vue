@@ -62,7 +62,7 @@ import { useStore } from 'vuex'
 import { ref } from 'vue'
 
 const store = useStore();
-store.dispatch('getAllTeams');
+store.dispatch('getAllPublicTeams');
 
 let invitationModal = ref(false);
 

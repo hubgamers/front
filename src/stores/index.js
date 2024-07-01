@@ -389,9 +389,9 @@ export default createStore({
           });
       });
     },
-    getAllTeams(context) {
+    getAllPublicTeams(context) {
       return new Promise((resolve, reject) => {
-        teamService.getAllTeams()
+        teamService.getAllPublicTeams()
           .then((response) => {
             resolve(response.data.data);
             context.commit('updateTeamList', response.data.data);

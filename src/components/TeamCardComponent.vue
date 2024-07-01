@@ -6,7 +6,7 @@
     <div class="infos">
       <div>
         <h3>{{ titleCard }}</h3>
-        <p>{{desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
+        <p>{{desc != null && desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
 
         <ul class="tags">
           <li>
