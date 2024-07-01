@@ -68,10 +68,10 @@
       
       <ul>
         <li class="li">
-          <RouterLink to="/help">
+          <a href="#" @click="logout">
             <i class="fa fa-door-open"></i>
             <span>Se déconnecter</span>
-          </RouterLink>
+          </a>
         </li>
       </ul>
     </nav>
@@ -80,10 +80,24 @@
 
 <script setup lang="ts">
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
+import { useNotification } from '@kyvg/vue3-notification'
 
 defineComponent({
   name: 'SidebarComponent'
 })
+
+const router = useRouter();
+const { notify } = useNotification();
+function logout() {
+  localStorage.clear();
+  router.push('/auth/login');
+  notify({
+    type: 'info',
+    title: 'Déconnexion',
+    text: 'Vous avez été déconnecté avec succès.'
+  });
+}
 </script>
 
 <style lang="scss" scoped>
