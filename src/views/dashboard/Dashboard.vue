@@ -24,6 +24,14 @@
        bg-color="green"
        type="large"
      />
+     <CardActionDashboardComponent
+       title="Status d'abonnement"
+       subtitle="Non abonné"
+       btnUri="/dashboard/subscriptions"
+       btnText="M'abonner"
+       bg-color="green"
+       type="large"
+     />
    </div>
   </DashboardLayout>
 </template>
