@@ -10,6 +10,9 @@ export default {
   getAllMyTeams() {
     return axiosCustom.get("/team/my-teams");
   },
+  countAllTeams() {
+    return axiosCustom.get("/team/count-all");
+  },
   getAllPublicTeams () {
     return axiosCustom.get("/team/all-public");
   },

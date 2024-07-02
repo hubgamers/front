@@ -10,6 +10,9 @@ export default {
   getMyTournaments() {
     return axiosCustom.get("/tournament/my-tournaments");
   },
+  countAllTournaments() {
+    return axiosCustom.get("/tournament/count-all");
+  },
   getAllTournaments () {
     return axiosCustom.get("/tournament/all");
   },
