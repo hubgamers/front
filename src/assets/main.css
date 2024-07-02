@@ -217,3 +217,13 @@ nav.tabs {
 .table-odd li:nth-child(odd) {
     background-color: #b6b5b5;
 }
+
+.formEdit {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+}

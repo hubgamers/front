@@ -65,7 +65,7 @@ const router = createRouter({
       component: () => import('@/views/dashboard/Profile.vue')
     },
     {
-      path: '/dashboard/my-teams',
+      path: '/dashboard/teams',
       name: 'MyTeams',
       component: () => import('@/views/dashboard/teams/Teams.vue')
     },

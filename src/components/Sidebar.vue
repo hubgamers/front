@@ -20,7 +20,7 @@
           </RouterLink>
         </li>
         <li class="li">
-          <RouterLink to="/dashboard/my-teams">
+          <RouterLink to="/dashboard/teams">
             <i class="fa fa-people-group"></i>
             <span>Mes équipes</span>
           </RouterLink>

@@ -5,7 +5,7 @@
      <CardActionDashboardComponent
         title="Equipes créées"
         subtitle="10"
-        btnUri="/dashboard/my-teams"
+        btnUri="/dashboard/teams"
         btnText="Voir mes équipes"
         bg-color="blue"
      />
