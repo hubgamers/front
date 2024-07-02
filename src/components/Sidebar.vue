@@ -88,12 +88,12 @@ const router = useRouter();
 const { notify } = useNotification();
 function logout() {
   localStorage.clear();
-  router.push('/auth/login');
   notify({
     type: 'info',
     title: 'Déconnexion',
     text: 'Vous avez été déconnecté avec succès.'
   });
+  router.push('/');
 }
 </script>
 
