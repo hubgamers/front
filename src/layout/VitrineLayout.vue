@@ -15,7 +15,7 @@ defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
   .body {
     background: #1C1C1C;
   }

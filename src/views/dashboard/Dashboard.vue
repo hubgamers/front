@@ -1,6 +1,7 @@
 <template>
   <DashboardLayout title="Tableau de bord" subtitle="Bienvenue sur votre compte" :show-search-bar="true">
-   <div class="row justify-around gap-2 pt-2">
+    <PlayerModeComponent />
+    <div class="row justify-around gap-2 pt-2">
      <CardActionDashboardComponent
         title="Equipes créées"
         subtitle="10"
@@ -24,6 +25,15 @@
        bg-color="green"
        type="large"
      />
+     <CardActionDashboardComponent
+       v-else
+       title="Status d'abonnement"
+       subtitle="Non abonné"
+       btnUri="/dashboard/subscriptions"
+       btnText="M'abonner"
+       bg-color="green"
+       type="large"
+     />
    </div>
   </DashboardLayout>
 </template>
@@ -33,6 +43,7 @@ import { defineComponent } from 'vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import CardActionDashboardComponent from '@/views/dashboard/components/CardDashboardComponent.vue'
 import { useStore } from 'vuex'
+import PlayerModeComponent from '@/views/dashboard/components/PlayerModeComponent.vue'
 defineComponent({
   name: 'DashboardPage'
 })

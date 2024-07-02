@@ -6,7 +6,7 @@
     <div class="infos">
       <div>
         <h3>{{ titleCard }}</h3>
-        <p>{{desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
+        <p>{{desc != null && desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
 
         <ul class="tags">
           <li>
@@ -21,24 +21,26 @@
         </ul>
       </div>
       
-      <div class="actions mt-2">
-        <button class="yellow">
+      <div class="actions mt-1">
+        <button v-if="linkOne && linkOneText" class="yellow">
           <RouterLink :to="linkOne">{{linkOneText}}</RouterLink>
         </button>
-        <button class="green">
+        <button v-if="linkTwo && linkTwoText" class="green">
           <RouterLink :to="linkTwo">{{linkTwoText}}</RouterLink>
         </button>
+        <button v-if="btnModalText" @click="openModal" class="green">{{btnModalText}}</button>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { defineComponent } from 'vue';
 
-export default defineComponent({
+defineComponent({
   name: 'TeamCardComponent',
-  props: {
+});
+defineProps({
     titleCard: {
       type: String,
       default: 'Titre de la carte'
@@ -52,23 +54,26 @@ export default defineComponent({
       default: 'https://via.placeholder.com/300'
     },
     linkOne: {
-      type: String,
-      default: '#'
+      type: String
     },
     linkOneText: {
-      type: String,
-      default: 'Lien'
+      type: String
     },
     linkTwo: {
-      type: String,
-      default: '#'
+      type: String
     },
     linkTwoText: {
-      type: String,
-      default: 'Lien'
+      type: String
+    },
+    btnModalText: {
+      type: String
     }
-  }
 });
+const emit = defineEmits(['modal'])
+
+function openModal() {
+  emit('modal')
+}
 </script>
 
 <style lang="scss">

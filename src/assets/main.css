@@ -159,6 +159,10 @@ nav.tabs {
 
 .row {
     display: flex;
+    flex-flow: column;
+    @media screen and (min-width: 768px) {
+        flex-flow: row;
+    }
 }
 .columns {
     display: flex;
@@ -205,4 +209,11 @@ nav.tabs {
 }
 .w50 {
     width: 50%;
+}
+
+.table-odd li {
+    padding: 1rem;
+}
+.table-odd li:nth-child(odd) {
+    background-color: #b6b5b5;
 }

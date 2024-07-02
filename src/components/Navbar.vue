@@ -23,9 +23,14 @@
       </nav>
     </div>
     <div class="actions">
-      <button class="green">
-        <RouterLink v-if="isConnected" to="/dashboard">Tableau de bord</RouterLink>
-        <RouterLink v-else to="/auth/register">S'inscrire gratuitement</RouterLink>
+      <template v-if="isConnected">
+        <button class="green">
+          <RouterLink to="/dashboard">Tableau de bord</RouterLink>
+        </button>
+        <button class="green" @click="logout">Déconnexion</button>
+      </template>
+      <button v-else class="green">
+        <RouterLink to="/auth/register">S'inscrire gratuitement</RouterLink>
       </button>
       <ul class="socials">
         <li>
@@ -57,6 +62,11 @@ defineComponent({
 let isConnected = ref(false)
 if (localStorage.getItem('userId')) {
   isConnected.value = true
+}
+
+function logout() {
+  localStorage.clear();
+  window.location.reload();
 }
 </script>
 

@@ -1,10 +1,10 @@
 <template>
   <DashboardLayout title="Mes équipes" subtitle="Gérer l'ensemble de vos équipes.">
     <div v-if="store.getters.getMyTeams.length > 0" class="flex flex-wrap flex-row gap-5 mt-10">
-      <button class="info my-4">
+      <button class="info my-4 w-full">
         <RouterLink to="/dashboard/teams/create">Créer une équipe</RouterLink>
       </button>
-      <CardComponent v-for="(team, key) in store.getters.getMyTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" :link-two="'/dashboard/teams/' + team.id + '/join'" link-two-text="Rejoindre l'équipe" />
+      <CardComponent v-for="(team, key) in store.getters.getMyTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" />
     </div>
     <div class="mt-10" v-else>
       <p class="pb-3">Aucune équipe de créée.</p>
@@ -20,25 +20,27 @@
         <button @click="searchInTeams" class="info">Rechercher</button>
       </div>
       <div class="flex flex-wrap flex-row gap-5">
-        <CardComponent v-for="(team, key) in store.getters.getTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" :link-two="'/dashboard/teams/' + team.id + '/join'" link-two-text="Rejoindre l'équipe" />
+        <CardComponent v-for="(team, key) in store.getters.getTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" btn-modal-text="Rejoindre l'équipe" @modal="joinTeam(team.id)" />
       </div>
     </div>
   </DashboardLayout>
 </template>
-<script setup lang="ts">
+<script setup>
 import Topbar from '@/components/Topbar.vue'
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import CardComponent from '@/components/TeamCardComponent.vue'
 import InputText from '@/components/InputText.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
+import { useNotification } from '@kyvg/vue3-notification'
 defineComponent({
   name: 'TeamsPage'
 })
 
 const store = useStore()
+const { notify } = useNotification();
 store.dispatch('getAllMyTeams')
-store.dispatch('getAllTeams')
+store.dispatch('getAllPublicTeams')
 store.dispatch('getTeamColumns')
 store.dispatch('getAllPlayers')
 
@@ -47,9 +49,31 @@ let search = ref('')
 function searchInTeams() {
   console.log('search', search.value)
   if (search.value === '') {
-    store.dispatch('getAllTeams')
+    store.dispatch('getAllPublicTeams')
   } else {
     store.dispatch('getAllTeamsByName', search.value)
   }
+}
+
+function joinTeam(teamId) {
+  store.dispatch('createInvitation', {
+    teamId: teamId,
+    userId: store.getters.getUser.id,
+    type: 'JOIN_TEAM'
+  })
+    .then(() => {
+      notify({
+        type: 'success',
+        title: 'Invitation envoyée',
+        text: 'Votre demande a bien été envoyée.'
+      })
+    })
+    .catch(() => {
+      notify({
+        type: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de l\'envoi de votre demande.'
+      })
+    })
 }
 </script>

@@ -173,10 +173,31 @@ export default createStore({
       context.commit('increment');
     },
     register(context, {username, email, password}) {
-      return authService.register(username, email, password);
+      return new Promise((resolve, reject) => {
+        authService.register(username, email, password)
+          .then((response) => {
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error.response.data.error);
+          })
+      })
     },
     login(context, { login, password }) {
-      return authService.login(login, password);
+      return new Promise((resolve, reject) => {
+        authService.login(login, password)
+          .then((response) => {
+            if (response.status === 200) {
+              console.info('jwtToken', response.data);
+              localStorage.setItem('jwtToken', response.data.data.jwtToken);
+              localStorage.setItem('userId', response.data.data.userId);
+            }
+            resolve(response.data.data);
+          })
+          .catch((error) => {
+            reject(error.response.data.error);
+          })
+      })
     },
     getUserColumns(context) {
       return new Promise((resolve, reject) => {
@@ -186,7 +207,7 @@ export default createStore({
             context.commit('updateUserColumns', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -198,7 +219,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -210,7 +231,7 @@ export default createStore({
             context.commit('updateUser', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -222,7 +243,7 @@ export default createStore({
             context.commit('updateUser', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -233,7 +254,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -244,7 +265,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -255,7 +276,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -267,7 +288,7 @@ export default createStore({
             context.commit('updatePlayerColumns', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -279,7 +300,7 @@ export default createStore({
             context.commit('updatePlayerList', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -291,7 +312,7 @@ export default createStore({
             context.commit('updatePlayer', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -303,7 +324,7 @@ export default createStore({
             context.commit('updatePlayer', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -315,7 +336,7 @@ export default createStore({
             context.commit('updatePlayer', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -326,7 +347,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -337,7 +358,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -348,7 +369,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -360,7 +381,7 @@ export default createStore({
             context.commit('updateTeamColumns', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -372,19 +393,19 @@ export default createStore({
             context.commit('updateMyTeams', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
-    getAllTeams(context) {
+    getAllPublicTeams(context) {
       return new Promise((resolve, reject) => {
-        teamService.getAllTeams()
+        teamService.getAllPublicTeams()
           .then((response) => {
             resolve(response.data.data);
             context.commit('updateTeamList', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -396,7 +417,7 @@ export default createStore({
             context.commit('updateTeamList', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -408,7 +429,7 @@ export default createStore({
             context.commit('updateTeam', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -420,7 +441,7 @@ export default createStore({
             context.commit('updateTeam', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -431,7 +452,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -442,7 +463,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -453,7 +474,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -464,7 +485,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -475,7 +496,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -487,7 +508,7 @@ export default createStore({
             context.commit('updateTournamentColumns', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -499,7 +520,7 @@ export default createStore({
             context.commit('updateMyTournaments', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -511,7 +532,7 @@ export default createStore({
             context.commit('updateTournamentList', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -535,7 +556,7 @@ export default createStore({
             context.commit('updateTournament', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -546,7 +567,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -557,7 +578,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -568,7 +589,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -579,7 +600,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -590,7 +611,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -601,7 +622,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -613,7 +634,7 @@ export default createStore({
             context.commit('updateInvitations', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -625,7 +646,7 @@ export default createStore({
             context.commit('updateInvitationColumns', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -637,7 +658,7 @@ export default createStore({
             context.commit('updateInvitation', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -649,7 +670,7 @@ export default createStore({
             context.commit('updateInvitationsByTeam', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -661,7 +682,7 @@ export default createStore({
             context.commit('updateInvitationsByPlayer', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       })
     },
@@ -673,7 +694,7 @@ export default createStore({
             context.commit('updateInvitations', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -685,7 +706,7 @@ export default createStore({
             context.commit('updateInvitations', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -696,7 +717,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -707,7 +728,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -718,7 +739,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -729,7 +750,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -740,7 +761,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -751,7 +772,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -762,7 +783,7 @@ export default createStore({
             resolve(response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
@@ -774,7 +795,7 @@ export default createStore({
             context.commit('updateStripeProduct', response.data.data);
           })
           .catch((error) => {
-            reject(error);
+            reject(error.response.data.error);
           });
       });
     },
