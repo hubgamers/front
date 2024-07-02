@@ -2,9 +2,9 @@ import axiosCustom from '@/services/axiosCustom.js'
 
 export default {
   getColumns() {
-    return axiosCustom.get("/games/columns");
+    return axiosCustom.get("/game/columns");
   },
   getAllGames () {
-    return axiosCustom.get("/games/all");
+    return axiosCustom.get("/game/all");
   }
 }
