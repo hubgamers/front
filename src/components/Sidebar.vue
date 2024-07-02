@@ -20,27 +20,27 @@
           </RouterLink>
         </li>
         <li class="li">
-          <RouterLink to="/dashboard/teams">
-            <i class="fa fa-people-group"></i>
-            <span>Mes équipes</span>
-          </RouterLink>
-        </li>
-        <li class="li">
           <RouterLink to="/dashboard/profile?tab=invitations">
             <i class="fa fa-envelope-open"></i>
             <span>Mes invitations</span>
           </RouterLink>
         </li>
         <li class="li">
-          <RouterLink to="/dashboard/tournaments">
-            <i class="fa fa-trophy"></i>
-            <span>Tournois <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></span>
+          <RouterLink to="/dashboard/teams">
+            <i class="fa fa-people-group"></i>
+            <span>Équipes</span>
           </RouterLink>
         </li>
         <li class="li">
           <RouterLink to="/dashboard/production">
             <i class="fa fa-satellite-dish"></i>
             <span>Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></span>
+          </RouterLink>
+        </li>
+        <li class="li">
+          <RouterLink to="/dashboard/tournaments">
+            <i class="fa fa-trophy"></i>
+            <span>Tournois <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></span>
           </RouterLink>
         </li>
       </ul>
@@ -55,7 +55,7 @@
         <li class="li">
           <RouterLink to="/dashboard/subscriptions">
             <i class="fa fa-wallet"></i>
-            <span>Paramètres</span>
+            <span>Abonnement</span>
           </RouterLink>
         </li>
         <li class="li">
@@ -64,10 +64,7 @@
             <span>Besoin d'aide</span>
           </RouterLink>
         </li>
-      </ul>
-      
-      <ul>
-        <li class="li">
+        <li>
           <a href="#" @click="logout">
             <i class="fa fa-door-open"></i>
             <span>Se déconnecter</span>
@@ -103,11 +100,14 @@ function logout() {
 <style lang="scss" scoped>
 .sidebar {
   padding: 1rem 0;
+  background-color: #F1F2F7;
+  height: 100vh;
   .profile {
     a {
       display: flex;
       flex-flow: column;
       align-items: center;
+      font-weight: 400;
       .avatar {
         width: 50px;
         height: 50px;
@@ -145,7 +145,7 @@ function logout() {
         gap: 1rem;
       }
       li {
-        padding: .5rem;
+        padding: .8rem;
         a {
           @media screen and (min-width: 768px) {
             display: flex;
@@ -154,10 +154,10 @@ function logout() {
             text-align: center;
             @media screen and (min-width: 1400px) {
               flex-flow: row;
-              align-items: start;
               gap: .5rem;
             }
             color: #28536B;
+            font-weight: 400;
             &:hover {
               transition: all .5s;
               color: #9DD9D2;
@@ -169,7 +169,9 @@ function logout() {
           span {
             display: none;
             @media screen and (min-width: 768px) {
-              display: block;
+              display: flex;
+              gap: .4rem;
+              align-items: center;
             }
           }
         }
