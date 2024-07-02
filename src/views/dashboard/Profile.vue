@@ -5,7 +5,7 @@
       <SidebarOnPage :entity="store.getters.getUser" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" :show-profile="true"  type-sidebar="profile"/>
       <div v-if="sideBarStatus == 'invitations'">
         <h3 class="text-2xl mt-5 mb-3">Invitations en attente</h3>
-        <ul>
+        <ul v-if="store.getters.getInvitationsByPlayerId.length > 0">
           <li class="mb-2" v-for="(invitation, key) in store.getters.getInvitationsByPlayerId.filter((invitation: any) => invitation.status == 'PENDING')" :key="key">
             <span>{{invitation.title}}</span>
             <div class="flex gap-1">
@@ -14,15 +14,27 @@
             </div>
           </li>
         </ul>
+        <p v-else>Vous n'avez pas d'invitation en attente. Revenez plus tard.</p>
       </div>
       <div v-if="sideBarStatus == 'notifications'">
-        <h3>Notifications</h3>
+        <h3 class="text-2xl mt-5 mb-3">Notifications</h3>
+        <p>Prochainement, retrouvez l'ensemble de vos notifications.</p>
       </div>
       <div v-if="sideBarStatus == 'messages'">
-        <h3>Messages</h3>
+        <h3 class="text-2xl mt-5 mb-3">Messages</h3>
+        <p>Prochainement, retrouvez l'ensemble de vos messages.</p>
       </div>
       <div v-if="sideBarStatus == 'gestion'">
-        <h3>Gestion de mon compte</h3>
+        <h3 class="text-2xl mt-5 mb-3">Gestion de mon compte</h3>
+        <form>
+          <input-text v-model="userForm.username" label="Nom d'utilisateur" :disabled="true" />
+          <input-text v-model="userForm.email" label="Adresse mail" :disabled="true" />
+        </form>
+      </div>
+      <div v-if="sideBarStatus == 'dangerous_area'">
+        <h3 class="text-2xl mt-5 mb-3">Zone dangereuse</h3>
+        <p>Si vous souhaitez supprimer votre compte, cliquez sur le bouton ci-dessous.</p>
+        <button class="warning">Supprimer mon compte</button>
       </div>
     </div>
     
@@ -35,6 +47,7 @@ import DashboardLayout from '@/layout/DashboardLayout.vue'
 import SidebarOnPage from '@/components/SidebarOnPage.vue'
 import { useRouter } from 'vue-router'
 import PlayerModeComponent from '@/views/dashboard/components/PlayerModeComponent.vue'
+import InputText from '@/components/InputText.vue'
 defineComponent({
   name: 'ProfilePage'
 })
@@ -68,4 +81,11 @@ function acceptInvitation(invitationId: string) {
 function declineInvitation(invitationId: string) {
   store.dispatch('declineInvitation', invitationId)
 }
+
+const userForm = ref({
+  email: '',
+  username: ''
+})
+store.dispatch('getUserById', localStorage.getItem('userId'))
+userForm.value = store.getters.getUser
 </script>

@@ -7,18 +7,19 @@
             <img :src="entity.logo" alt="avatar" />
           </div>
           <div>
-            <!-- TODO: intégrer l'abonnement de l'user -->
-            <h3 class="font-bold">{{ entity.name }}</h3>
-            <p>Offre gratuite</p>
+            <h3 class="font-bold">{{ entity.username }}</h3>
+            <p v-if="store.getters.getStripeProduct !== null">{{ store.getters.getStripeProduct.name }}</p>
           </div>
         </div>
-        <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-800 ring-1 ring-inset ring-blue-600/20">Mise à niveau</span>
+        <RouterLink to="/dashboard/subscriptions">
+          <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-800 ring-1 ring-inset ring-blue-600/20">Mise à niveau</span>
+        </RouterLink>
       </div>
     </div>
     <hr>
-    <div class="p-5">
+    <div v-if="store.getters.getStripeProduct === null" class="p-5">
       <p>Vous avez l’offre gratuite.</p>
-      <p>Explorer les avantages d’un compte pro.</p>
+      <RouterLink to="/dashboard/subscriptions">Explorer les avantages d’un compte premium.</RouterLink>
     </div>
     <hr>
     <nav>
@@ -45,24 +46,24 @@
         </template>
         <template v-if="typeSidebar === 'profile'">
           <li>
-            <i class="fa fa-envelope"></i>
-            <span @click="$emit('changeSideBarStatus', 'invitations')">Invitations</span>
-          </li>
-          <li>
-            <i class="fa fa-bell"></i>
-            <span @click="$emit('changeSideBarStatus', 'notifications')">Notifications</span>
-          </li>
-          <li>
-            <i class="fa fa-message"></i>
-            <span @click="$emit('changeSideBarStatus', 'messages')">Messages</span>
+            <i class="fa fa-wallet"></i>
+            <RouterLink to="/dashboard/subscriptions">Abonnement</RouterLink>
           </li>
           <li>
             <i class="fa fa-file-edit"></i>
             <span @click="$emit('changeSideBarStatus', 'gestion')">Gestion de mon compte</span>
           </li>
           <li>
-            <i class="fa fa-wallet"></i>
-            <RouterLink to="/dashboard/subscriptions">Abonnement</RouterLink>
+            <i class="fa fa-envelope"></i>
+            <span @click="$emit('changeSideBarStatus', 'invitations')">Invitations</span>
+          </li>
+          <li>
+            <i class="fa fa-message"></i>
+            <span @click="$emit('changeSideBarStatus', 'messages')">Messages</span>
+          </li>
+          <li>
+            <i class="fa fa-bell"></i>
+            <span @click="$emit('changeSideBarStatus', 'notifications')">Notifications</span>
           </li>
         </template>
       </ul>
@@ -104,6 +105,7 @@
 
 <script setup lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useStore } from 'vuex'
 
 defineComponent({
   name: 'SidebarOnPage'
@@ -127,6 +129,9 @@ defineProps({
     required: true
   }
 })
+
+const store = useStore();
+store.dispatch('getProductByUser');
 
 let isDropDownVisible = ref(false);
 function showDropDown() {
