@@ -10,11 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onBeforeMount } from 'vue'
 import Sidebar from '@/components/Sidebar.vue'
 import Rightbar from '@/components/Rightbar.vue'
 import Topbar from '@/components/Topbar.vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 defineComponent({
   name: 'DashboardLayout'
 })
@@ -24,7 +25,13 @@ defineProps({
   subtitle: String,
   showSearchBar: Boolean
 })
-const store = useStore()
+const store = useStore();
+const router = useRouter();
+onBeforeMount(() => {
+  if (!localStorage.getItem('userId')) {
+    router.push('/auth/login')
+  }
+})
 store.dispatch('getUserById', localStorage.getItem('userId'))
 </script>
 
