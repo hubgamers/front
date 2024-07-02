@@ -6,6 +6,7 @@ import teamService from '@/services/teamService.js'
 import tournamentService from '@/services/tournamentService.js'
 import invitationService from '@/services/invitationService.js'
 import stripeService from '@/services/stripeService.js'
+import gameService from '@/services/gameService.js'
 
 export default createStore({
   state() {
@@ -30,7 +31,8 @@ export default createStore({
       invitationsByPlayer: [],
       invitation: null,
       invitationColumns: [],
-      stripeProduct: null
+      stripeProduct: null,
+      games: []
     };
   },
   getters: {
@@ -93,6 +95,9 @@ export default createStore({
     },
     getStripeProduct(state) {
       return state.stripeProduct;
+    },
+    getGames(state) {
+      return state.games;
     }
   },
   mutations: {
@@ -158,6 +163,9 @@ export default createStore({
     },
     updateStripeProduct(state, product) {
       state.stripeProduct = product;
+    },
+    updateGames(state, games) {
+      state.games = games;
     }
   },
   actions: {
@@ -769,6 +777,18 @@ export default createStore({
             reject(error);
           });
       });
+    },
+    getAllGames(context) {
+      return new Promise((resolve, reject) => {
+        gameService.getAllGames()
+          .then((response) => {
+            resolve(response.data.data);
+            context.commit('updateGames', response.data.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     }
-  }
+  },
 });
