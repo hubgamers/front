@@ -12,8 +12,8 @@
 
     <form @submit.prevent="submitForm">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" />
-        <input-text v-model="teamForm.description" label="Description" placeholder="Une équipe de choc" />
+        <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" required />
+        <input-text v-model="teamForm.description" label="Description" placeholder="Une équipe de choc" required />
       </div>
       <button type="submit" class="info my-4">Créer l'équipe</button>
     </form>
@@ -125,14 +125,14 @@ function submitForm() {
         });
       });
   } else {
-    store.dispatch('createTeam', teamForm.value).then(() => {
+    store.dispatch('createTeam', teamForm.value).then((res: any) => {
       notify({
         title: "Création",
         text: "Votre équipe a été créée avec succès",
         type: "success"
       });
       // Redirect to the team page
-      router.push({ name: 'MyTeams'})
+      router.push({ name: 'TeamDetail', params: { id: res.id } })
     })
       .catch(() => {
         notify({
