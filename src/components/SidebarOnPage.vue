@@ -7,7 +7,7 @@
             <img :src="entity.logo" alt="avatar" />
           </div>
           <div>
-            <h3 class="font-bold">{{ entity.username }}</h3>
+            <h3 class="font-bold">{{ entity.username != null ? entity.username : "Équipe " + entity.name }}</h3>
             <p v-if="store.getters.getStripeProduct !== null">{{ store.getters.getStripeProduct.name }}</p>
           </div>
         </div>

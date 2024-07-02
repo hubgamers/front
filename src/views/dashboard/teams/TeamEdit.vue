@@ -15,7 +15,8 @@
         <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" required />
         <input-text v-model="teamForm.description" label="Description" placeholder="Une équipe de choc" required />
       </div>
-      <button type="submit" class="info my-4">Créer l'équipe</button>
+      <button type="button" class="info my-4 mr-1" @click="back">Retour</button>
+      <button type="submit" class="green my-4">{{store.getters.getTeam != null ? 'Editer mon équipe' :' Créer une équipe'}}</button>
     </form>
 
   </DashboardLayout>
@@ -141,6 +142,14 @@ function submitForm() {
           type: "error"
         });
       });
+  }
+}
+
+function back() {
+  if (store.getters.getTeam != null) {
+    router.push({ name: 'TeamDetail', params: { id: store.getters.getTeam.id } })
+  } else {
+    router.push({ name: 'Teams' })
   }
 }
 </script>
