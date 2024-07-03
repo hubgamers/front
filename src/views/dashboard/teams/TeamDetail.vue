@@ -11,6 +11,7 @@
         <nav class="tabs border-b text-sm flex justify-start">
           <span :class="tabStatus == 'palmarès' ? 'active' : ''" @click="changeTabStatus('palmarès')">Palmarès</span>
           <span :class="tabStatus == 'composition' ? 'active' : ''" @click="changeTabStatus('composition')">Composition</span>
+          <span :class="tabStatus == 'invitations' ? 'active' : ''" @click="changeTabStatus('invitations')">Invitations</span>
           <span :class="tabStatus == 'tournois' ? 'active' : ''" @click="changeTabStatus('tournois')">Tournois</span>
           <span :class="tabStatus == 'gestion' ? 'active' : ''" @click="changeTabStatus('gestion')">Gestion</span>
           <span :class="tabStatus == 'edit' ? 'active' : ''" @click="changeTabStatus('edit')">Editer l'équipe <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
@@ -22,12 +23,30 @@
         </div>
         <div v-if="tabStatus == 'composition'">
           <Topbar title="Composition de l'équipe" subtitle="Des joueurs au staff" class="mb-10" />
+          <p>Vous pouvez ajouter des utilisateurs parmis la liste ci-dessous afin qu'ils puissent gérer votre équipe.</p>
+          <br>
           <ul v-if="store.getters.getTeam.players != null && store.getters.getTeam.players.length > 0">
             <li v-for="(player, index) in store.getters.getTeam.players" :key="index">
               <span>{{player.username}}</span>
             </li>
           </ul>
-          <p v-else>Aucun joueur dans la composition de l'équipe. Pour ajouter, rendez-vous dans l'onglet "Gestion > Equipe > Composition".</p>
+          <p v-else>Aucun joueur dans l'équipe. Vous pouvez inviter des joueurs en cliquant sur l'onglet "Invitations".</p>
+        </div>
+        <div v-if="tabStatus == 'invitations'">
+          <Topbar title="Invitations" subtitle="Retrouvez toutes les invitations" class="mb-10" />
+          <Table :columns="store.getters.getInvitationColumns.filter((column: any) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" :is-invitation="true" />
+          <form class="mt-10">
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+              <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une équipe" required />
+              <button @click="searchPlayer" class="info">Rechercher</button>
+              <ul class="row gap-1 table-odd">
+                <li v-for="(player, key) in store.getters.getPlayers" :key="key" class="row items-center gap-1">
+                  <span>{{player.username}}</span>
+                  <button :class="invitationStatus == 'success' ? 'green' : 'info'" :disabled="invitationStatus !== ''" @click.prevent="recruitStaff(player.id)">Inviter</button>
+                </li>
+              </ul>
+            </div>
+          </form>
         </div>
         <div v-if="tabStatus == 'tournois'">
           <Topbar title="Tournois terminés" subtitle="Historique des tournois" class="mb-10" />
@@ -44,31 +63,6 @@
             <div v-if="sideBarStatus == 'messages'">
               <h3 class="text-2xl mt-5 mb-3">Messages</h3>
               <p>Retrouvez prochainement le centre des messages entre le personnel et les joueurs de l'équipe.</p>
-            </div>
-            <div v-if="sideBarStatus == 'compositon'">
-              <h3 class="text-2xl mt-5 mb-3">Composition du personnel</h3>
-              <p>Vous pouvez ajouter des utilisateurs parmis la liste ci-dessous afin qu'ils puissent gérer votre équipe.</p>
-              <br>
-              <ul v-if="store.getters.getTeam.players != null && store.getters.getTeam.players.length > 0">
-                <li v-for="(player, index) in store.getters.getTeam.players" :key="index">
-                  <span>{{player.username}}</span>
-                </li>
-              </ul>
-              <p v-else>Aucun joueur dans l'équipe. Vous pouvez inviter des joueurs ci-dessous.</p>
-              <h3 class="text-2xl mt-5 mb-3">Invitations</h3>
-              <Table :columns="store.getters.getInvitationColumns.filter((column: any) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/teams/invitations/" />
-              <form class="mt-10">
-                <div class="grid gap-6 mb-6 md:grid-cols-2">
-                  <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une équipe" required />
-                  <button @click="searchPlayer" class="info">Rechercher</button>
-                  <ul class="row gap-1 table-odd">
-                    <li v-for="(player, key) in store.getters.getPlayers" :key="key" class="row items-center gap-1">
-                      <span>{{player.username}}</span>
-                      <button :class="invitationStatus == 'success' ? 'green' : 'info'" :disabled="invitationStatus !== ''" @click.prevent="invitePlayer(player.id)">Inviter</button>
-                    </li>
-                  </ul>
-                </div>
-              </form>
             </div>
             <div v-if="sideBarStatus == 'configuration'">
               <h3 class="text-2xl mt-5 mb-3">Configuration</h3>
@@ -129,8 +123,6 @@ let sideBarStatus = ref('')
 if (router.currentRoute.value.query.tab) {
   // @ts-ignore
   sideBarStatus.value = router.currentRoute.value.query.tab
-} else {
-  sideBarStatus.value = 'invitations'
 }
 function changeSideBarStatus(tab: string) {
   sideBarStatus.value = tab
@@ -146,19 +138,18 @@ function searchPlayer() {
   store.dispatch('getPlayerByUsername', playerSearch.value);
 }
 let invitationStatus = ref('');
-async function invitePlayer(playerId: string) {
-  console.log('add player')
+async function recruitStaff(playerId: string) {
   invitationStatus.value = 'disabled';
   await store.dispatch('createInvitation', {
     playerId: playerId,
     teamId: params.id,
-    type: 'RECRUIT_PLAYER'
+    type: 'RECRUIT_STAFF'
   })
     .then(() => {
       notify({
         type: 'success',
         title: 'Invitation envoyée',
-        text: 'Le joueur a bien été invité dans votre équipe.'
+        text: 'L\'utilisateur a bien été invité dans staff.'
       })
       store.dispatch('getAllInvitationsByTeamId', params.id)
     })
@@ -166,7 +157,7 @@ async function invitePlayer(playerId: string) {
       notify({
         type: 'error',
         title: 'Erreur',
-        text: 'Une erreur est survenue lors de l\'invitation du joueur.'
+        text: 'Une erreur est survenue lors de l\'invitation de l\'utilisateur.'
       })
     });
   invitationStatus.value = 'success';

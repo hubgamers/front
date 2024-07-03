@@ -1,6 +1,7 @@
 <script setup>
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import { notify } from '@kyvg/vue3-notification'
 
 defineComponent({
   name: 'TableComponent'
@@ -16,6 +17,10 @@ const props = defineProps({
   url: {
     type: String,
     default: ''
+  },
+  isInvitation: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -37,6 +42,44 @@ props.items.forEach(item => {
 function getPlayerById(playerId) {
   store.dispatch('getPlayerById', playerId);
 }
+
+function acceptInvitation(invitationId) {
+  store.dispatch('acceptInvitation', invitationId)
+  .then(() => {
+    notify({
+      type: 'success',
+      title: 'Invitation acceptée',
+      text: 'Vous avez accepté l\'invitation'
+    });
+    store.dispatch('getAllInvitationsByTeamId', store.getters.getTeam.id);
+  })
+  .catch(() => {
+    notify({
+      type: 'error',
+      title: 'Erreur',
+      text: 'Une erreur est survenue lors de l\'acceptation de l\'invitation'
+    });
+  });
+}
+
+function declineInvitation(invitationId) {
+  store.dispatch('declineInvitation', invitationId)
+  .then(() => {
+    notify({
+      type: 'success',
+      title: 'Invitation refusée',
+      text: 'Vous avez refusé l\'invitation'
+    });
+    store.dispatch('getAllInvitationsByTeamId', store.getters.getTeam.id);
+  })
+  .catch(() => {
+    notify({
+      type: 'error',
+      title: 'Erreur',
+      text: 'Une erreur est survenue lors du refus de l\'invitation'
+    });
+  });
+}
 </script>
 <template>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -50,7 +93,18 @@ function getPlayerById(playerId) {
           </div>
         </th>
         <th v-for="(column, index) in columns" :key="index" scope="col" class="px-6 py-3">
-          {{ column }}
+          <template v-if="column === 'userId'">
+            Utilisateur
+          </template>
+          <template v-else-if="column === 'playerId'">
+            Joueur
+          </template>
+          <template v-else-if="column === 'title'">
+            Titre
+          </template>
+          <template v-else>
+            {{ column }}
+          </template>
         </th>
         <th scope="col" class="px-6 py-3">
           Action
@@ -91,9 +145,15 @@ function getPlayerById(playerId) {
           </template>
         </td>
         <td class="px-6 py-4">
-          <RouterLink :to="url + 'edit/' + item['id']" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+          <RouterLink v-if="!isInvitation" :to="url + 'edit/' + item['id']" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
             Editer
           </RouterLink>
+          <div class="row gap-1" v-else>
+            <template v-if="item['status'] === 'PENDING'">
+              <button class="green" @click="acceptInvitation(item['id'])">Accepter</button>
+              <button class="warning" @click="declineInvitation(item['id'])">Refuser</button>
+            </template>
+          </div>
         </td>
       </tr>
       </tbody>
