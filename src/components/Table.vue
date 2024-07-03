@@ -12,17 +12,18 @@ const props = defineProps({
     type: Array,
   },
   items: {
-    type: Array,
+    type: Array
   },
   url: {
     type: String,
     default: ''
   },
-  isInvitation: {
-    type: Boolean,
-    default: false
+  type: {
+    type: String
   }
 })
+
+const emit = defineEmits(['edit', 'delete']);
 
 function isLink(value) {
   if (value != null && typeof value === 'string') {
@@ -31,13 +32,15 @@ function isLink(value) {
 }
 
 const store = useStore();
-props.items.forEach(item => {
-  props.columns.forEach(column => {
-    if (column === 'playerId') {
-      getPlayerById(item[column])
-    }
+if (Array.isArray(props.items)) {
+  props.items.forEach(item => {
+    props.columns.forEach(column => {
+      if (column === 'playerId') {
+        getPlayerById(item[column])
+      }
+    });
   });
-});
+}
 
 function getPlayerById(playerId) {
   store.dispatch('getPlayerById', playerId);
@@ -80,6 +83,10 @@ function declineInvitation(invitationId) {
     });
   });
 }
+
+function editTeamRoster(teamRosterId) {
+  emit('edit', teamRosterId)
+}
 </script>
 <template>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -101,6 +108,21 @@ function declineInvitation(invitationId) {
           </template>
           <template v-else-if="column === 'title'">
             Titre
+          </template>
+          <template v-else-if="column === 'name'">
+            Nom
+          </template>
+          <template v-else-if="column === 'visibility'">
+            Visibilité
+          </template>
+          <template v-else-if="column === 'game'">
+            Jeu
+          </template>
+          <template v-else-if="column === 'plateform'">
+            Plateforme
+          </template>
+          <template v-else-if="column === 'players'">
+            Joueurs
           </template>
           <template v-else>
             {{ column }}
@@ -145,14 +167,17 @@ function declineInvitation(invitationId) {
           </template>
         </td>
         <td class="px-6 py-4">
-          <RouterLink v-if="!isInvitation" :to="url + 'edit/' + item['id']" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+          <RouterLink v-if="type === ''" :to="url + 'edit/' + item['id']" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
             Editer
           </RouterLink>
-          <div class="row gap-1" v-else>
+          <div class="row gap-1" v-else-if="type === 'invitation'">
             <template v-if="item['status'] === 'PENDING'">
               <button class="green" @click="acceptInvitation(item['id'])">Accepter</button>
               <button class="warning" @click="declineInvitation(item['id'])">Refuser</button>
             </template>
+          </div>
+          <div class="row gap-1" v-else-if="type === 'teamRoster'">
+            <button class="info" @click="editTeamRoster(item['id'])">Editer</button>
           </div>
         </td>
       </tr>

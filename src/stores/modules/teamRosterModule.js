@@ -37,6 +37,7 @@ const actions = {
       teamRosterService.getAllMyTeams()
       .then((response) => {
         commit('updateTeamRosters', response.data.data);
+        console.log(response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
@@ -49,6 +50,30 @@ const actions = {
       teamRosterService.getColumns()
       .then((response) => {
         commit('updateTeamRosterColumns', response.data.data);
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
+  getTeamRosterById({ commit }, teamRosterId) {
+    return new Promise((resolve, reject) => {
+      teamRosterService.getTeamById(teamRosterId)
+      .then((response) => {
+        commit('updateTeamRoster', response.data.data);
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
+  createTeamRoster({ commit }, teamRoster) {
+    return new Promise((resolve, reject) => {
+      teamRosterService.create(teamRoster)
+      .then((response) => {
+        commit('updateTeamRoster', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {

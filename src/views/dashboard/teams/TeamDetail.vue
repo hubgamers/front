@@ -25,16 +25,25 @@
           <Topbar title="Composition de l'équipe" subtitle="Des joueurs au staff" class="mb-10" />
           <p>Vous pouvez ajouter des utilisateurs parmis la liste ci-dessous afin qu'ils puissent gérer votre équipe.</p>
           <br>
-          <ul v-if="store.getters.getTeam.players != null && store.getters.getTeam.players.length > 0">
-            <li v-for="(player, index) in store.getters.getTeam.players" :key="index">
-              <span>{{player.username}}</span>
+          <ul v-if="store.getters.getTeam.users != null && store.getters.getTeam.users.length > 0">
+            <li v-for="(user, index) in store.getters.getTeam.users" :key="index">
+              <span>{{user.username}}</span>
             </li>
           </ul>
-          <p v-else>Aucun joueur dans l'équipe. Vous pouvez inviter des joueurs en cliquant sur l'onglet "Invitations".</p>
+          <p v-else>Aucun staff dans l'équipe. Vous pouvez inviter des utilisateurs en cliquant sur l'onglet "Invitations".</p>
+          <h3 class="text-2xl mt-5 mb-3">Mes rosters</h3>
+          <Table 
+            v-if="store.getters.getTeamRosters.length > 0" 
+            :columns="store.getters.getTeamRosterColumns.filter((column: any) => column !== 'paidType' && column !== 'tag' && column !== 'visibility')" 
+            :items="store.getters.getTeamRosters" 
+            type="teamRoster"
+            @edit="openTeamRoster"
+          />
+          <button class="info" @click="openTeamRoster">Créer un roster</button>
         </div>
         <div v-if="tabStatus == 'invitations'">
           <Topbar title="Invitations" subtitle="Retrouvez toutes les invitations" class="mb-10" />
-          <Table :columns="store.getters.getInvitationColumns.filter((column: any) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" :is-invitation="true" />
+          <Table :columns="store.getters.getInvitationColumns.filter((column: any) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" type="invitation" />
           <form class="mt-10">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
               <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une équipe" required />
@@ -78,6 +87,7 @@
         </div>
       </div>
     </div>
+    <CreateRosterModal v-if="showTeamRoster" @close="closeTeamRoster" :team-roster-id="teamRosterId" />
   </DashboardLayout>
 </template>
 <script setup lang="ts">
@@ -90,6 +100,7 @@ import Table from '@/components/Table.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import SidebarOnPage from '@/components/SidebarOnPage.vue'
 import { useNotification } from '@kyvg/vue3-notification'
+import CreateRosterModal from '@/views/dashboard/teams/modal/CreateRosterModal.vue'
 
 defineComponent({
   name: 'TeamDetailPage'
@@ -109,6 +120,9 @@ if (params && params.id) {
   store.dispatch('getTeamById', params.id)
   teamForm.value = store.getters.getTeam
 }
+
+store.dispatch('getTeamRosterColumns')
+store.dispatch('getAllTeamRosters')
 
 // TODO: faire la gestion des onglets avec tab=... dans l'url
 let tabStatus = ref('palmarès')
@@ -166,76 +180,14 @@ async function recruitStaff(playerId: string) {
   }, 3000)
 }
 
-// Feat : modification de l'équipe
-function updateTeam() {
-  store.dispatch('updateTeam', {
-    id: params.id,
-    name: teamForm.value.name,
-    description: teamForm.value.description,
-    game: teamForm.value.game,
-    platform: teamForm.value.platform
-  })
-    .then(() => {
-      notify({
-        type: 'success',
-        title: 'Équipe modifiée',
-        text: 'Votre équipe a bien été modifiée.'
-      })
-    })
-    .catch(() => {
-      notify({
-        type: 'error',
-        title: 'Erreur',
-        text: 'Une erreur est survenue lors de la modification de votre équipe.'
-      })
-    });
+let showTeamRoster = ref(false);
+let teamRosterId = ref("");
+function openTeamRoster(id: any) {
+  teamRosterId.value = id;
+  showTeamRoster.value = true;
 }
 
-function uploadTeamBanner(e: any) {
-  const files = e.target.files || e.dataTransfer.files
-  if (!files.length)
-    return;
-  store.dispatch('uploadTeamBanner', {
-    teamId: params.id,
-    file: files[0]
-  })
-    .then(() => {
-      notify({
-        type: 'success',
-        title: 'Bannière modifiée',
-        text: 'La bannière de votre équipe a bien été modifiée.'
-      })
-    })
-    .catch(() => {
-      notify({
-        type: 'error',
-        title: 'Erreur',
-        text: 'Une erreur est survenue lors de la modification de la bannière de votre équipe.'
-      })
-    });
-}
-
-function uploadTeamLogo(e: any) {
-  const files = e.target.files || e.dataTransfer.files
-  if (!files.length)
-    return;
-  store.dispatch('uploadTeamLogo', {
-    teamId: params.id,
-    file: files[0]
-  })
-    .then(() => {
-      notify({
-        type: 'success',
-        title: 'Logo modifié',
-        text: 'Le logo de votre équipe a bien été modifié.'
-      })
-    })
-    .catch(() => {
-      notify({
-        type: 'error',
-        title: 'Erreur',
-        text: 'Une erreur est survenue lors de la modification du logo de votre équipe.'
-      })
-    });
+function closeTeamRoster() {
+  showTeamRoster.value = false;
 }
 </script>
