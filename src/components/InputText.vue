@@ -14,7 +14,7 @@
     </template>
     <template v-else-if="type === 'select'">
       <label>{{ label }} <span v-if="required" class="required">*</span></label>
-      <select v-model="model" :disabled="disabled">
+      <select v-model="model" :disabled="disabled" :multiple="multiple">
         <slot></slot>
       </select>
     </template>
@@ -57,6 +57,10 @@ defineProps({
     default: ''
   },
   disabled: {
+    type: Boolean,
+    default: false
+  },
+  multiple: {
     type: Boolean,
     default: false
   }

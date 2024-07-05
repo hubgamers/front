@@ -14,6 +14,9 @@
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" required />
         <input-text v-model="teamForm.description" label="Description" placeholder="Une équipe de choc" required />
+        <input-text v-model="teamForm.tags" type="select" label="Sélectionner les tags" :multiple="true">
+          <option v-for="(tag, index) in store.getters.getTags" :key="index" :value="tag.id">{{ tag.name }}</option>
+        </input-text>
       </div>
       <button type="button" class="info my-4 mr-1" @click="back">Retour</button>
       <button type="submit" class="green my-4">{{store.getters.getTeam != null ? 'Editer mon équipe' :' Créer une équipe'}}</button>
@@ -39,7 +42,7 @@ const { notify }  = useNotification()
 const store = useStore();
 const teamForm = ref<TeamDTO>({
   name: '',
-  tag: '',
+  tags: [],
   description: '',
   visibility: false,
   players: [],
@@ -48,6 +51,7 @@ const teamForm = ref<TeamDTO>({
   banner: ''
 })
 store.dispatch('getAllPlayers')
+store.dispatch('getAllTags')
 
 let createdPage = ref(false);
 const router = useRouter();

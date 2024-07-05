@@ -20,9 +20,11 @@
         <button @click="searchInTeams" class="info">Rechercher</button>
       </div>
       <div class="flex flex-wrap flex-row gap-5">
-        <CardComponent v-for="(team, key) in store.getters.getTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" btn-modal-text="Rejoindre l'équipe" @modal="joinTeam(team.id)" />
+        <CardComponent v-for="(team, key) in store.getters.getTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" btn-modal-text="Rejoindre l'équipe" @modal="openJoinModal(team.id)" />
       </div>
     </div>
+    
+    <JoinTeamModal v-if="showJoinModal" @close="closeJoinModal" :team-id="teamIdSelected" />
   </DashboardLayout>
 </template>
 <script setup>
@@ -32,13 +34,12 @@ import { useStore } from 'vuex'
 import CardComponent from '@/components/TeamCardComponent.vue'
 import InputText from '@/components/InputText.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
-import { useNotification } from '@kyvg/vue3-notification'
+import JoinTeamModal from '@/views/dashboard/teams/modal/JoinTeamModal.vue'
 defineComponent({
   name: 'TeamsPage'
 })
 
 const store = useStore()
-const { notify } = useNotification();
 store.dispatch('getAllMyTeams')
 store.dispatch('getAllPublicTeams')
 store.dispatch('getTeamColumns')
@@ -55,25 +56,14 @@ function searchInTeams() {
   }
 }
 
-function joinTeam(teamId) {
-  store.dispatch('createInvitation', {
-    teamId: teamId,
-    userId: store.getters.getUser.id,
-    type: 'JOIN_TEAM'
-  })
-    .then(() => {
-      notify({
-        type: 'success',
-        title: 'Invitation envoyée',
-        text: 'Votre demande a bien été envoyée.'
-      })
-    })
-    .catch(() => {
-      notify({
-        type: 'error',
-        title: 'Erreur',
-        text: 'Une erreur est survenue lors de l\'envoi de votre demande.'
-      })
-    })
+let showJoinModal = ref(false)
+let teamIdSelected = ref("")
+function openJoinModal(teamId) {
+  showJoinModal.value = true
+  teamIdSelected.value = teamId
+}
+
+function closeJoinModal() {
+  showJoinModal.value = false
 }
 </script>

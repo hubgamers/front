@@ -1,6 +1,7 @@
 <script setup>
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import { notify } from '@kyvg/vue3-notification'
 
 defineComponent({
   name: 'TableComponent'
@@ -11,13 +12,18 @@ const props = defineProps({
     type: Array,
   },
   items: {
-    type: Array,
+    type: Array
   },
   url: {
     type: String,
     default: ''
+  },
+  type: {
+    type: String
   }
 })
+
+const emit = defineEmits(['edit', 'delete']);
 
 function isLink(value) {
   if (value != null && typeof value === 'string') {
@@ -26,16 +32,60 @@ function isLink(value) {
 }
 
 const store = useStore();
-props.items.forEach(item => {
-  props.columns.forEach(column => {
-    if (column === 'playerId') {
-      getPlayerById(item[column])
-    }
+if (Array.isArray(props.items)) {
+  props.items.forEach(item => {
+    props.columns.forEach(column => {
+      if (column === 'playerId') {
+        getPlayerById(item[column])
+      }
+    });
   });
-});
+}
 
 function getPlayerById(playerId) {
   store.dispatch('getPlayerById', playerId);
+}
+
+function acceptInvitation(invitationId) {
+  store.dispatch('acceptInvitation', invitationId)
+  .then(() => {
+    notify({
+      type: 'success',
+      title: 'Invitation acceptée',
+      text: 'Vous avez accepté l\'invitation'
+    });
+    store.dispatch('getAllInvitationsByTeamId', store.getters.getTeam.id);
+  })
+  .catch(() => {
+    notify({
+      type: 'error',
+      title: 'Erreur',
+      text: 'Une erreur est survenue lors de l\'acceptation de l\'invitation'
+    });
+  });
+}
+
+function declineInvitation(invitationId) {
+  store.dispatch('declineInvitation', invitationId)
+  .then(() => {
+    notify({
+      type: 'success',
+      title: 'Invitation refusée',
+      text: 'Vous avez refusé l\'invitation'
+    });
+    store.dispatch('getAllInvitationsByTeamId', store.getters.getTeam.id);
+  })
+  .catch(() => {
+    notify({
+      type: 'error',
+      title: 'Erreur',
+      text: 'Une erreur est survenue lors du refus de l\'invitation'
+    });
+  });
+}
+
+function editTeamRoster(teamRosterId) {
+  emit('edit', teamRosterId)
 }
 </script>
 <template>
@@ -50,7 +100,33 @@ function getPlayerById(playerId) {
           </div>
         </th>
         <th v-for="(column, index) in columns" :key="index" scope="col" class="px-6 py-3">
-          {{ column }}
+          <template v-if="column === 'userId'">
+            Utilisateur
+          </template>
+          <template v-else-if="column === 'playerId'">
+            Joueur
+          </template>
+          <template v-else-if="column === 'title'">
+            Titre
+          </template>
+          <template v-else-if="column === 'name'">
+            Nom
+          </template>
+          <template v-else-if="column === 'visibility'">
+            Visibilité
+          </template>
+          <template v-else-if="column === 'game'">
+            Jeu
+          </template>
+          <template v-else-if="column === 'plateform'">
+            Plateforme
+          </template>
+          <template v-else-if="column === 'players'">
+            Joueurs
+          </template>
+          <template v-else>
+            {{ column }}
+          </template>
         </th>
         <th scope="col" class="px-6 py-3">
           Action
@@ -91,9 +167,18 @@ function getPlayerById(playerId) {
           </template>
         </td>
         <td class="px-6 py-4">
-          <RouterLink :to="url + 'edit/' + item['id']" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+          <RouterLink v-if="type === ''" :to="url + 'edit/' + item['id']" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
             Editer
           </RouterLink>
+          <div class="row gap-1" v-else-if="type === 'invitation'">
+            <template v-if="item['status'] === 'PENDING'">
+              <button class="green" @click="acceptInvitation(item['id'])">Accepter</button>
+              <button class="warning" @click="declineInvitation(item['id'])">Refuser</button>
+            </template>
+          </div>
+          <div class="row gap-1" v-else-if="type === 'teamRoster'">
+            <button class="info" @click="editTeamRoster(item['id'])">Editer</button>
+          </div>
         </td>
       </tr>
       </tbody>
