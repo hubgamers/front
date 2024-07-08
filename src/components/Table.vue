@@ -118,7 +118,7 @@ function editTeamRoster(teamRosterId) {
           <template v-else-if="column === 'game'">
             Jeu
           </template>
-          <template v-else-if="column === 'plateform'">
+          <template v-else-if="column === 'platform'">
             Plateforme
           </template>
           <template v-else-if="column === 'players'">

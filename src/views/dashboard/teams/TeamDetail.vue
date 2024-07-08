@@ -32,14 +32,14 @@
           </ul>
           <p v-else>Aucun staff dans l'équipe. Vous pouvez inviter des utilisateurs en cliquant sur l'onglet "Invitations".</p>
           <h3 class="text-2xl mt-5 mb-3">Mes rosters</h3>
-          <Table 
+          <Table
             v-if="store.getters.getTeamRosters.length > 0" 
             :columns="store.getters.getTeamRosterColumns.filter((column: any) => column !== 'paidType' && column !== 'tag' && column !== 'visibility')" 
             :items="store.getters.getTeamRosters" 
             type="teamRoster"
             @edit="openTeamRoster"
           />
-          <button class="info" @click="openTeamRoster">Créer un roster</button>
+          <button class="info mt-3" @click="openTeamRoster">Créer un roster</button>
         </div>
         <div v-if="tabStatus == 'invitations'">
           <Topbar title="Invitations" subtitle="Retrouvez toutes les invitations" class="mb-10" />

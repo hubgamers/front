@@ -1,10 +1,10 @@
 <template>
-  <ModalComponent title="Créer un roster" subtitle="Vous pouvez créer un roster pour votre équipe">
+  <ModalComponent :title="props.teamRosterId ? 'Editer le roster' : 'Créer un roster'" subtitle="Vous pouvez créer et modifier un roster pour votre équipe">
     <p>Sélectionner un jeu et une plateforme pour créer votre roster. Ainsi, vous pourrez y inviter des joueurs</p>
     <form>
       <input-text v-model="teamRosterForm.name" label="Nom" placeholder="Roster Valorant" />
       <input-text v-model="teamRosterForm.description" label="Description" type="textarea" placeholder="Roster de Valorant pour l'équipe Alpha" />
-      <input-text type="select" label="Sélectionner le jeu">
+      <input-text v-model="teamRosterForm.game" type="select" label="Sélectionner le jeu">
         <option v-for="(game, key) in store.getters.getGames" :key="key" :value="game.id">{{ game.name }}</option>
       </input-text>
       <input-text v-model="teamRosterForm.platform" type="select" label="Sélectionner la plateforme" placeholder="Les p't">
@@ -30,7 +30,7 @@
         </form>
       </template>
     </form>
-    <button class="info" @click="submitForm">{{teamRosterId ? 'Editer le roster' : 'Créer le roster'}}</button>
+    <button class="info" @click="submitForm">{{props.teamRosterId ? 'Editer le roster' : 'Créer le roster'}}</button>
   </ModalComponent>
 </template>
 <script setup>
@@ -67,12 +67,17 @@ onBeforeMount(() => {
 function submitForm() {
   store.dispatch('createTeamRoster', teamRosterForm.value)
     .then(() => {
-      notify({ type: 'success', text: 'Roster créé avec succès' })
-      router.push({ name: 'TeamDetails', params: { id: store.getters.getTeam.id } })
+      notify({ type: 'success', text: props.teamRosterId ? 'Roster édité avec succès' : 'Roster créé avec succès'})
+      close();
     })
     .catch(() => {
       notify({ type: 'error', text: 'Erreur lors de la création du roster' })
     })
+}
+
+const emit = defineEmits(['close'])
+function close() {
+  emit('close')
 }
 
 

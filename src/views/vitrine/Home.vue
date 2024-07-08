@@ -12,7 +12,7 @@
         <button class="green">Commencez dès maintenant</button>
       </div>
       <div class="image">
-        <img src="../../../public/bg-esport.jpg" alt="BG Esport">
+        <img src="../../../bg-esport.jpg" alt="BG Esport">
       </div>
     </div>
   </VitrineLayout>
