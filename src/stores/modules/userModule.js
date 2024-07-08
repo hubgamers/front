@@ -79,6 +79,17 @@ const actions = {
       });
     });
   },
+  uploadAvatar(context, { file }) {
+    return new Promise((resolve, reject) => {
+      userService.uploadAvatar(file)
+      .then((response) => {
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
   createUser(context, user) {
     return new Promise((resolve, reject) => {
       userService.createUser(user)

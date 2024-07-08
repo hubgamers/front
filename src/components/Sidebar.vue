@@ -2,8 +2,8 @@
   <div class="sidebar">
     <div class="profile">
       <RouterLink to="/dashboard/profile">
-        <div class="avatar">
-          <img src="https://picsum.photos/150/150" alt="avatar" />
+        <div class="avatar" v-if="store.getters.getUser.avatar">
+          <img :src="store.getters.getUser.avatar" alt="avatar" />
         </div>
        <div>
          <p>Accéder à mon profil</p>
@@ -33,7 +33,7 @@
         </li>
         <li class="li">
           <RouterLink to="/dashboard/players">
-            <i class="fa fa-people-group"></i>
+            <i class="fa-solid fa-users"></i>
             <span>Joueurs</span>
           </RouterLink>
         </li>
@@ -85,6 +85,7 @@
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { useNotification } from '@kyvg/vue3-notification'
+import { useStore } from 'vuex'
 
 defineComponent({
   name: 'SidebarComponent'
@@ -101,6 +102,8 @@ function logout() {
   });
   router.push('/');
 }
+
+const store = useStore();
 </script>
 
 <style lang="scss" scoped>

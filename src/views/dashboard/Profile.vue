@@ -27,6 +27,10 @@
       <div v-if="sideBarStatus == 'gestion'">
         <h3 class="text-2xl mt-5 mb-3">Gestion de mon compte</h3>
         <form>
+          <div v-if="store.getters.getUser.avatar" class="max-w-96">
+            <img :src="store.getters.getUser.avatar" alt="Avatar">
+          </div>
+          <input-text label="Avatar" type="file" @uploadFile="uploadAvatar" />
           <input-text v-model="userForm.username" label="Nom d'utilisateur" :disabled="true" />
           <input-text v-model="userForm.email" label="Adresse mail" :disabled="true" />
         </form>
@@ -48,6 +52,7 @@ import SidebarOnPage from '@/components/SidebarOnPage.vue'
 import { useRouter } from 'vue-router'
 import PlayerModeComponent from '@/views/dashboard/components/PlayerModeComponent.vue'
 import InputText from '@/components/InputText.vue'
+import { notify } from '@kyvg/vue3-notification'
 defineComponent({
   name: 'ProfilePage'
 })
@@ -87,5 +92,30 @@ const userForm = ref({
   username: ''
 })
 store.dispatch('getUserById', localStorage.getItem('userId'))
-userForm.value = store.getters.getUser
+if (userForm.value) {
+  userForm.value = store.getters.getUser
+}
+
+function uploadAvatar(e: any) {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return;
+  store.dispatch('uploadAvatar', {
+    file: files[0]
+  })
+    .then(() => {
+      notify({
+        title: "Mis à jour",
+        text: "Votre avatar a été mise à jour avec succès",
+        type: "success"
+      });
+    })
+    .catch(() => {
+      notify({
+        title: "Erreur",
+        text: "Une erreur est survenue lors de la mise à jour de l'avatar",
+        type: "error"
+      });
+    });
+}
 </script>
