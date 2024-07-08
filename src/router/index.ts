@@ -85,6 +85,11 @@ const router = createRouter({
       component: () => import('@/views/dashboard/teams/TeamDetail.vue')
     },
     {
+      path: '/dashboard/players',
+      name: 'Players',
+      component: () => import('@/views/dashboard/players/Players.vue')
+    },
+    {
       path: '/dashboard/tournaments',
       name: 'MyTournaments',
       component: () => import('@/views/dashboard/tournaments/Tournaments.vue')

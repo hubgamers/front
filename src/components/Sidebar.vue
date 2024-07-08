@@ -32,6 +32,12 @@
           </RouterLink>
         </li>
         <li class="li">
+          <RouterLink to="/dashboard/players">
+            <i class="fa fa-people-group"></i>
+            <span>Joueurs</span>
+          </RouterLink>
+        </li>
+        <li class="li">
           <RouterLink to="/dashboard/production">
             <i class="fa fa-satellite-dish"></i>
             <span>Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></span>

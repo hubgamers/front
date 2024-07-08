@@ -55,6 +55,18 @@ const actions = {
       });
     });
   },
+  getAllPlayersLikeByName(context, name) {
+    return new Promise((resolve, reject) => {
+      playerService.getAllPlayersLikeByName(name)
+      .then((response) => {
+        resolve(response.data.data);
+        context.commit('updatePlayerList', response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
   getPlayerByUsername(context, username) {
     return new Promise((resolve, reject) => {
       playerService.getPlayerByUsername(username)
