@@ -95,15 +95,15 @@
   </DashboardLayout>
 </template>
 <script setup lang="ts">
-import Topbar from '@/components/Topbar.vue'
+import Topbar from '@/views/dashboard/components/Topbar.vue'
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import moment from 'moment';
 import InputText from '@/components/InputText.vue'
-import Table from '@/components/Table.vue'
+import Table from '@/views/dashboard/components/Table.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
-import SidebarOnPage from '@/components/SidebarOnPage.vue'
+import SidebarOnPage from '@/views/dashboard/components/SidebarOnPage.vue'
 
 defineComponent({
   name: 'TournamentDetailPage'

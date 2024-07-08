@@ -12,7 +12,7 @@
 import ModalComponent from '@/views/dashboard/components/Modal.vue'
 import { useStore } from 'vuex'
 import { notify } from '@kyvg/vue3-notification'
-import Table from '@/components/Table.vue'
+import Table from '@/views/dashboard/components/Table.vue'
 import { ref } from 'vue'
 
 const props = defineProps({

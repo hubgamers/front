@@ -11,11 +11,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import Topbar from '@/components/Topbar.vue'
+import Topbar from '@/views/dashboard/components/Topbar.vue'
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import ButtonDark from '@/components/ButtonDark.vue'
-import Table from '@/components/Table.vue'
+import Table from '@/views/dashboard/components/Table.vue'
 defineComponent({
   name: 'TournamentsPage'
 })

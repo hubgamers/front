@@ -10,7 +10,10 @@
       <InputText v-model="teamForm.description" label="Description" placeholder="HubGamers's Team" required />
     </div>
 
-    <form @submit.prevent="submitForm">
+    <div v-if="loading">
+      Chargement...
+    </div>
+    <form @submit.prevent="submitForm" v-else>
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" required />
         <input-text v-model="teamForm.description" label="Description" placeholder="Une équipe de choc" required />
@@ -25,7 +28,7 @@
   </DashboardLayout>
 </template>
 <script setup lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import InputText from '@/components/InputText.vue'
@@ -38,30 +41,46 @@ defineComponent({
 })
 
 
-const { notify }  = useNotification()
+const teamForm = ref<TeamDTO | null>(null);
+const loading = ref(true);
+
+const { notify } = useNotification();
 const store = useStore();
-const teamForm = ref<TeamDTO>({
-  name: '',
-  tags: [],
-  description: '',
-  visibility: false,
-  players: [],
-  organizerId: '',
-  logo: '',
-  banner: ''
-})
+const route = useRoute();
+const router = useRouter();
+const params = route.params;
+
+const loadTeamData = async () => {
+  if (params && params.id) {
+    await store.dispatch('getTeamById', params.id);
+    const team = store.getters.getTeam;
+    if (team) {
+      teamForm.value = team;
+    } else {
+      notify({ type: 'error', text: 'Équipe non trouvée' });
+    }
+  } else {
+    // Initialise un nouveau formulaire si pas d'ID fourni
+    teamForm.value = {
+      name: '',
+      tags: [],
+      description: '',
+      visibility: false,
+      players: [],
+      organizerId: '',
+      logo: '',
+      banner: ''
+    };
+  }
+  loading.value = false;
+};
+
+onMounted(() => {
+  loadTeamData();
+});
+
 store.dispatch('getAllPlayers')
 store.dispatch('getAllTags')
-
-let createdPage = ref(false);
-const router = useRouter();
-const params = useRoute().params;
-if (params && params.id) {
-  store.dispatch('getTeamById', params.id)
-  teamForm.value = store.getters.getTeam
-} else {
-  createdPage.value = true;
-}
 
 function uploadTeamBanner(e: any) {
   const files = e.target.files || e.dataTransfer.files

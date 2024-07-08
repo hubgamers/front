@@ -48,7 +48,7 @@
 import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
-import SidebarOnPage from '@/components/SidebarOnPage.vue'
+import SidebarOnPage from '@/views/dashboard/components/SidebarOnPage.vue'
 import { useRouter } from 'vue-router'
 import PlayerModeComponent from '@/views/dashboard/components/PlayerModeComponent.vue'
 import InputText from '@/components/InputText.vue'

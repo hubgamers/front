@@ -2,8 +2,8 @@
   <DashboardLayout>
     <div v-if="store.getters.getTeam !== null">
       <div class="relative">
-        <img class="relative max-h-[500px] w-full object-cover rounded-b" :src="store.getters.getTeam.banner !== '' ? store.getters.getTeam.banner : 'https://picsum.photos/1000/800'" alt="banner">
-        <img class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="store.getters.getTeam.logo !== '' ? store.getters.getTeam.logo : 'https://picsum.photos/300/300'" alt="logo">
+        <img class="relative max-h-[500px] w-full object-cover rounded-b" :src="(store.getters.getTeam.banner !== null && store.getters.getTeam.banner !== '') ? store.getters.getTeam.banner : 'https://picsum.photos/1000/800'" alt="banner">
+        <img class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="(store.getters.getTeam.logo !== null && store.getters.getTeam.logo !== '') ? store.getters.getTeam.logo : 'https://picsum.photos/300/300'" alt="logo">
       </div>
       <div class="py-3 px-3">
         <h1 class="mt-3 mb-1">{{store.getters.getTeam.name}}</h1>
@@ -91,14 +91,14 @@
   </DashboardLayout>
 </template>
 <script setup lang="ts">
-import Topbar from '@/components/Topbar.vue'
+import Topbar from '@/views/dashboard/components/Topbar.vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
-import { defineComponent, defineProps, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import InputText from '@/components/InputText.vue'
-import Table from '@/components/Table.vue'
+import Table from '@/views/dashboard/components/Table.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
-import SidebarOnPage from '@/components/SidebarOnPage.vue'
+import SidebarOnPage from '@/views/dashboard/components/SidebarOnPage.vue'
 import { useNotification } from '@kyvg/vue3-notification'
 import CreateRosterModal from '@/views/dashboard/teams/modal/CreateRosterModal.vue'
 

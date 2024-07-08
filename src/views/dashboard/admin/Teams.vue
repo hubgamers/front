@@ -11,7 +11,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import Table from '@/components/Table.vue'
+import Table from '@/views/dashboard/components/Table.vue'
 import ButtonDark from '@/components/ButtonDark.vue'
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'

@@ -10,7 +10,7 @@
           v-for="(player, key) in store.getters.getPlayers"
           :key="key"
           :title-card="player.username"
-          :image="player.avatar"
+          :image="player.avatar ? player.avatar : '../../../../public/user.png'"
           :link-one="'/dashboard/players/' + player.id"
           link-one-text="Détails du joueur"
           btn-modal-text="Inviter à rejoindre l'équipe"
@@ -23,7 +23,7 @@
 </template>
 <script setup>
 import DashboardLayout from '@/layout/DashboardLayout.vue'
-import CardComponent from '@/components/TeamCardComponent.vue'
+import CardComponent from '@/views/dashboard/components/TeamCardComponent.vue'
 import { useStore } from 'vuex'
 import { defineComponent, ref } from 'vue'
 import InputText from '@/components/InputText.vue'

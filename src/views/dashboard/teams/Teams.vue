@@ -28,10 +28,10 @@
   </DashboardLayout>
 </template>
 <script setup>
-import Topbar from '@/components/Topbar.vue'
+import Topbar from '@/views/dashboard/components/Topbar.vue'
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
-import CardComponent from '@/components/TeamCardComponent.vue'
+import CardComponent from '@/views/dashboard/components/TeamCardComponent.vue'
 import InputText from '@/components/InputText.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import JoinTeamModal from '@/views/dashboard/teams/modal/JoinTeamModal.vue'

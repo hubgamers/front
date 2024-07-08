@@ -10,7 +10,7 @@
 
 <script setup>
 import { defineComponent } from 'vue'
-import Topbar from '@/components/Topbar.vue'
+import Topbar from '@/views/dashboard/components/Topbar.vue'
 
 defineComponent({
   name: 'ModalComponent'

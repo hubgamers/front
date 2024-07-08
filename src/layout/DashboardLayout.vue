@@ -11,9 +11,9 @@
 
 <script setup lang="ts">
 import { defineComponent, onBeforeMount } from 'vue'
-import Sidebar from '@/components/Sidebar.vue'
-import Rightbar from '@/components/Rightbar.vue'
-import Topbar from '@/components/Topbar.vue'
+import Sidebar from '@/views/dashboard/components/Sidebar.vue'
+import Rightbar from '@/views/dashboard/components/Rightbar.vue'
+import Topbar from '@/views/dashboard/components/Topbar.vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 defineComponent({

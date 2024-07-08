@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
-import TournamentCardComponent from '@/components/TournamentCardComponent.vue'
+import TournamentCardComponent from '@/views/dashboard/components/TournamentCardComponent.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 defineComponent({
   name: 'TournamentsPage'

@@ -2,8 +2,8 @@
   <div class="sidebar">
     <div class="profile">
       <RouterLink to="/dashboard/profile">
-        <div class="avatar" v-if="store.getters.getUser.avatar">
-          <img :src="store.getters.getUser.avatar" alt="avatar" />
+        <div class="avatar">
+          <img :src="(store.getters.getUser && store.getters.getUser.avatar) ? store.getters.getUser.avatar : '../../public/user.png'" alt="avatar" />
         </div>
        <div>
          <p>Accéder à mon profil</p>

@@ -41,7 +41,7 @@ import { notify } from '@kyvg/vue3-notification'
 import InputText from '@/components/InputText.vue'
 import { onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import Table from '@/components/Table.vue'
+import Table from '@/views/dashboard/components/Table.vue'
 
 const props = defineProps({
   teamRosterId: Object

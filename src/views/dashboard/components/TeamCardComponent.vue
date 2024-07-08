@@ -4,23 +4,8 @@
       <img :src="image" alt="image">
     </div>
     <div class="infos">
-      <div>
-        <h3>{{ titleCard }}</h3>
-        <p>{{desc != null && desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
-
-        <ul class="tags">
-          <li>
-            <span><i class="fa fa-gamepad"></i> Tag 1</span>
-          </li>
-          <li>
-            <span><i class="fa fa-gamepad"></i> Tag 1</span>
-          </li>
-          <li>
-            <span><i class="fa fa-gamepad"></i> Tag 1</span>
-          </li>
-        </ul>
-      </div>
-      
+      <h3>{{ titleCard }}</h3>
+      <p>{{desc != null && desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
       <div class="actions mt-1">
         <button v-if="linkOne && linkOneText" class="yellow">
           <RouterLink :to="linkOne">{{linkOneText}}</RouterLink>
@@ -42,12 +27,10 @@ defineComponent({
 });
 defineProps({
     titleCard: {
-      type: String,
-      default: 'Titre de la carte'
+      type: String
     },
     desc: {
-      type: String,
-      default: 'Description de la carte'
+      type: String
     },
     image: {
       type: String,
@@ -87,6 +70,8 @@ function openModal() {
   border: 1px solid rgba(0, 0, 0, 0.1);
   
   .image {
+    max-width: 150px;
+    max-height: 150px;
     img {
       width: 100%;
       height: 100%;
@@ -100,6 +85,7 @@ function openModal() {
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
     h3, p {
       color: #28536B;
