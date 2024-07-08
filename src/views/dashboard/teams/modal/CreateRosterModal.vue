@@ -31,6 +31,7 @@
       </template>
     </form>
     <button class="info" @click="submitForm">{{props.teamRosterId ? 'Editer le roster' : 'Créer le roster'}}</button>
+    <button @click="close">Fermer</button>
   </ModalComponent>
 </template>
 <script setup>
