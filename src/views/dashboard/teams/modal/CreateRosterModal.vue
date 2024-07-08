@@ -46,15 +46,16 @@ const props = defineProps({
   teamRosterId: Object
 })
 
+const store = useStore();
 const teamRosterForm = ref({
   name: '',
   description: '',
   game: '',
-  platform: ''
+  platform: '',
+  teamId: store.getters.getTeam.id
 })
 
 const router = useRouter();
-const store = useStore();
 store.dispatch('getAllGames')
 onBeforeMount(() => {
   if (props.teamRosterId) {

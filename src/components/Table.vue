@@ -124,6 +124,9 @@ function editTeamRoster(teamRosterId) {
           <template v-else-if="column === 'players'">
             Joueurs
           </template>
+          <template v-else-if="column === 'teamId'">
+            Equipe
+          </template>
           <template v-else>
             {{ column }}
           </template>
@@ -161,6 +164,9 @@ function editTeamRoster(teamRosterId) {
           </template>
           <template v-else-if="column === 'playerId' && store.getters.getPlayer !== null">
             <span>{{store.getters.getPlayer.username}}</span>
+          </template>
+          <template v-else-if="column === 'teamId' && store.getters.getTeam !== null">
+            <span>{{store.getters.getTeam.name}}</span>
           </template>
           <template v-else>
             {{ item[column] }}

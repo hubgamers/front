@@ -7,8 +7,8 @@ export default {
   getColumns() {
     return axiosCustom.get("/teamRoster/columns");
   },
-  getAllMyTeams() {
-    return axiosCustom.get("/teamRoster/my-teams");
+  getAllTeamRostersByTeamId(teamId) {
+    return axiosCustom.get(`/teamRoster/team/${teamId}`);
   },
   countAllTeams() {
     return axiosCustom.get("/teamRoster/count-all");

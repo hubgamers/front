@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="image">
-      <img src="https://picsum.photos/200/200" alt="image">
+      <img :src="image" alt="image">
     </div>
     <div class="infos">
       <div>

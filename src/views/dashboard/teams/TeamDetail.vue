@@ -122,7 +122,7 @@ if (params && params.id) {
 }
 
 store.dispatch('getTeamRosterColumns')
-store.dispatch('getAllTeamRosters')
+store.dispatch('getAllTeamRostersByTeamId', params.id)
 
 // TODO: faire la gestion des onglets avec tab=... dans l'url
 let tabStatus = ref('palmarès')

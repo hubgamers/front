@@ -32,12 +32,11 @@ const mutations = {
 };
 
 const actions = {
-  getAllTeamRosters({ commit }) {
+  getAllTeamRostersByTeamId({ commit }, teamId) {
     return new Promise((resolve, reject) => {
-      teamRosterService.getAllMyTeams()
+      teamRosterService.getAllTeamRostersByTeamId(teamId)
       .then((response) => {
         commit('updateTeamRosters', response.data.data);
-        console.log(response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
