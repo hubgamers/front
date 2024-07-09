@@ -1,14 +1,18 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
-    }
+  "compilerOptions": {
+    "target": "esnext",                /* version ECMAScript cible */
+    "module": "esnext",                /* système de module */
+    "strict": true,                    /* activer toutes les vérifications strictes */
+    "moduleResolution": "node",        /* résolution de module utilisant Node.js */
+    "esModuleInterop": true,           /* permettre l'interopérabilité des modules ES6 */
+    "skipLibCheck": true,              /* ne pas vérifier les fichiers de définition des bibliothèques */
+    "forceConsistentCasingInFileNames": true /* vérifier la casse cohérente des noms de fichiers */
+  },
+  "include": [
+    "src/**/*.ts",                    /* inclure tous les fichiers TypeScript dans le dossier src */
+    "src/**/*.vue"                    /* inclure tous les fichiers Vue dans le dossier src */
+  ],
+  "exclude": [
+    "node_modules"                    /* exclure le dossier node_modules */
   ]
 }
