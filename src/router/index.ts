@@ -7,12 +7,37 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: () => import('@/views/Home.vue')
+      component: () => import('@/views/vitrine/Home.vue')
+    },
+    {
+      path: '/features',
+      name: 'Features',
+      component: () => import('@/views/vitrine/Features.vue')
+    },
+    {
+      path: '/pricing',
+      name: 'Pricing',
+      component: () => import('@/views/vitrine/Pricing.vue')
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: () => import('@/views/vitrine/About.vue')
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: () => import('@/views/vitrine/Contact.vue')
     },
     {
       path: '/teams',
       name: 'Teams',
       component: () => import('@/views/teams/PublicTeams.vue')
+    },
+    {
+      path: '/players',
+      name: 'Players',
+      component: () => import('@/views/vitrine/SearchPlayers.vue')
     },
     {
       path: '/auth/login',
@@ -30,12 +55,17 @@ const router = createRouter({
       component: Dashboard,
     },
     {
+      path: '/dashboard/subscriptions',
+      name: 'SubscriptionsDashboard',
+      component: () => import('@/views/dashboard/subscriptions/Subscriptions.vue')
+    },
+    {
       path: '/dashboard/profile',
       name: 'Profile',
       component: () => import('@/views/dashboard/Profile.vue')
     },
     {
-      path: '/dashboard/my-teams',
+      path: '/dashboard/teams',
       name: 'MyTeams',
       component: () => import('@/views/dashboard/teams/Teams.vue')
     },
@@ -53,6 +83,11 @@ const router = createRouter({
       path: '/dashboard/teams/:id',
       name: 'TeamDetail',
       component: () => import('@/views/dashboard/teams/TeamDetail.vue')
+    },
+    {
+      path: '/dashboard/players',
+      name: 'Players',
+      component: () => import('@/views/dashboard/players/Players.vue')
     },
     {
       path: '/dashboard/tournaments',
@@ -75,10 +110,20 @@ const router = createRouter({
       component: () => import('@/views/dashboard/tournaments/TournamentDetail.vue')
     },
     {
-      path: '/dashboard/my-invitations',
-      name: 'Invitations',
-      component: () => import('@/views/dashboard/invitations/Invitations.vue')
+      path: '/checkout',
+      name: 'Checkout',
+      component: () => import('@/views/checkout/Checkout.vue')
     },
+    {
+      path: '/checkout/success',
+      name: 'CheckoutSuccess',
+      component: () => import('@/views/checkout/CheckoutSuccess.vue')
+    },
+    {
+      path: '/checkout/cancel',
+      name: 'CheckoutCancel',
+      component: () => import('@/views/checkout/CheckoutCancel.vue')
+    }
   ]
 })
 

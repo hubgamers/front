@@ -16,6 +16,11 @@ export default {
   getUserById(id) {
     return axiosCustom.get(`/user/id/${id}`);
   },
+  uploadAvatar(file) {
+    let formData = new FormData();
+    formData.append("file", file);
+    return axiosCustom.post("/user/avatar/upload", formData);
+  },
   createUser(user) {
     return axiosCustom.post("/user/create", user);
   },

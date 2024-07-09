@@ -1,20 +1,26 @@
 <template>
   <div>
     <div v-if="type === 'checkbox'" class="checkbox">
-      <input :type="type" :placeholder="placeholder" v-model="model">
+      <input :type="type" :placeholder="placeholder" v-model="model" :disabled="disabled">
       <label>{{ label }} <span v-if="required" class="required">*</span></label>
     </div>
     <template v-else-if="type === 'textarea'">
       <label>{{ label }} <span v-if="required" class="required">*</span></label>
-      <textarea :placeholder="placeholder" v-model="model"></textarea>
+      <textarea :placeholder="placeholder" v-model="model" :disabled="disabled"></textarea>
     </template>
     <template v-else-if="type === 'file'">
       <label>{{ label }} <span v-if="required" class="required">*</span></label>
-      <input :type="type" @change="uploadFile" v-model="model">
+      <input :type="type" @change="uploadFile" v-model="model" :disabled="disabled">
+    </template>
+    <template v-else-if="type === 'select'">
+      <label>{{ label }} <span v-if="required" class="required">*</span></label>
+      <select v-model="model" :disabled="disabled" :multiple="multiple">
+        <slot></slot>
+      </select>
     </template>
     <template v-else>
       <label>{{ label }} <span v-if="required" class="required">*</span></label>
-      <input :type="type" :placeholder="placeholder" v-model="model">
+      <input :type="type" :placeholder="placeholder" v-model="model" :disabled="disabled">
     </template>
     <p class="info">{{info}}</p>
   </div>
@@ -49,6 +55,14 @@ defineProps({
   info: {
     type: String,
     default: ''
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  multiple: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -69,7 +83,7 @@ label {
 span.required {
   color: #ED0131;
 }
-input, textarea {
+input, textarea, select {
   background-color: #e8f6fd;
   padding: .5rem 1rem;
   border: none;

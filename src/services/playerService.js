@@ -10,6 +10,9 @@ export default {
   getAllPlayers () {
     return axiosCustom.get("/player/all");
   },
+  getAllPlayersLikeByName(name) {
+    return axiosCustom.get(`/player/all/name/${name}`);
+  },
   getPlayerByUsername(username) {
     return axiosCustom.get(`/player/username/${username}`);
   },

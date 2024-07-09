@@ -16,6 +16,25 @@
     --black: #000000;
 }
 
+.bg-blue {
+    background-color: var(--blue);
+}
+.bg-yellow {
+    background-color: var(--yellow);
+}
+.bg-orange {
+    background-color: var(--orange);
+}
+.bg-green {
+    background-color: var(--green);
+}
+.bg-white {
+    background-color: var(--white);
+}
+.bg-black {
+    background-color: var(--black);
+}
+
 * {
     font-family: "Figtree", sans-serif;
 }
@@ -24,7 +43,6 @@ body {
     font-size: 16px;
     line-height: 1.5;
     color: #333;
-    background-color: #F1F2F7;
 }
 
 h1, h2, h3, p {
@@ -90,11 +108,11 @@ button.info:hover {
 button.green {
     transition: all 0.3s;
     background-color: var(--green);
-    color: var(--white);
+    color: var(--black);
 }
 button.green:hover {
     transition: all 0.3s;
-    background-color: #7FC6B6;
+    background-color: var(--blue);
     color: var(--white);
 }
 
@@ -118,4 +136,93 @@ button.yellow:hover {
     transition: all 0.3s;
     background-color: #F4D06F;
     color: var(--black);
+}
+
+/* TABS */
+nav.tabs {
+    span {
+        cursor: pointer;
+        padding: 10px 20px;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s;
+        &:hover {
+            border-color: #FF8811;
+            color: #FF8811;
+        }
+    }
+    .active {
+        border-color: #FF8811;
+        color: #FF8811;
+    }
+}
+
+.row {
+    display: flex;
+    flex-flow: column;
+    @media screen and (min-width: 768px) {
+        flex-flow: row;
+    }
+}
+.columns {
+    display: flex;
+    flex-flow: column nowrap;
+}
+.justify-around {
+    justify-content: space-around;
+}
+.justify-between {
+    justify-content: space-between;
+}
+.justify-center {
+    justify-content: center;
+}
+.align-items-center {
+    align-items: center;
+}
+.gap-1 {
+    gap: 1rem;
+}
+.gap-2 {
+    gap: 2rem;
+}
+.gap-3 {
+    gap: 3rem;
+}
+.mt-2 {
+    margin-top: 2rem;
+}
+.mt-3 {
+    margin-top: 3rem;
+}
+.mt-4 {
+    margin-top: 4rem;
+}
+.p2 {
+    padding: 2rem;
+}
+.w100 {
+    width: 100%;
+}
+.w80 {
+    width: 80%;
+}
+.w50 {
+    width: 50%;
+}
+
+.table-odd li {
+    padding: 1rem;
+}
+.table-odd li:nth-child(odd) {
+    background-color: #b6b5b5;
+}
+
+.formEdit {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
 }

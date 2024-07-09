@@ -1,68 +1,133 @@
 <template>
-  <header class="absolute inset-x-0 top-0 z-50">
-    <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-      <div class="flex lg:flex-1">
-        <a href="#" class="-m-1.5 p-1.5">
-          <span class="sr-only">Hub Gamers</span>
-          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
-        </a>
-      </div>
-      <div class="flex lg:hidden">
-        <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-          <span class="sr-only">Open main menu</span>
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
+  <header>
+    <div class="menu">
+      <h2>HubGamers</h2>
+      <nav>
+        <ul>
+          <li>
+            <RouterLink to="/">Accueil</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/features">Fonctionnalités</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/pricing">Tarifs</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/about">A propos</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/contact">Contactez-nous</RouterLink>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="actions">
+      <template v-if="isConnected">
+        <button class="green">
+          <RouterLink to="/dashboard">Tableau de bord</RouterLink>
         </button>
-      </div>
-      <div class="hidden lg:flex lg:gap-x-12">
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Fonctionnalités</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Tarifs</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Plateformes</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">A propos</a>
-      </div>
-      <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <RouterLink to="/auth/login" class="text-sm font-semibold leading-6 bg-blue-700 px-2 py-1  text-gray-900">Se connecter <span aria-hidden="true">&rarr;</span></RouterLink>
-      </div>
-    </nav>
-    <!-- Mobile menu, show/hide based on menu open state. -->
-    <div class="lg:hidden" role="dialog" aria-modal="true">
-      <!-- Background backdrop, show/hide based on slide-over state. -->
-      <div class="fixed inset-0 z-50"></div>
-      <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-        <div class="flex items-center justify-between">
-          <a href="#" class="-m-1.5 p-1.5">
-            <span class="sr-only">Hub Gamers</span>
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+        <button class="green" @click="logout">Déconnexion</button>
+      </template>
+      <button v-else class="green">
+        <RouterLink to="/auth/register">S'inscrire gratuitement</RouterLink>
+      </button>
+      <ul class="socials">
+        <li>
+          <a href="https://linkedin.com/in/alexis-briet" target="_blank">
+            <i class="fa-brands fa-linkedin"></i>
           </a>
-          <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
-            <span class="sr-only">Close menu</span>
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <div class="mt-6 flow-root">
-          <div class="-my-6 divide-y divide-gray-500/10">
-            <div class="space-y-2 py-6">
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Fonctionnalités</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Tarifs</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Plateformes</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">A propos</a>
-            </div>
-            <div class="py-6">
-              <RouterLink to="/auth/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Se connecter</RouterLink>
-            </div>
-          </div>
-        </div>
-      </div>
+        </li>
+        <li>
+          <a href="https://x.com" target="_blank">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitch.tv" target="_blank">
+            <i class="fa-brands fa-twitch"></i>
+          </a>
+        </li>
+      </ul>
     </div>
   </header>
 </template>
 <script setup lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 defineComponent({
   name: 'NavbarComponent',
 })
+
+let isConnected = ref(false)
+if (localStorage.getItem('userId')) {
+  isConnected.value = true
+}
+
+function logout() {
+  localStorage.clear();
+  window.location.reload();
+}
 </script>
+
+<style lang="scss" scoped>
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  margin-bottom: 5rem;
+  .menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    
+    h2 {
+      color: #FFFFFF;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: inherit;
+    }
+    
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      
+      li a {
+        font-weight: 400;
+        color: #FFFFFF;
+        
+        &:hover, &:focus, &:active {
+          color: #9DD9D2;
+        }
+      }
+    }
+  }
+  
+  .actions {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+
+    a {
+      color: #000;
+      &:hover {
+        color: #FFF;
+      }
+    }
+    
+    ul {
+      display: flex;
+      gap: 1rem;
+      
+      li a i {
+        color: #FFFFFF;
+        
+        &:hover, &:focus, &:active {
+          color: #9DD9D2;
+        }
+      }
+    }
+  }
+}
+</style>

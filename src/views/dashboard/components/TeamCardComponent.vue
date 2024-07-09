@@ -1,74 +1,62 @@
 <template>
   <div class="card">
     <div class="image">
-      <img src="https://picsum.photos/200/200" alt="image">
+      <img :src="image" alt="image">
     </div>
     <div class="infos">
-      <div>
-        <h3>{{ titleCard }}</h3>
-        <p>{{desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
-
-        <ul class="tags">
-          <li>
-            <span><i class="fa fa-gamepad"></i> Tag 1</span>
-          </li>
-          <li>
-            <span><i class="fa fa-gamepad"></i> Tag 1</span>
-          </li>
-          <li>
-            <span><i class="fa fa-gamepad"></i> Tag 1</span>
-          </li>
-        </ul>
-      </div>
-      
-      <div class="actions mt-2">
-        <button class="yellow">
+      <h3>{{ titleCard }}</h3>
+      <p>{{desc != null && desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
+      <div class="actions mt-1">
+        <button v-if="linkOne && linkOneText" class="yellow">
           <RouterLink :to="linkOne">{{linkOneText}}</RouterLink>
         </button>
-        <button class="green">
+        <button v-if="linkTwo && linkTwoText" class="green">
           <RouterLink :to="linkTwo">{{linkTwoText}}</RouterLink>
         </button>
+        <button v-if="btnModalText" @click="openModal" class="green">{{btnModalText}}</button>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { defineComponent } from 'vue';
 
-export default defineComponent({
-  name: 'CardComponent',
-  props: {
+defineComponent({
+  name: 'TeamCardComponent',
+});
+defineProps({
     titleCard: {
-      type: String,
-      default: 'Titre de la carte'
+      type: String
     },
     desc: {
-      type: String,
-      default: 'Description de la carte'
+      type: String
     },
     image: {
       type: String,
       default: 'https://via.placeholder.com/300'
     },
     linkOne: {
-      type: String,
-      default: '#'
+      type: String
     },
     linkOneText: {
-      type: String,
-      default: 'Lien'
+      type: String
     },
     linkTwo: {
-      type: String,
-      default: '#'
+      type: String
     },
     linkTwoText: {
-      type: String,
-      default: 'Lien'
+      type: String
+    },
+    btnModalText: {
+      type: String
     }
-  }
 });
+const emit = defineEmits(['modal'])
+
+function openModal() {
+  emit('modal')
+}
 </script>
 
 <style lang="scss">
@@ -82,6 +70,8 @@ export default defineComponent({
   border: 1px solid rgba(0, 0, 0, 0.1);
   
   .image {
+    max-width: 150px;
+    max-height: 150px;
     img {
       width: 100%;
       height: 100%;
@@ -95,6 +85,7 @@ export default defineComponent({
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
     h3, p {
       color: #28536B;
