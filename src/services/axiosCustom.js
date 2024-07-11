@@ -2,8 +2,7 @@ import axios from 'axios';
 
 // Créer une instance Axios avec l'URL de base de votre API
 const axiosInstance = axios.create({
-  // baseURL: 'http://localhost:8080/api',
-  baseURL: 'https://api-hubgamers.alexisbriet.fr/api',
+  baseURL: 'http://localhost:8080/api',
   timeout: 5000,
   headers: {
     'Accepts': 'application/json',
