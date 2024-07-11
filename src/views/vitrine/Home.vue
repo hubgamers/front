@@ -2,7 +2,7 @@
   <VitrineLayout>
     <div class="row">
       <div class="text">
-        <h1>Créez votre équipe en quelques clics</h1>
+        <h1 class="text-8xl">Créez votre équipe en quelques clics</h1>
         <p>Recrutez vos prochains joueurs</p>
         <p>Faites la promotion de votre équipe</p>
         <p>Participez aux tournois des autres utilisateurs</p>
@@ -52,6 +52,7 @@ defineComponent({
 }
 .image {
   flex: 1;
+  width: 300px;
 }
 
 </style>

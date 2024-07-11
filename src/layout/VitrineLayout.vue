@@ -23,6 +23,8 @@ defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
   h2, h3, h4, p, i {
