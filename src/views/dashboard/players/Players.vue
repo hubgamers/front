@@ -48,10 +48,6 @@ function searchInTeams() {
 
 let showJoinModal = ref(false)
 let teamIdSelected = ref("")
-function openJoinModal(teamId) {
-  showJoinModal.value = true
-  teamIdSelected.value = teamId
-}
 
 function closeJoinModal() {
   showJoinModal.value = false

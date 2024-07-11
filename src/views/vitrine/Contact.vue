@@ -39,7 +39,4 @@ defineComponent({
 let email = ref('')
 let content = ref('')
 
-function sendContact() {
-  console.log('send contact')
-}
 </script>

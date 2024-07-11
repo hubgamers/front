@@ -35,7 +35,7 @@
     </form>
   </DashboardLayout>
 </template>
-<script setup lang="ts">
+<script setup>
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -67,7 +67,7 @@ if (params.id) {
   tournamentForm.value = store.getters.getTournament
 }
 
-function uploadTournamentBanner(e: any) {
+function uploadTournamentBanner(e) {
   const files = e.target.files || e.dataTransfer.files
   if (!files.length)
     return;
@@ -79,7 +79,7 @@ function uploadTournamentBanner(e: any) {
   })
 }
 
-function uploadTournamentLogo(e: any) {
+function uploadTournamentLogo(e) {
   const files = e.target.files || e.dataTransfer.files
   if (!files.length)
     return;

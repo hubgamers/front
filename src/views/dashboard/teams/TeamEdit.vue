@@ -27,12 +27,11 @@
 
   </DashboardLayout>
 </template>
-<script setup lang="ts">
+<script setup>
 import { defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import InputText from '@/components/InputText.vue'
-import type { TeamDTO } from '@/models/TeamDTO'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import { useNotification } from "@kyvg/vue3-notification";
 
@@ -41,7 +40,7 @@ defineComponent({
 })
 
 
-const teamForm = ref<TeamDTO | null>(null);
+const teamForm = ref(null);
 const loading = ref(true);
 
 const { notify } = useNotification();
@@ -82,7 +81,7 @@ onMounted(() => {
 store.dispatch('getAllPlayers')
 store.dispatch('getAllTags')
 
-function uploadTeamBanner(e: any) {
+function uploadTeamBanner(e) {
   const files = e.target.files || e.dataTransfer.files
   if (!files.length)
     return;
@@ -106,7 +105,7 @@ function uploadTeamBanner(e: any) {
     });
 }
 
-function uploadTeamLogo(e: any) {
+function uploadTeamLogo(e) {
   const files = e.target.files || e.dataTransfer.files
   if (!files.length)
     return;
@@ -149,7 +148,7 @@ function submitForm() {
         });
       });
   } else {
-    store.dispatch('createTeam', teamForm.value).then((res: any) => {
+    store.dispatch('createTeam', teamForm.value).then((res) => {
       notify({
         title: "Création",
         text: "Votre équipe a été créée avec succès",

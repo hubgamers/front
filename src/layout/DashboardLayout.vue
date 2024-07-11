@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { defineComponent, onBeforeMount } from 'vue'
 import Sidebar from '@/views/dashboard/components/Sidebar.vue'
 import Rightbar from '@/views/dashboard/components/Rightbar.vue'

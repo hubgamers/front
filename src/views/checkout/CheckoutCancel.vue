@@ -4,6 +4,6 @@
     <p>Checkout cancelled page content</p>
   </VitrineLayout>
 </template>
-<script setup lang="ts">
+<script setup>
 import VitrineLayout from '@/layout/VitrineLayout.vue'
 </script>

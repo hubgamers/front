@@ -2,11 +2,12 @@ import axios from 'axios';
 
 // Créer une instance Axios avec l'URL de base de votre API
 const axiosInstance = axios.create({
-  baseURL: '/api', // Remplacez par l'URL de votre API
+  baseURL: 'http://localhost:8080/api', // Remplacez par l'URL de votre API
   timeout: 5000,
   headers: {
     'Accepts': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json'
   }
 });
 

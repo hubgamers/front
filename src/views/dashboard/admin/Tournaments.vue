@@ -10,7 +10,7 @@
     <Table :columns="store.getters.getTournamentColumns" :items="store.getters.getTournaments" url="/dashboard/tournaments/" />
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import Topbar from '@/views/dashboard/components/Topbar.vue'
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'

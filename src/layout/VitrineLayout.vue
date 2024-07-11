@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { defineComponent } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 defineComponent({

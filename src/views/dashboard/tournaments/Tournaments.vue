@@ -14,7 +14,7 @@
     </div>
   </DashboardLayout>
 </template>
-<script setup lang="ts">
+<script setup>
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import TournamentCardComponent from '@/views/dashboard/components/TournamentCardComponent.vue'

@@ -103,7 +103,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 
@@ -137,7 +137,6 @@ let isDropDownVisible = ref(false);
 function showDropDown() {
   isDropDownVisible.value = !isDropDownVisible.value;
 }
-let sideBarStatus = ref('')
 defineEmits({
   changeSideBarStatus: null
 })

@@ -26,10 +26,10 @@
     </div>
   </VitrineLayout>
 </template>
-<script setup lang="ts">
+<script setup>
 import { defineComponent, ref, watchEffect } from 'vue'
 import { useStore } from 'vuex'
-import router from '@/router'
+import router from '@/router/index.js'
 import { useRoute } from 'vue-router'
 import InputText from '@/components/InputText.vue'
 import VitrineLayout from '@/layout/VitrineLayout.vue'
@@ -71,7 +71,7 @@ function register() {
       auth.value.login = auth.value.email;
       login();
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error)
       notify({
         title: 'Erreur',
@@ -98,7 +98,7 @@ function login() {
         router.push('/dashboard')
       }, 300)
      })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error)
       notify({
         title: 'Erreur',

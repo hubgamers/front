@@ -57,7 +57,7 @@
             </ul>
             <p v-else>Aucun participant</p>
             <h3 class="text-2xl mt-5 mb-3">Invitations</h3>
-            <Table :columns="store.getters.getInvitationColumns.filter((column: any) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/teams/invitations/" />
+            <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/teams/invitations/" />
           </div>
           <div v-if="sideBarStatus == 'configuration'">
             <h3 class="text-2xl mt-5 mb-3">Configuration</h3>
@@ -94,7 +94,7 @@
   </div>
   </DashboardLayout>
 </template>
-<script setup lang="ts">
+<script setup>
 import Topbar from '@/views/dashboard/components/Topbar.vue'
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
@@ -130,11 +130,11 @@ if (params && params.id) {
 
 // TODO: faire la gestion des onglets avec tab=... dans l'url
 let tabStatus = ref('rules')
-function changeTabStatus(tab: string) {
+function changeTabStatus(tab) {
   tabStatus.value = tab
 }
 
-function formatDate(date: any, formatDate= 'yyyy-MM-dd') {
+function formatDate(date, formatDate= 'yyyy-MM-dd') {
   return moment(date).format(formatDate)
 }
 
@@ -146,7 +146,7 @@ if (router.currentRoute.value.query.tab) {
 } else {
   sideBarStatus.value = 'invitations'
 }
-function changeSideBarStatus(tab: string) {
+function changeSideBarStatus(tab) {
   sideBarStatus.value = tab
   router.push({ query: { tab: tab } })
 }

@@ -1,6 +1,9 @@
-<script setup lang="ts">
+<script setup>
+import { defineComponent, ref } from 'vue'
 
-import { ref } from 'vue'
+defineComponent({
+  name: 'RightbarComponent'
+})
 
 let showRightbar = ref(false)
 </script>
