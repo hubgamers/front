@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  nginx:
+    image: alexisbriet/vuejs-nginx:latest
+    ports:
+      - "3000:80"
+    networks:
+      - hubgamers-network
+
+networks:
+  hubgamers-network:
+    external: true
