@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { defineComponent, defineProps, ref } from 'vue'
 
 defineComponent({

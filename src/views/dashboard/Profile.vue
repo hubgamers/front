@@ -6,7 +6,7 @@
       <div v-if="sideBarStatus == 'invitations'">
         <h3 class="text-2xl mt-5 mb-3">Invitations en attente</h3>
         <ul v-if="store.getters.getInvitationsByPlayerId.length > 0">
-          <li class="mb-2" v-for="(invitation, key) in store.getters.getInvitationsByPlayerId.filter((invitation: any) => invitation.status == 'PENDING')" :key="key">
+          <li class="mb-2" v-for="(invitation, key) in store.getters.getInvitationsByPlayerId.filter((invitation) => invitation.status == 'PENDING')" :key="key">
             <span>{{invitation.title}}</span>
             <div class="flex gap-1">
               <button class="info" @click="acceptInvitation(invitation.id)">Accepter</button>
@@ -44,7 +44,7 @@
     
   </DashboardLayout>
 </template>
-<script setup lang="ts">
+<script setup>
 import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
@@ -65,7 +65,7 @@ if (router.currentRoute.value.query.tab) {
 } else {
   sideBarStatus.value = 'invitations'
 }
-function changeSideBarStatus(tab: string) {
+function changeSideBarStatus(tab) {
   sideBarStatus.value = tab
   router.push({ query: { tab: tab } })
 }
@@ -79,11 +79,11 @@ onBeforeMount(async () => {
   }
 })
 
-function acceptInvitation(invitationId: string) {
+function acceptInvitation(invitationId) {
   store.dispatch('acceptInvitation', invitationId)
 }
 
-function declineInvitation(invitationId: string) {
+function declineInvitation(invitationId) {
   store.dispatch('declineInvitation', invitationId)
 }
 
@@ -96,7 +96,7 @@ if (userForm.value) {
   userForm.value = store.getters.getUser
 }
 
-function uploadAvatar(e: any) {
+function uploadAvatar(e) {
   const files = e.target.files || e.dataTransfer.files
   if (!files.length)
     return;

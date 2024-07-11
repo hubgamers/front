@@ -38,7 +38,7 @@
   </DashboardLayout>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { defineComponent, onBeforeMount, ref } from 'vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import CardActionDashboardComponent from '@/views/dashboard/components/CardDashboardComponent.vue'
@@ -61,12 +61,12 @@ onBeforeMount(() => {
 store.dispatch('getProductByUser')
 
 const teamSize = ref(0);
-teamService.countAllTeams().then((res: any) => {
+teamService.countAllTeams().then((res) => {
   teamSize.value = res.data.data;
 })
 
 const tournamentSize = ref(0);
-tournamentService.countAllTournaments().then((res: any) => {
+tournamentService.countAllTournaments().then((res) => {
   tournamentSize.value = res.data.data;
 })
 </script>

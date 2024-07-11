@@ -52,7 +52,7 @@
     </div>
   </header>
 </template>
-<script setup lang="ts">
+<script setup>
 import { defineComponent, ref } from 'vue'
 
 defineComponent({

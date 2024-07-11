@@ -1,4 +1,3 @@
-import gameService from '@/services/gameService.js'
 import invitationService from '@/services/invitationService.js'
 
 const state = () => ({

@@ -40,7 +40,6 @@ import { useStore } from 'vuex'
 import { notify } from '@kyvg/vue3-notification'
 import InputText from '@/components/InputText.vue'
 import { onBeforeMount, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import Table from '@/views/dashboard/components/Table.vue'
 
 const props = defineProps({
@@ -56,7 +55,6 @@ const teamRosterForm = ref({
   teamId: store.getters.getTeam.id
 })
 
-const router = useRouter();
 store.dispatch('getAllGames')
 onBeforeMount(() => {
   if (props.teamRosterId) {

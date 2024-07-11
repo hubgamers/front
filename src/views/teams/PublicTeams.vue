@@ -57,7 +57,7 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { useStore } from 'vuex'
 import { ref } from 'vue'
 
@@ -70,7 +70,7 @@ function toggleInvitationModal() {
   invitationModal.value = !invitationModal.value;
 }
 
-function sendInvitation(teamId: string) {
+function sendInvitation(teamId) {
   store.dispatch('sendInvitation', teamId)
 }
 </script>

@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { defineComponent } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 defineComponent({
@@ -23,6 +23,8 @@ defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
   h2, h3, h4, p, i {

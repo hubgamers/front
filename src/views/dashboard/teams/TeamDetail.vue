@@ -34,7 +34,7 @@
           <h3 class="text-2xl mt-5 mb-3">Mes rosters</h3>
           <Table
             v-if="store.getters.getTeamRosters.length > 0" 
-            :columns="store.getters.getTeamRosterColumns.filter((column: any) => column !== 'paidType' && column !== 'tag' && column !== 'visibility')" 
+            :columns="store.getters.getTeamRosterColumns.filter((column) => column !== 'paidType' && column !== 'tag' && column !== 'visibility')" 
             :items="store.getters.getTeamRosters" 
             type="teamRoster"
             @edit="openTeamRoster"
@@ -43,7 +43,7 @@
         </div>
         <div v-if="tabStatus == 'invitations'">
           <Topbar title="Invitations" subtitle="Retrouvez toutes les invitations" class="mb-10" />
-          <Table :columns="store.getters.getInvitationColumns.filter((column: any) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" type="invitation" />
+          <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" type="invitation" />
           <form class="mt-10">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
               <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une équipe" required />
@@ -90,7 +90,7 @@
     <CreateRosterModal v-if="showTeamRoster" @close="closeTeamRoster" :team-roster-id="teamRosterId" />
   </DashboardLayout>
 </template>
-<script setup lang="ts">
+<script setup>
 import Topbar from '@/views/dashboard/components/Topbar.vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
@@ -126,7 +126,7 @@ store.dispatch('getAllTeamRostersByTeamId', params.id)
 
 // TODO: faire la gestion des onglets avec tab=... dans l'url
 let tabStatus = ref('palmarès')
-function changeTabStatus(tab: string) {
+function changeTabStatus(tab) {
   tabStatus.value = tab
   if (tab == 'edit') {
     router.push({name: 'EditTeam', params: { id: params.id }});
@@ -138,7 +138,7 @@ if (router.currentRoute.value.query.tab) {
   // @ts-ignore
   sideBarStatus.value = router.currentRoute.value.query.tab
 }
-function changeSideBarStatus(tab: string) {
+function changeSideBarStatus(tab) {
   sideBarStatus.value = tab
   router.push({ query: { tab: tab } })
 }
@@ -152,7 +152,7 @@ function searchPlayer() {
   store.dispatch('getPlayerByUsername', playerSearch.value);
 }
 let invitationStatus = ref('');
-async function recruitStaff(playerId: string) {
+async function recruitStaff(playerId) {
   invitationStatus.value = 'disabled';
   await store.dispatch('createInvitation', {
     playerId: playerId,
@@ -182,7 +182,7 @@ async function recruitStaff(playerId: string) {
 
 let showTeamRoster = ref(false);
 let teamRosterId = ref("");
-function openTeamRoster(id: any) {
+function openTeamRoster(id) {
   teamRosterId.value = id;
   showTeamRoster.value = true;
 }

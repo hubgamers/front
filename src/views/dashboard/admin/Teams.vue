@@ -10,7 +10,7 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import Table from '@/views/dashboard/components/Table.vue'
 import ButtonDark from '@/components/ButtonDark.vue'
 import { defineComponent } from 'vue'

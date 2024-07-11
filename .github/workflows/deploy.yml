@@ -24,9 +24,6 @@ jobs:
       - name: Build the Vue.js app
         run: npm run build-only
 
-      - name: Create Nginx.conf
-        run: touch nginx.conf
-
       - name: Build Docker image
         run: docker build -t vuejs-nginx .
 
