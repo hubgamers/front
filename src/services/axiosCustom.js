@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Créer une instance Axios avec l'URL de base de votre API
 const axiosInstance = axios.create({
-  baseURL: 'http://spring-boot-app:8080/api',
+  baseURL: '/api',
   timeout: 5000,
   headers: {
     'Accepts': 'application/json',
