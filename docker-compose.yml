@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nginx:
-    container_name: vuejs-nginx
+    container_name: hubgamers-front
     image: alexisbriet/vuejs-nginx:latest
     ports:
       - "3000:80"
