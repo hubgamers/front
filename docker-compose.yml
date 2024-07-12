@@ -2,6 +2,7 @@ version: '3'
 
 services:
   nginx:
+    container_name: vuejs-nginx
     image: alexisbriet/vuejs-nginx:latest
     ports:
       - "3000:80"
