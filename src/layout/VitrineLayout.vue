@@ -4,12 +4,14 @@
     <div class="wrap">
       <slot />
     </div>
+    <FooterComponent />
   </div>
 </template>
 
 <script setup>
 import { defineComponent } from 'vue'
 import Navbar from '@/components/Navbar.vue'
+import FooterComponent from '@/components/Footer.vue'
 defineComponent({
   name: 'VitrineLayout'
 })
