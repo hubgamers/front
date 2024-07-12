@@ -2,7 +2,9 @@
   <div class="column_banner_feat">
     <h4>{{title}}</h4>
     <p>{{content}}</p>
-    <button class="green">{{buttonText}}</button>
+    <button class="green">
+      <RouterLink to="/dashboard">{{buttonText}}</RouterLink>
+    </button>
   </div>
 </template>
 

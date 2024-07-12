@@ -1,12 +1,14 @@
 <template>
-  <div class="large_banner_feat">
+  <div class="large_banner_feat row gap-2">
     <div>
       <h4>{{title}}</h4>
       <p>{{content}}</p>
-      <button class="green">{{buttonText}}</button>
+      <button class="green">
+        <RouterLink to="/dashboard">{{buttonText}}</RouterLink>
+      </button>
     </div>
     <div v-if="imgUrl" class="image">
-      <img :src="'../../../public/' + imgUrl" alt="Bg">
+      <img :src="imgUrl" alt="Bg">
     </div>
   </div>
 </template>
