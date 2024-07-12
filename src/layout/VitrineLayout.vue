@@ -17,7 +17,7 @@ defineComponent({
 })
 </script>
 
-<style scoped>
+<style>
   .body {
     background: #1C1C1C;
     min-height: 100vh;
@@ -30,7 +30,7 @@ defineComponent({
     margin: 0 auto;
   }
 
-  h2, h3, h4, p, i {
+  h1, h2, h3, h4, p, i {
     color: #FFFFFF;
   }
 

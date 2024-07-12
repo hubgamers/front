@@ -36,6 +36,9 @@ store.dispatch('getUserById', localStorage.getItem('userId'))
 </script>
 
 <style scoped>
+  h1, h2, h3, p {
+    color: var(--blue);
+  }
   .container {
     max-width: inherit;
     display: grid;
