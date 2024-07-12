@@ -82,4 +82,3 @@ jobs:
             docker-compose -f /home/root/hubgamers/front/docker-compose.yml pull
             docker-compose -f /home/root/hubgamers/front/docker-compose.yml down
             docker-compose -f /home/root/hubgamers/front/docker-compose.yml up -d
-            docker network connect hubgamers-network vuejs-nginx
