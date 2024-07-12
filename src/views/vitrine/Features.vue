@@ -71,10 +71,6 @@ defineComponent({
 </script>
 
 <style lang="scss" scoped>
-h2, h3, h4, p, i {
-  color: #FFFFFF;
-}
-
 h2 {
   font-size: 2rem;
   @media screen and (min-width: 768px){
