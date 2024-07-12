@@ -37,6 +37,11 @@ const routes = [
     component: () => import('@/views/vitrine/SearchPlayers.vue')
   },
   {
+    path: '/legals',
+    name: 'Legals',
+    component: () => import('@/views/vitrine/Legals.vue')
+  },
+  {
     path: '/auth/login',
     name: 'Login',
     component: () => import('@/views/Auth.vue')

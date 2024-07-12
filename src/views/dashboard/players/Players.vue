@@ -1,16 +1,16 @@
 <template>
   <DashboardLayout title="Découvrez les joueurs du moment" subtitle="Vous pouvez inviter quiconque à rejoindre votre équipe">
-    <div class="flex flex-wrap justify-between mt-10">
-      <div class="flex flex-col max-w-[300px] w-full">
+    <div class="flex flex-wrap gap-2 mt-10">
+      <div class="flex flex-col max-w-[300px] flex-1">
         <input-text v-model:model-value="search" label="Recherche" placeholder="Rechercher un joueur" required />
         <button @click="searchInTeams" class="info">Rechercher</button>
       </div>
-      <div class="flex flex-wrap flex-row gap-5">
+      <div class="flex flex-wrap flex-row gap-5" style="flex: 2">
         <CardComponent
           v-for="(player, key) in store.getters.getPlayers"
           :key="key"
           :title-card="player.username"
-          :image="player.avatar ? player.avatar : '../../../../public/user.png'"
+          :image="player.avatar ? player.avatar : 'https://avatar.iran.liara.run/public/6'"
           :link-one="'/dashboard/players/' + player.id"
           link-one-text="Détails du joueur"
           btn-modal-text="Inviter à rejoindre l'équipe"

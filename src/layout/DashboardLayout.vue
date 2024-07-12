@@ -35,7 +35,12 @@ onBeforeMount(() => {
 store.dispatch('getUserById', localStorage.getItem('userId'))
 </script>
 
-<style scoped>
+<style>
+  h1, h2, h3, p, i {
+    color: var(--blue);
+  }
+  
+  
   .container {
     max-width: inherit;
     display: grid;

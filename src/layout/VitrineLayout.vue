@@ -5,19 +5,22 @@
       <slot />
     </div>
   </div>
+  <FooterComponent />
 </template>
 
 <script setup>
 import { defineComponent } from 'vue'
 import Navbar from '@/components/Navbar.vue'
+import FooterComponent from '@/components/Footer.vue'
 defineComponent({
   name: 'VitrineLayout'
 })
 </script>
 
-<style scoped>
+<style>
   .body {
     background: #1C1C1C;
+    min-height: 100vh;
   }
   .wrap {
     display: flex;
@@ -27,7 +30,7 @@ defineComponent({
     margin: 0 auto;
   }
 
-  h2, h3, h4, p, i {
+  h1, h2, h3, h4, p, i {
     color: #FFFFFF;
   }
 

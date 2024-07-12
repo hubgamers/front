@@ -1,6 +1,6 @@
 <template>
   <VitrineLayout>
-    <div class="row">
+    <div class="row gap-2">
       <div class="text">
         <h1 class="text-8xl">Créez votre équipe en quelques clics</h1>
         <p>Recrutez vos prochains joueurs</p>
@@ -9,7 +9,9 @@
         <p>Organisez vos propres évènements</p>
         <p>Et bien plus !</p>
 
-        <button class="green">Commencez dès maintenant</button>
+        <button class="green">
+          <RouterLink to="/auth/register">Commencez dès maintenant</RouterLink>
+        </button>
       </div>
       <div class="image">
         <img src="../../../public/bg-esport.jpg" alt="BG Esport">
@@ -52,7 +54,9 @@ defineComponent({
 }
 .image {
   flex: 1;
-  width: 300px;
+  @media screen and (mix-width: 768px) {
+    width: 300px;
+  }
 }
 
 </style>

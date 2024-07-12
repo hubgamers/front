@@ -1,7 +1,9 @@
 <template>
   <VitrineLayout>
-    <h1>Checkout Success</h1>
-    <p>Checkout success page content</p>
+    <div class="columns">
+      <h1>Abonnement réussie</h1>
+      <p>Vous allez être redigiré</p>
+    </div>
   </VitrineLayout>
 </template>
 <script setup>

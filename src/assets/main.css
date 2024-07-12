@@ -38,7 +38,6 @@
 * {
     font-family: "Figtree", sans-serif;
     box-sizing: border-box;
-    border: 0;
     margin: 0;
     padding: 0;
 }
@@ -46,11 +45,6 @@
 body {
     font-size: 16px;
     line-height: 1.5;
-    color: #333;
-}
-
-h1, h2, h3, p {
-    color: var(--blue);
 }
 
 h1 {
@@ -113,11 +107,17 @@ button.green {
     transition: all 0.3s;
     background-color: var(--green);
     color: var(--black);
+    a {
+        color: var(--black)!important;
+    }
 }
 button.green:hover {
     transition: all 0.3s;
-    background-color: var(--blue);
-    color: var(--white);
+    background-color: #46cdbd;
+    color: var(--black);
+    a {
+        color: var(--black)!important;
+    }
 }
 
 button.warning {

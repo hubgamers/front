@@ -3,53 +3,54 @@
     <div class="columns align-items-center">
       <h3>Fonctionnalités</h3>
       <h2>Créer son équipe</h2>
-      <p class="description">Vous pouvez créer une équipe de x joueurs tout en incluant des personnes faisant partis du staff afin de participer aux tournois, ou simplement enchainez des parties de ranked.</p>
 
-      <div class="feats">
+      <div class="row">
         <FeatComponent
-          title="Invitez des joueurs"
-          content="test"
+          title="Créer des sous-équipes"
+          content="Créez des équipes spécifiques pour différents jeux et plateformes, et regroupez-les sous une même équipe principale."
           icon="fa-user-plus" />
         <FeatComponent
           title="Invitez des joueurs"
-          content="test"
+          content="Tous les joueurs ayant activé leur compte peuvent être invités dans vos sous-équipes."
           icon="fa-user-plus" />
         <FeatComponent
-          title="Invitez des joueurs"
-          content="test"
+          title="Gérer votre staff"
+          content="Ajoutez des personnes à votre staff pour gérer les équipes, les tournois et bien plus."
           icon="fa-user-plus" />
       </div>
+
       <LargeComponent
-        title="Créer une équipe"
-        content="Vous pouvez créer une équipe de x joueurs tout en incluant des personnes faisant partis du staff afin de participer aux tournois, ou simplement enchainez des parties de ranked."
-        buttonText="Créer une équipe"
+        title="Créer une sous-équipe"
+        content="Une équipe de 6 joueurs sur Valorant PC qui pourra s'inscrire à des tournois et participer à des parties classées ensemble."
+        buttonText="Commencez dès maintenant"
         imgUrl="bg-esport.jpg"
       />
+
       <div class="row">
         <div>
           <ColumnBannerComponent
-            title="Créer une équipe"
-            content="Vous pouvez créer une équipe de x joueurs tout en incluant des personnes faisant partis du staff afin de participer aux tournois, ou simplement enchainez des parties de ranked."
-            buttonText="Créer une équipe"
+            title="Système d'invitation intégré"
+            content="Invitez facilement des joueurs à rejoindre votre équipe en utilisant notre système d'invitation intégré. Gérez les permissions et les accès avec facilité."
+            buttonText="Inviter des joueurs"
           />
         </div>
         <div class="columns gap-3">
           <div class="row">
             <ColumnBannerComponent
-              title="Créer une équipe"
-              content="Vous pouvez créer une équipe de x joueurs tout en incluant des personnes faisant partis du staff afin de participer aux tournois, ou simplement enchainez des parties de ranked."
-              buttonText="Créer une équipe"
+              title="Participation aux tournois"
+              content="Rejoignez des tournois officiels ou communautaires avec votre équipe. Facilité d'inscription et coordination pour une expérience compétitive optimale."
+              buttonText="Voir les tournois"
             />
             <ColumnBannerComponent
-              title="Créer une équipe"
-              content="Vous pouvez créer une équipe de x joueurs tout en incluant des personnes faisant partis du staff afin de participer aux tournois, ou simplement enchainez des parties de ranked."
-              buttonText="Créer une équipe"
+              title="Personnalisation avancée des équipes"
+              content="Personnalisez chaque détail de votre équipe, de l'avatar au style de jeu. Renforcez l'identité de votre équipe pour une expérience de jeu unique."
+              buttonText="Personnaliser mon équipe"
             />
           </div>
           <LargeComponent
-            title="Créer une équipe"
-            content="Vous pouvez créer une équipe de x joueurs tout en incluant des personnes faisant partis du staff afin de participer aux tournois, ou simplement enchainez des parties de ranked."
-            buttonText="Créer une équipe"
+            title="Gestion efficace du staff"
+            content="Optimisez la gestion de votre équipe en attribuant des rôles spécifiques à votre staff. Facilitez la coordination des tâches et la communication interne."
+            buttonText="Gérer le staff"
           />
         </div>
       </div>
@@ -70,12 +71,11 @@ defineComponent({
 </script>
 
 <style lang="scss" scoped>
-h2, h3, h4, p, i {
-  color: #FFFFFF;
-}
-
 h2 {
-  font-size: 4rem;
+  font-size: 2rem;
+  @media screen and (min-width: 768px){
+    font-size: 4rem;
+  }
   font-weight: 700;
   margin-bottom: 2rem;
 }
@@ -83,11 +83,5 @@ h2 {
 .description {
   width: 400px;
   text-align: center;
-}
-
-.feats {
-  padding: 4rem 1rem;
-  display: flex;
-  gap: 6rem;
 }
 </style>

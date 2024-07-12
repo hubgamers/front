@@ -61,7 +61,6 @@ function openModal() {
 
 <style lang="scss">
 .card {
-  margin: 1rem 0;
   display: flex;
   flex-flow: row;
   width: 100%;
@@ -82,7 +81,7 @@ function openModal() {
   
   .infos {
     width: 70%;
-    padding: 1rem;
+    padding: 1rem 0 1rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -120,7 +119,6 @@ function openModal() {
   
   .actions {
     display: flex;
-    justify-content: end;
     align-items: center;
     gap: 1rem;
   }
