@@ -1,9 +1,9 @@
 <template>
   <VitrineLayout>
-    <div class="containerAuth">
+    <div class="containerAuth columns items-center">
       <h1 v-if="isLogin">Se connecter</h1>
       <h1 v-else>Créer un compte</h1>
-      <div class="containerForm">
+      <div class="containerForm columns gap-1">
         <input-text v-if="!isLogin" v-model="auth.username" type="string" label="Nom d'utilisateur" placeholder="Nom d'utilisateur" :required="true" />
         <input-text v-if="!isLogin" v-model="auth.email" type="string" label="Email" placeholder="example@hubgamers.fr" :required="true" />
         <input-text v-if="isLogin" v-model="auth.login" type="string" label="Identifiant" placeholder="example@hubgamers.fr" :required="true" />
@@ -114,19 +114,18 @@ function login() {
 .containerAuth {
   max-width: 1400px;
   margin: 0 auto;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
+  padding: 1rem;
 }
 
 .containerForm {
-  display: flex;
-  flex-flow: column;
   gap: 3rem;
-  min-width: 600px;
-  max-width: 300px;
+  max-width: 600px;
+  min-width: 300px;
+  @media screen and (min-width: 768px) {
+    max-width: 800px;
+    min-width: 600px;
+  }
 }
 
 h1 {
