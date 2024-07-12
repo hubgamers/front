@@ -1,6 +1,5 @@
 <template>
   <DashboardLayout title="Tableau de bord" subtitle="Bienvenue sur votre compte" :show-search-bar="true">
-    <PlayerModeComponent />
     <div class="row justify-around gap-2 pt-2">
      <CardActionDashboardComponent
         title="Equipes créées"
@@ -43,7 +42,6 @@ import { defineComponent, onBeforeMount, ref } from 'vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import CardActionDashboardComponent from '@/views/dashboard/components/CardDashboardComponent.vue'
 import { useStore } from 'vuex'
-import PlayerModeComponent from '@/views/dashboard/components/PlayerModeComponent.vue'
 import teamService from '@/services/teamService'
 import tournamentService from '@/services/tournamentService'
 import { useRouter } from 'vue-router'
