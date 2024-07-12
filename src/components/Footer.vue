@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-between py-10 px-4">
+  <div class="row align-items-center justify-between py-10 px-4">
     <p>&copy; 2024 - Tous les droits réservés</p>
     <ul>
       <li><RouterLink to="/legals">Mentions légales</RouterLink></li>
