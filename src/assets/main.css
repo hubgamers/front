@@ -113,11 +113,17 @@ button.green {
     transition: all 0.3s;
     background-color: var(--green);
     color: var(--black);
+    a {
+        color: var(--black)!important;
+    }
 }
 button.green:hover {
     transition: all 0.3s;
-    background-color: var(--blue);
-    color: var(--white);
+    background-color: #46cdbd;
+    color: var(--black);
+    a {
+        color: var(--black)!important;
+    }
 }
 
 button.warning {

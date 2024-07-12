@@ -17,6 +17,7 @@ defineComponent({
 
 <style scoped lang="scss">
 div {
+  background: #1C1C1C;
   ul {
     li {
       a {

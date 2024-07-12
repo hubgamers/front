@@ -4,8 +4,8 @@
     <div class="wrap">
       <slot />
     </div>
-    <FooterComponent />
   </div>
+  <FooterComponent />
 </template>
 
 <script setup>
@@ -20,6 +20,7 @@ defineComponent({
 <style scoped>
   .body {
     background: #1C1C1C;
+    min-height: 100vh;
   }
   .wrap {
     display: flex;

@@ -9,7 +9,9 @@
         <p>Organisez vos propres évènements</p>
         <p>Et bien plus !</p>
 
-        <button class="green">Commencez dès maintenant</button>
+        <button class="green">
+          <RouterLink to="/auth/register">Commencez dès maintenant</RouterLink>
+        </button>
       </div>
       <div class="image">
         <img src="../../../public/bg-esport.jpg" alt="BG Esport">
