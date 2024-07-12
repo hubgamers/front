@@ -94,7 +94,7 @@ header {
       gap: 2rem;
       
       li a {
-        font-weight: 400;
+        font-weight: 700;
         color: #FFFFFF;
         
         &:hover, &:focus, &:active {
