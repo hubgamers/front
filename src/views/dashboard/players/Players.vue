@@ -10,7 +10,7 @@
           v-for="(player, key) in store.getters.getPlayers"
           :key="key"
           :title-card="player.username"
-          :image="player.avatar ? player.avatar : '../../../../public/user.png'"
+          :image="player.avatar ? player.avatar : 'https://avatar.iran.liara.run/public/6'"
           :link-one="'/dashboard/players/' + player.id"
           link-one-text="Détails du joueur"
           btn-modal-text="Inviter à rejoindre l'équipe"
