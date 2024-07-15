@@ -19,7 +19,7 @@
         <input-text v-model:model-value="search" label="Recherche" placeholder="Rechercher une équipe" required />
         <button @click="searchInTeams" class="info">Rechercher</button>
       </div>
-      <div class="flex flex-wrap flex-row gap-5">
+      <div class="flex flex-wrap flex-row gap-5 mt-2">
         <CardComponent v-for="(team, key) in store.getters.getTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" btn-modal-text="Rejoindre l'équipe" @modal="openJoinModal(team.id)" />
       </div>
     </div>

@@ -3,6 +3,7 @@
     <p>&copy; 2024 - Tous les droits réservés</p>
     <ul>
       <li><RouterLink to="/legals">Mentions légales</RouterLink></li>
+      <li><RouterLink to="/cgu">Conditions Générales d'Utilisation</RouterLink></li>
     </ul>
   </div>
 </template>
