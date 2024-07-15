@@ -55,6 +55,7 @@
           </div>
         </td>
       </tr>
+      <p v-if="items.length === 0">Aucune donnée disponible pour le moment.</p>
       </tbody>
     </table>
   </div>
