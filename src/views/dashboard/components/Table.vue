@@ -44,7 +44,7 @@
               </RouterLink>
             </template>
             <template v-else-if="type === 'invitation'">
-              <template v-if="item['status'] === 'PENDING' && canAcceptInvitation">
+              <template v-if="item['status'] === 'PENDING' && (canAcceptInvitation || item['type'] === 'JOIN_STAFF' || item['type'] === 'JOIN_TEAM_ROSTER')">
                 <button @click="acceptInvitation(item['id'])" class="text-green-600 hover:underline dark:text-green-500">Accepter</button>
                 <button @click="declineInvitation(item['id'])" class="text-red-600 hover:underline dark:text-red-500">Refuser</button>
               </template>
@@ -113,6 +113,8 @@ function getColumnHeader(column) {
       return 'Joueurs';
     case 'teamId':
       return 'Equipe';
+    case 'rosterId':
+      return 'Roster';
     default:
       return column;
   }
