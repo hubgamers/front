@@ -41,6 +41,7 @@ import { notify } from '@kyvg/vue3-notification'
 import InputText from '@/components/InputText.vue'
 import { onBeforeMount, ref } from 'vue'
 import Table from '@/views/dashboard/components/Table.vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   teamRosterId: Object
@@ -54,16 +55,26 @@ const teamRosterForm = ref({
   platform: '',
   teamId: store.getters.getTeam.id
 })
+const router = useRouter();
 
 store.dispatch('getAllGames')
 onBeforeMount(() => {
-  if (props.teamRosterId) {
+  // On vérifie s'il s'agit d'une édition ou d'une création
+  if (router.currentRoute.value.name === 'EditTeam') {
     store.dispatch('getTeamRosterById', props.teamRosterId)
-      .then(() => {
-        teamRosterForm.value = store.getters.getTeamRoster
-      })
+    .then(() => {
+      teamRosterForm.value = store.getters.getTeamRoster
+    })
+    .catch(() => {
+      notify({
+        title: "Erreur",
+        text: "Une erreur est survenue lors de la récupération de la sous-équipe",
+        type: "error"
+      });
+    });
   }
 })
+
 function submitForm() {
   store.dispatch('createTeamRoster', teamRosterForm.value)
     .then(() => {
@@ -84,7 +95,9 @@ function close() {
 // Feat : ajout de joueur à une équipe
 let playerSearch = ref('');
 store.dispatch('getAllPlayers');
-store.dispatch('getAllInvitationsByTeamId', props.teamRosterId);
+if (props.teamRosterId) {
+  store.dispatch('getAllInvitationsByTeamId', props.teamRosterId);
+}
 store.dispatch('getInvitationColumns')
 function searchPlayer() {
   store.dispatch('getPlayerByUsername', playerSearch.value);

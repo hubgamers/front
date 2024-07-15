@@ -20,6 +20,10 @@ const props = defineProps({
   },
   type: {
     type: String
+  },
+  canAcceptInvitation: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -177,7 +181,7 @@ function editTeamRoster(teamRosterId) {
             Editer
           </RouterLink>
           <div class="row gap-1" v-else-if="type === 'invitation'">
-            <template v-if="item['status'] === 'PENDING'">
+            <template v-if="item['status'] === 'PENDING' && canAcceptInvitation">
               <button class="green" @click="acceptInvitation(item['id'])">Accepter</button>
               <button class="warning" @click="declineInvitation(item['id'])">Refuser</button>
             </template>

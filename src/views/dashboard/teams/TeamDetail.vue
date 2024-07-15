@@ -128,7 +128,7 @@ store.dispatch('getAllTeamRostersByTeamId', params.id)
 let tabStatus = ref('palmarès')
 function changeTabStatus(tab) {
   tabStatus.value = tab
-  if (tab == 'edit') {
+  if (tab === 'edit') {
     router.push({name: 'EditTeam', params: { id: params.id }});
   }
 }
@@ -181,13 +181,16 @@ async function recruitStaff(playerId) {
 }
 
 let showTeamRoster = ref(false);
-let teamRosterId = ref("");
+let teamRosterId = ref(null);
 function openTeamRoster(id) {
-  teamRosterId.value = id;
+  if (typeof id === 'number') {
+    teamRosterId.value = id;
+  }
   showTeamRoster.value = true;
 }
 
 function closeTeamRoster() {
   showTeamRoster.value = false;
+  store.dispatch('getAllTeamRostersByTeamId', params.id)
 }
 </script>
