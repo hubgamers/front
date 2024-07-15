@@ -3,10 +3,10 @@
     <div class="image">
       <img :src="image" alt="image">
     </div>
-    <div class="infos">
+    <div class="infos columns justify-between">
       <h3>{{ titleCard }}</h3>
       <p>{{desc != null && desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
-      <div class="actions mt-1">
+      <div class="actions row items-center gap-1 mt-1">
         <button v-if="linkOne && linkOneText" class="yellow">
           <RouterLink :to="linkOne">{{linkOneText}}</RouterLink>
         </button>
@@ -69,27 +69,36 @@ function openModal() {
   border: 1px solid rgba(0, 0, 0, 0.1);
   
   .image {
-    max-width: 150px;
-    max-height: 150px;
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
-      object-fit: cover;
+    display: none;
+    @media screen and (min-width: 768px){
+      display: block;
+      max-width: 150px;
+      max-height: 150px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+      }
     }
   }
   
   .infos {
-    width: 70%;
-    padding: 1rem 0 1rem 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    width: 100%;
+    padding: 1rem;
+    @media screen and (min-width: 768px) {
+      width: 70%;
+      padding: 1rem 0 1rem 1rem;
+    }
 
     h3, p {
       color: #28536B;
     }
     h3 {
+      text-align: center;
+      @media screen and (min-width: 768px) {
+        text-align: left;
+      }
       font-size: 1.5rem;
       font-weight: 600;
     }
@@ -115,12 +124,6 @@ function openModal() {
         }
       }
     }
-  }
-  
-  .actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
   }
 }
 </style>
