@@ -110,44 +110,48 @@ const actions = {
       });
     });
   },
-  createTeam(team) {
+  createTeam({ commit }, team) {
     return new Promise((resolve, reject) => {
       teamService.createTeam(team)
       .then((response) => {
         resolve(response.data.data);
+        commit('updateTeam', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  uploadTeamBanner({ teamId, file }) {
+  uploadTeamBanner({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      teamService.uploadTeamBanner(teamId, file)
+      teamService.uploadTeamBanner(payload.teamId, payload.file)
       .then((response) => {
         resolve(response.data.data);
+        commit('updateTeam', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  uploadTeamLogo({ teamId, file }) {
+  uploadTeamLogo({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      teamService.uploadTeamLogo(teamId, file)
+      teamService.uploadTeamLogo(payload.teamId, payload.file)
       .then((response) => {
         resolve(response.data.data);
+        commit('updateTeam', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  updateTeam(team) {
+  updateTeam({ commit }, team) {
     return new Promise((resolve, reject) => {
       teamService.updateTeam(team)
       .then((response) => {
         resolve(response.data.data);
+        commit('updateTeam', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);

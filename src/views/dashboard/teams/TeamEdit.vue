@@ -7,13 +7,9 @@
       <div>
         <input-text type="file" label="Logo" @uploadFile="uploadTeamLogo" />
       </div>
-      <InputText v-model="teamForm.description" label="Description" placeholder="HubGamers's Team" required />
     </div>
-
-    <div v-if="loading">
-      Chargement...
-    </div>
-    <form @submit.prevent="submitForm" v-else>
+    
+    <form @submit.prevent="submitForm">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" required />
         <input-text v-model="teamForm.description" label="Description" placeholder="Une équipe de choc" required />
@@ -28,7 +24,7 @@
   </DashboardLayout>
 </template>
 <script setup>
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import InputText from '@/components/InputText.vue'
@@ -39,44 +35,38 @@ defineComponent({
   name: 'TeamEditPage'
 })
 
-
-const teamForm = ref(null);
-const loading = ref(true);
-
+const teamForm = ref({
+  name: '',
+  tags: [],
+  description: '',
+  visibility: false,
+  players: [],
+  organizerId: '',
+  logo: '',
+  banner: ''
+});
 const { notify } = useNotification();
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
 const params = route.params;
 
-const loadTeamData = async () => {
-  if (params && params.id) {
-    await store.dispatch('getTeamById', params.id);
-    const team = store.getters.getTeam;
-    if (team) {
-      teamForm.value = team;
-    } else {
-      notify({ type: 'error', text: 'Équipe non trouvée' });
-    }
-  } else {
-    // Initialise un nouveau formulaire si pas d'ID fourni
-    teamForm.value = {
-      name: '',
-      tags: [],
-      description: '',
-      visibility: false,
-      players: [],
-      organizerId: '',
-      logo: '',
-      banner: ''
-    };
+onBeforeMount(() => {
+  // On vérifie s'il s'agit d'une édition ou d'une création
+  if (router.currentRoute.value.name === 'EditTeam') {
+    store.dispatch('getTeamById', params.id)
+      .then(() => {
+        teamForm.value = store.getters.getTeam
+      })
+      .catch(() => {
+        notify({
+          title: "Erreur",
+          text: "Une erreur est survenue lors de la récupération de l'équipe",
+          type: "error"
+        });
+      });
   }
-  loading.value = false;
-};
-
-onMounted(() => {
-  loadTeamData();
-});
+})
 
 store.dispatch('getAllPlayers')
 store.dispatch('getAllTags')
