@@ -1,11 +1,11 @@
 <template>
   <DashboardLayout>
     <div v-if="store.getters.getTeam !== null">
-      <div class="relative">
-        <img class="relative max-h-[500px] w-full object-cover rounded-b" :src="(store.getters.getTeam.banner !== null && store.getters.getTeam.banner !== '') ? store.getters.getTeam.banner : 'https://picsum.photos/1000/800'" alt="banner">
-        <img class="absolute bottom-0 left-0 max-h-[300px] max-w-[300px]" :src="(store.getters.getTeam.logo !== null && store.getters.getTeam.logo !== '') ? store.getters.getTeam.logo : 'https://picsum.photos/300/300'" alt="logo">
+      <div class="relative images">
+        <img class="relative banner w-full object-cover rounded-b" :src="(store.getters.getTeam.banner !== null && store.getters.getTeam.banner !== '') ? store.getters.getTeam.banner : 'https://picsum.photos/1000/800'" alt="banner">
+        <img class="absolute logo bottom-0 left-0" :src="(store.getters.getTeam.logo !== null && store.getters.getTeam.logo !== '') ? store.getters.getTeam.logo : 'https://picsum.photos/300/300'" alt="logo">
       </div>
-      <div class="py-3 px-3">
+      <div class="py-3 px-3 div-max-100-vh">
         <h1 class="mt-3 mb-1">{{store.getters.getTeam.name}}</h1>
         <p>{{store.getters.getTeam.description}}</p>
         <nav class="tabs border-b text-sm flex justify-start">
@@ -194,3 +194,33 @@ function closeTeamRoster() {
   store.dispatch('getAllTeamRostersByTeamId', params.id)
 }
 </script>
+
+<style lang="scss" scoped>
+.images {
+  .banner {
+    max-height: 20vh;
+    @media screen and (min-width: 768px){
+      max-height: 500px;
+    }
+  }
+  .logo {
+    max-height: 100px;
+    max-width: 100px;
+    @media screen and (min-width: 768px){
+      max-height: 300px;
+      max-width: 300px;
+    }
+  }
+}
+
+h2 {
+  font-size: 1rem;
+  @media screen and (min-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+.div-max-100-vh div {
+  max-width: 100vw;
+}
+</style>
