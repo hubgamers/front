@@ -10,11 +10,11 @@
         <p>{{store.getters.getTeam.description}}</p>
         <nav class="tabs border-b text-sm flex justify-start">
           <span :class="tabStatus === 'palmarès' ? 'active' : ''" @click="changeTabStatus('palmarès')">Palmarès</span>
-          <span :class="tabStatus === 'composition' ? 'active' : ''" @click="changeTabStatus('composition')">Composition</span>
-          <span :class="tabStatus === 'invitations' ? 'active' : ''" @click="changeTabStatus('invitations')">Invitations</span>
+          <span v-if="haveAccess" :class="tabStatus === 'composition' ? 'active' : ''" @click="changeTabStatus('composition')">Composition</span>
+          <span v-if="haveAccess" :class="tabStatus === 'invitations' ? 'active' : ''" @click="changeTabStatus('invitations')">Invitations</span>
           <span :class="tabStatus === 'tournois' ? 'active' : ''" @click="changeTabStatus('tournois')">Tournois</span>
-          <span :class="tabStatus === 'gestion' ? 'active' : ''" @click="changeTabStatus('gestion')">Gestion</span>
-          <span :class="tabStatus === 'edit' ? 'active' : ''" @click="changeTabStatus('edit')">Editer l'équipe <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+          <span v-if="haveAccess" :class="tabStatus === 'gestion' ? 'active' : ''" @click="changeTabStatus('gestion')">Gestion</span>
+          <span v-if="haveAccess" :class="tabStatus === 'edit' ? 'active' : ''" @click="changeTabStatus('edit')">Editer l'équipe <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
         </nav>
 
         <div v-if="tabStatus === 'palmarès'">
@@ -25,6 +25,7 @@
           <Topbar title="Composition de l'équipe" subtitle="Des joueurs au staff" class="mb-10" />
           <p>Vous pouvez ajouter des utilisateurs parmis la liste ci-dessous afin qu'ils puissent gérer votre équipe.</p>
           <br>
+          <h3 class="text-2xl mt-5 mb-3">Staff</h3>
           <ul v-if="store.getters.getTeam.users != null && store.getters.getTeam.users.length > 0">
             <li v-for="(user, index) in store.getters.getTeam.users" :key="index">
               <span>{{user.username}}</span>
@@ -93,8 +94,8 @@
 <script setup>
 import Topbar from '@/views/dashboard/components/Topbar.vue'
 import { useStore } from 'vuex'
-import { useRoute, useRouter } from 'vue-router'
-import { defineComponent, ref } from 'vue'
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
+import { defineComponent, onBeforeMount, ref, watchEffect } from 'vue'
 import InputText from '@/components/InputText.vue'
 import Table from '@/views/dashboard/components/Table.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
@@ -116,10 +117,27 @@ let teamForm = ref({
   game: '',
   platform: ''
 });
-if (params && params.id) {
-  store.dispatch('getTeamById', params.id)
-  teamForm.value = store.getters.getTeam
-}
+
+let haveAccess = ref(false);
+onBeforeMount(() => {
+  if (params && params.id) {
+    store.dispatch('getTeamById', params.id)
+    teamForm.value = store.getters.getTeam
+  }
+})
+
+watchEffect(() => {
+  if (store.getters.getUser && store.getters.getTeam) {
+    haveAccess.value = store.getters.getTeam.users.some(user => user.id === store.getters.getUser.id)
+    if (!haveAccess.value) {
+      haveAccess.value = store.getters.getTeam.organizerId === store.getters.getUser.id
+    }
+  }
+})
+
+onBeforeRouteLeave(() => {
+  store.dispatch('resetTeam')
+})
 
 store.dispatch('getTeamRosterColumns')
 store.dispatch('getAllTeamRostersByTeamId', params.id)

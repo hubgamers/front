@@ -26,7 +26,6 @@ export default {
     return axiosCustom.get(`/team/id/${id}`);
   },
   createTeam(team) {
-    console.log(team);
     return axiosCustom.post("/team/create", team);
   },
   uploadTeamBanner(teamId, file) {

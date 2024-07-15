@@ -32,6 +32,9 @@
           <template v-else-if="column === 'status'">
             <span :class="getStatusClass(item[column])">{{ getStatusText(item[column]) }}</span>
           </template>
+          <template v-else-if="column === 'game'">
+            <p>{{store.getters.getGames.filter((game) => game.id === parseInt(item[column]))[0].name }}</p>
+          </template>
           <template v-else>
             {{ getColumnValue(item, column) }}
           </template>
@@ -44,7 +47,7 @@
               </RouterLink>
             </template>
             <template v-else-if="type === 'invitation'">
-              <template v-if="item['status'] === 'PENDING' && canAcceptInvitation">
+              <template v-if="item['status'] === 'PENDING' && (canAcceptInvitation || item['type'] === 'JOIN_STAFF' || item['type'] === 'JOIN_TEAM_ROSTER')">
                 <button @click="acceptInvitation(item['id'])" class="text-green-600 hover:underline dark:text-green-500">Accepter</button>
                 <button @click="declineInvitation(item['id'])" class="text-red-600 hover:underline dark:text-red-500">Refuser</button>
               </template>
@@ -52,9 +55,15 @@
             <template v-else-if="type === 'teamRoster'">
               <button @click="editTeamRoster(item['id'])" class="text-blue-600 hover:underline dark:text-blue-500">Editer</button>
             </template>
+            <template v-else-if="type === 'teamId'">
+              <button class="text-blue-600 hover:underline dark:text-blue-500">
+                <RouterLink to="/team/{{ item['id'] }}">Voir</RouterLink>
+              </button>
+            </template>
           </div>
         </td>
       </tr>
+      <p v-if="items.length === 0">Aucune donnée disponible pour le moment.</p>
       </tbody>
     </table>
   </div>
@@ -92,6 +101,7 @@ defineProps({
 const emit = defineEmits(['edit', 'delete']);
 
 const store = useStore();
+store.dispatch('getAllGames')
 
 function getColumnHeader(column) {
   switch (column) {
@@ -113,6 +123,8 @@ function getColumnHeader(column) {
       return 'Joueurs';
     case 'teamId':
       return 'Equipe';
+    case 'rosterId':
+      return 'Roster';
     default:
       return column;
   }

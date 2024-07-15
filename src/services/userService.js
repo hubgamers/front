@@ -19,7 +19,12 @@ export default {
   uploadAvatar(file) {
     let formData = new FormData();
     formData.append("file", file);
-    return axiosCustom.post("/user/avatar/upload", formData);
+    
+    return axiosCustom.post(`/user/avatar/upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   },
   createUser(user) {
     return axiosCustom.post("/user/create", user);

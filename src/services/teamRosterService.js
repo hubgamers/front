@@ -25,6 +25,9 @@ export default {
   getTeamById(id) {
     return axiosCustom.get(`/teamRoster/id/${id}`);
   },
+  getTeamRosterByPlayerId(playerId) {
+    return axiosCustom.get(`/teamRoster/player/${playerId}`);
+  },
   create(team) {
     return axiosCustom.post("/teamRoster/create", team);
   },

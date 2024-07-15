@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="image">
-      <img :src="image" alt="image">
+      <img :src="image != null ? image : 'https://via.placeholder.com/300'" alt="image">
     </div>
     <div class="infos columns justify-between">
       <h3>{{ titleCard }}</h3>
