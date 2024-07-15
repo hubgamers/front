@@ -68,6 +68,18 @@ const actions = {
       });
     });
   },
+  getTeamRosterByPlayerId({ commit }, playerId) {
+    return new Promise((resolve, reject) => {
+      teamRosterService.getTeamRosterByPlayerId(playerId)
+      .then((response) => {
+        commit('updateTeamRosters', response.data.data);
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
   createTeamRoster({ commit }, teamRoster) {
     return new Promise((resolve, reject) => {
       teamRosterService.create(teamRoster)

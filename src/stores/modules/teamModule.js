@@ -38,6 +38,9 @@ const mutations = {
 };
 
 const actions = {
+  resetTeam({ commit }) {
+    commit('updateTeam', null);
+  },
   getTeamColumns({ commit }) {
     return new Promise((resolve, reject) => {
       teamService.getColumns()
