@@ -3,10 +3,10 @@
     <PlayerModeComponent />
     <div class="row mt-10 gap-10">
       <SidebarOnPage :entity="store.getters.getUser" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus" :show-profile="true"  type-sidebar="profile"/>
-      <div v-if="sideBarStatus == 'invitations'">
+      <div v-if="sideBarStatus === 'invitations'">
         <h3 class="text-2xl mt-5 mb-3">Invitations en attente</h3>
         <ul v-if="store.getters.getInvitationsByPlayerId.length > 0">
-          <li class="mb-2" v-for="(invitation, key) in store.getters.getInvitationsByPlayerId.filter((invitation) => invitation.status == 'PENDING')" :key="key">
+          <li class="mb-2" v-for="(invitation, key) in store.getters.getInvitationsByPlayerId.filter((invitation) => invitation.status === 'PENDING')" :key="key">
             <span>{{invitation.title}}</span>
             <div class="flex gap-1">
               <button class="info" @click="acceptInvitation(invitation.id)">Accepter</button>
@@ -16,15 +16,15 @@
         </ul>
         <p v-else>Vous n'avez pas d'invitation en attente. Revenez plus tard.</p>
       </div>
-      <div v-if="sideBarStatus == 'notifications'">
+      <div v-if="sideBarStatus === 'notifications'">
         <h3 class="text-2xl mt-5 mb-3">Notifications</h3>
         <p>Prochainement, retrouvez l'ensemble de vos notifications.</p>
       </div>
-      <div v-if="sideBarStatus == 'messages'">
+      <div v-if="sideBarStatus === 'messages'">
         <h3 class="text-2xl mt-5 mb-3">Messages</h3>
         <p>Prochainement, retrouvez l'ensemble de vos messages.</p>
       </div>
-      <div v-if="sideBarStatus == 'gestion'">
+      <div v-if="sideBarStatus === 'gestion'">
         <h3 class="text-2xl mt-5 mb-3">Gestion de mon compte</h3>
         <form>
           <div v-if="store.getters.getUser.avatar" class="max-w-96">
@@ -35,7 +35,7 @@
           <input-text v-model="userForm.email" label="Adresse mail" :disabled="true" />
         </form>
       </div>
-      <div v-if="sideBarStatus == 'dangerous_area'">
+      <div v-if="sideBarStatus === 'dangerous_area'">
         <h3 class="text-2xl mt-5 mb-3">Zone dangereuse</h3>
         <p>Si vous souhaitez supprimer votre compte, cliquez sur le bouton ci-dessous.</p>
         <button class="warning">Supprimer mon compte</button>

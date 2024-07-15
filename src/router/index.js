@@ -42,6 +42,11 @@ const routes = [
     component: () => import('@/views/vitrine/Legals.vue')
   },
   {
+    path: '/cgu',
+    name: 'CGU',
+    component: () => import('@/views/vitrine/CGU.vue')
+  },
+  {
     path: '/auth/login',
     name: 'Login',
     component: () => import('@/views/Auth.vue')
@@ -90,6 +95,11 @@ const routes = [
     path: '/dashboard/players',
     name: 'Players',
     component: () => import('@/views/dashboard/players/Players.vue')
+  },
+  {
+    path: '/dashboard/players/:id',
+    name: 'PlayerDetail',
+    component: () => import('@/views/dashboard/players/PlayerDetail.vue')
   },
   {
     path: '/dashboard/tournaments',

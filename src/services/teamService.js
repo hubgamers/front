@@ -26,17 +26,28 @@ export default {
     return axiosCustom.get(`/team/id/${id}`);
   },
   createTeam(team) {
+    console.log(team);
     return axiosCustom.post("/team/create", team);
   },
   uploadTeamBanner(teamId, file) {
     let formData = new FormData();
     formData.append("file", file);
-    return axiosCustom.post("/team/banner/upload/" + teamId, formData);
+    
+    return axiosCustom.post(`/team/banner/upload/${teamId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   },
   uploadTeamLogo(teamId, file) {
     let formData = new FormData();
     formData.append("file", file);
-    return axiosCustom.post("/team/logo/upload/" + teamId, formData);
+    
+    return axiosCustom.post(`/team/logo/upload/${teamId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   },
   updateTeam(team) {
     return axiosCustom.put("/team/update", team);

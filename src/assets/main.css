@@ -144,21 +144,52 @@ button.yellow:hover {
 
 /* TABS */
 nav.tabs {
-    span {
-        cursor: pointer;
-        padding: 10px 20px;
-        border-bottom: 2px solid transparent;
-        transition: all 0.3s;
-        &:hover {
-            border-color: #FF8811;
-            color: #FF8811;
-        }
+    display: flex;
+    overflow-x: auto; /* Permet de faire défiler les onglets horizontalement en mode mobile */
+    white-space: nowrap; /* Empêche les onglets de passer à la ligne */
+}
+
+nav.tabs span {
+    cursor: pointer;
+    padding: 10px 20px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+    flex-shrink: 0; /* Empêche les onglets de se réduire en taille */
+}
+
+nav.tabs span:hover {
+    border-color: #FF8811;
+    color: #FF8811;
+}
+
+nav.tabs .active {
+    border-color: #FF8811;
+    color: #FF8811;
+}
+
+@media (max-width: 768px) {
+    /* Affichage vertical en mode mobile */
+    nav.tabs {
+        flex-direction: column;
     }
-    .active {
-        border-color: #FF8811;
-        color: #FF8811;
+
+    nav.tabs span {
+        padding: 10px;
+        border-left: 2px solid transparent;
+        border-bottom: none;
+    }
+
+    nav.tabs span:hover {
+        border-left-color: #FF8811;
+        border-bottom: none;
+    }
+
+    nav.tabs span.active {
+        border-left-color: #FF8811;
+        border-bottom: none;
     }
 }
+
 
 .row {
     display: flex;
