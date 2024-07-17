@@ -43,7 +43,7 @@
             </RouterLink>
           </li>
           <li class="li">
-            <RouterLink to="/dashboard/production">
+            <RouterLink to="#">
               <i class="fa fa-satellite-dish"></i>
               <span>Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></span>
             </RouterLink>
@@ -58,19 +58,13 @@
         <ul class="autres">
           <li>AUTRES</li>
           <li class="li">
-            <RouterLink to="/dashboard/settings">
-              <i class="fa fa-gear"></i>
-              <span>Paramètres</span>
-            </RouterLink>
-          </li>
-          <li class="li">
             <RouterLink to="/dashboard/subscriptions">
               <i class="fa fa-wallet"></i>
               <span>Abonnement</span>
             </RouterLink>
           </li>
           <li class="li">
-            <RouterLink to="/help">
+            <RouterLink to="/contact">
               <i class="fa fa-circle-info"></i>
               <span>Besoin d'aide</span>
             </RouterLink>

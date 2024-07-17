@@ -8,42 +8,43 @@
     <div class="py-10 px-10">
       <Topbar :title="store.getters.getTournament.name" />
       <div class="flex flex-row">
-        <span class="bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"><i class="fa-solid fa-gamepad"></i> {{ store.getters.getTournament.game }}</span>
+        <span v-if="store.getters.getGames" class="bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"><i class="fa-solid fa-gamepad"></i> {{store.getters.getGames.filter(game => game.id === parseInt(store.getters.getTournament.game))[0].name }}</span>
         <span class="bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"><i class="fa-solid fa-laptop"></i> {{ store.getters.getTournament.platform }}</span>
       </div>
 
       <p class="text-2xl">{{formatDate(store.getters.getTournament.startDate, 'DD/MM/YYYY hh:mm') + ' - ' + formatDate(store.getters.getTournament.endDate, 'DD/MM/YYYY hh:mm')}}</p>
 
       <nav class="tabs border-b text-sm flex justify-start mt-4">
-        <span :class="tabStatus == 'infos' ? 'active' : ''" @click="changeTabStatus('infos')">Informations</span>
-        <span :class="tabStatus == 'rules' ? 'active' : ''" @click="changeTabStatus('rules')">Règlement</span>
-        <span :class="tabStatus == 'participants' ? 'active' : ''" @click="changeTabStatus('participants')">Participants</span>
-        <span :class="tabStatus == 'gestion' ? 'active' : ''" @click="changeTabStatus('gestion')">Gestion</span>
+        <span :class="tabStatus === 'infos' ? 'active' : ''" @click="changeTabStatus('infos')">Informations</span>
+        <span :class="tabStatus === 'rules' ? 'active' : ''" @click="changeTabStatus('rules')">Règlement</span>
+        <span :class="tabStatus === 'participants' ? 'active' : ''" @click="changeTabStatus('participants')">Participants</span>
+        <span v-if="haveAccess" :class="tabStatus === 'gestion' ? 'active' : ''" @click="changeTabStatus('gestion')">Gestion</span>
+        <span v-if="haveAccess" :class="tabStatus === 'edit' ? 'active' : ''" @click="changeTabStatus('edit')">Editer le tournoi <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
       </nav>
 
-      <div v-if="tabStatus == 'infos'">
+      <div v-if="tabStatus === 'infos'">
         <Topbar title="Informations générales" subtitle="" class="mb-10" />
         <p>{{store.getters.getTournament.description}}</p>
       </div>
-      <div v-if="tabStatus == 'rules'">
+      <div v-if="tabStatus === 'rules'">
         <Topbar title="Règlement" subtitle="" class="mb-10" />
         <p>{{store.getters.getTournament.rules}}</p>
       </div>
-      <div v-if="tabStatus == 'participants'">
+      <div v-if="tabStatus === 'participants'">
         <Topbar title="Participants" subtitle="" class="mb-10" />
         <p>{{store.getters.getTournament.participants.length}} participant(s).</p>
       </div>
-      <div v-if="tabStatus == 'gestion'">
+      <div v-if="tabStatus === 'gestion'">
         <Topbar title="Gestion" subtitle="" class="mb-10" />
         <div class="flex mt-10 gap-10">
           <SidebarOnPage :entity="store.getters.getTournament" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus"  type-sidebar="tournament"/>
-          <div v-if="sideBarStatus == 'tournaments_registrations'">
+          <div v-if="sideBarStatus === 'tournaments_registrations'">
             <h3>Inscriptions aux tournois</h3>
           </div>
-          <div v-if="sideBarStatus == 'messages'">
+          <div v-if="sideBarStatus === 'messages'">
             <h3>Messages</h3>
           </div>
-          <div v-if="sideBarStatus == 'compositon'">
+          <div v-if="sideBarStatus === 'compositon'">
             <h3 class="text-2xl mt-5 mb-3">Composition</h3>
             <ul v-if="store.getters.getTournament.participants != null && store.getters.getTournament.participants.length > 0">
               <li v-for="(participant, index) in store.getters.getTournament.participants" :key="index">
@@ -59,7 +60,7 @@
             <h3 class="text-2xl mt-5 mb-3">Invitations</h3>
             <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/teams/invitations/" />
           </div>
-          <div v-if="sideBarStatus == 'configuration'">
+          <div v-if="sideBarStatus === 'configuration'">
             <h3 class="text-2xl mt-5 mb-3">Configuration</h3>
             <form @submit.prevent="updateTournament" class="mt-10">
               <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -85,7 +86,7 @@
               </div>
             </form>
           </div>
-          <div v-if="sideBarStatus == 'dangerous_area'">
+          <div v-if="sideBarStatus === 'dangerous_area'">
             <h3>Zone dangereuse</h3>
           </div>
         </div>
@@ -96,7 +97,7 @@
 </template>
 <script setup>
 import Topbar from '@/views/dashboard/components/Topbar.vue'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import moment from 'moment';
@@ -128,10 +129,24 @@ if (params && params.id) {
   tournamentForm.value = store.getters.getTournament;
 }
 
+let haveAccess = ref(false);
+watchEffect(() => {
+  if (store.getters.getUser && store.getters.getTournament) {
+    if (!haveAccess.value) {
+      haveAccess.value = store.getters.getTournament.organizerId === store.getters.getUser.id
+    }
+  }
+})
+
+store.dispatch('getAllGames')
+
 // TODO: faire la gestion des onglets avec tab=... dans l'url
 let tabStatus = ref('rules')
 function changeTabStatus(tab) {
   tabStatus.value = tab
+  if (tab === 'edit') {
+    router.push({name: 'EditTournament', params: { id: params.id }});
+  }
 }
 
 function formatDate(date, formatDate= 'yyyy-MM-dd') {

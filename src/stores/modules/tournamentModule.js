@@ -98,6 +98,18 @@ const actions = {
       });
     });
   },
+  getTournamentByName(context, name) {
+    return new Promise((resolve, reject) => {
+      tournamentService.getTournamentByName(name)
+      .then((response) => {
+        resolve(response.data.data);
+        context.commit('updateTournament', response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
   createTournament(context, tournament) {
     return new Promise((resolve, reject) => {
       tournamentService.createTournament(tournament)

@@ -41,7 +41,6 @@ import { notify } from '@kyvg/vue3-notification'
 import InputText from '@/components/InputText.vue'
 import { onBeforeMount, ref } from 'vue'
 import Table from '@/views/dashboard/components/Table.vue'
-import { useRouter } from 'vue-router'
 
 const props = defineProps({
   teamRosterId: Object
@@ -55,12 +54,11 @@ const teamRosterForm = ref({
   platform: '',
   teamId: store.getters.getTeam.id
 })
-const router = useRouter();
 
 store.dispatch('getAllGames')
 onBeforeMount(() => {
   // On vérifie s'il s'agit d'une édition ou d'une création
-  if (router.currentRoute.value.name === 'EditTeam') {
+  if (props.teamRosterId) {
     store.dispatch('getTeamRosterById', props.teamRosterId)
     .then(() => {
       teamRosterForm.value = store.getters.getTeamRoster

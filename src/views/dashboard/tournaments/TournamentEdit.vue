@@ -12,7 +12,7 @@
     <form @submit.prevent="submitForm">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <input-text v-model="tournamentForm.name" label="Nom" placeholder="Les p't" />
-        <input-text v-model="tournamentForm.tournamentType" type="select" label="Sélectionner le type" placeholder="Les p't">
+        <input-text v-model="tournamentForm.type" type="select" label="Sélectionner le type" placeholder="Les p't">
           <option value="TOURNAMENT">Tournoi</option>
           <option value="LEAGUE">League</option>
           <option value="LADDER">Ladder</option>
@@ -21,7 +21,9 @@
         <input-text v-model="tournamentForm.rules" type="textarea" label="Règes" placeholder="Les p't" />
         <input-text v-model="tournamentForm.startDate" type="datetime-local" label="Date de début" placeholder="Les p't" />
         <input-text v-model="tournamentForm.endDate" type="datetime-local" label="Date de fin" placeholder="Les p't" />
-        <input-text v-model="tournamentForm.game" label="Jeu" placeholder="Les p't" />
+        <input-text v-model="tournamentForm.game" type="select" label="Sélectionner le jeu">
+          <option v-for="(game, key) in store.getters.getGames" :key="key" :value="game.id">{{ game.name }}</option>
+        </input-text>
         <input-text v-model="tournamentForm.platform" type="select" label="Sélectionner la plateforme" placeholder="Les p't">
           <option value="PS4">PS4</option>
           <option value="PS5">PS5</option>
@@ -30,7 +32,7 @@
           <option value="PC">PC</option>
         </input-text>
 
-        <button type="submit" class="info my-4">Créer le tournoi</button>
+        <button type="submit" class="green my-4">{{store.getters.getTournament != null ? 'Editer mon tournoi' :' Créer un tournoi'}}</button>
       </div>
     </form>
   </DashboardLayout>
@@ -55,7 +57,7 @@ let tournamentForm = ref({
   platform: '',
   logo: '',
   banner: '',
-  tournamentType: ''
+  type: ''
 });
 
 const store = useStore();
@@ -66,6 +68,7 @@ if (params.id) {
   store.dispatch('getTournamentById', params.id)
   tournamentForm.value = store.getters.getTournament
 }
+store.dispatch('getAllGames')
 
 function uploadTournamentBanner(e) {
   const files = e.target.files || e.dataTransfer.files
