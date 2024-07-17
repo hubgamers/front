@@ -3,7 +3,7 @@
     <div>
       <img class="max-w-[200px] mt-2" :src="store.getters.getPlayer.avatar ? store.getters.getPlayer.avatar : 'https://avatar.iran.liara.run/public/6'" alt="">
 
-      <Table :columns="store.getters.getTeamRosterColumns" :items="store.getters.getTeamRosters" />
+      <Table :columns="store.getters.getTeamRosterColumns.filter(column => column !== 'visibility')" :items="store.getters.getTeamRosters" />
     </div>
   </DashboardLayout>
 </template>
