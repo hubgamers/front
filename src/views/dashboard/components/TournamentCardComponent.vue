@@ -1,22 +1,22 @@
 <template>
   <div class="card">
     <div class="image">
-      <img src="https://picsum.photos/200/200" alt="image">
+      <img :src="tournament.logo ? tournament.logo : 'https://picsum.photos/200/200'" alt="image">
     </div>
     <div class="infos">
       <div>
-        <h3>{{ titleCard }}</h3>
-        <p>{{desc.length > 45 ? desc.substring(0, 45) + '...' : desc}}</p>
+        <h3>{{ tournament.name }}</h3>
+        <p>{{tournament.description.length > 45 ? tournament.description.substring(0, 45) + '...' : tournament.description}}</p>
 
-        <ul class="tags">
+        <ul class="meta">
           <li>
-            <span><i class="fa fa-gamepad"></i> Tag 1</span>
+            <span><i class="fa fa-gamepad"></i> {{tournament.platform}}</span>
           </li>
-          <li>
-            <span><i class="fa fa-gamepad"></i> Tag 1</span>
+          <li v-if="store.getters.getGames && store.getters.getGames.filter(game => game.id === parseInt(tournament.game))[0]">
+            <span><i class="fa fa-gamepad"></i> {{store.getters.getGames.filter(game => game.id === parseInt(tournament.game))[0].name }}</span>
           </li>
-          <li>
-            <span><i class="fa fa-gamepad"></i> Tag 1</span>
+          <li v-if="tournament.type">
+            <span><i class="fa fa-gamepad"></i> {{tournament.type}}</span>
           </li>
         </ul>
       </div>
@@ -25,7 +25,7 @@
         <button class="yellow">
           <RouterLink :to="linkOne">{{linkOneText}}</RouterLink>
         </button>
-        <button class="green">
+        <button v-if="linkTwo" class="green">
           <RouterLink :to="linkTwo">{{linkTwoText}}</RouterLink>
         </button>
       </div>
@@ -33,42 +33,41 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { defineComponent } from 'vue';
+import { useStore } from 'vuex'
 
-export default defineComponent({
-  name: 'TournamentCardComponent',
-  props: {
-    titleCard: {
-      type: String,
-      default: 'Titre de la carte'
-    },
-    desc: {
-      type: String,
-      default: 'Description de la carte'
-    },
-    image: {
-      type: String,
-      default: 'https://via.placeholder.com/300'
-    },
-    linkOne: {
-      type: String,
-      default: '#'
-    },
-    linkOneText: {
-      type: String,
-      default: 'Lien'
-    },
-    linkTwo: {
-      type: String,
-      default: '#'
-    },
-    linkTwoText: {
-      type: String,
-      default: 'Lien'
-    }
-  }
+defineComponent({
+  name: 'TournamentCardComponent'
 });
+
+defineProps({
+  tournament: {
+    type: Object,
+    required: true
+  },
+  image: {
+    type: String,
+    default: 'https://via.placeholder.com/300'
+  },
+  linkOne: {
+    type: String,
+    default: '#'
+  },
+  linkOneText: {
+    type: String,
+    default: 'Lien'
+  },
+  linkTwo: {
+    type: String
+  },
+  linkTwoText: {
+    type: String
+  }
+})
+
+const store = useStore();
+store.dispatch('getAllGames')
 </script>
 
 <style lang="scss">

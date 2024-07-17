@@ -127,7 +127,9 @@ onBeforeMount(() => {
 
 watchEffect(() => {
   if (store.getters.getUser && store.getters.getTeam) {
-    haveAccess.value = store.getters.getTeam.users.some(user => user.id === store.getters.getUser.id)
+    if (store.getters.getTeam.users != null && store.getters.getTeam.users.length > 0) {
+      haveAccess.value = store.getters.getTeam.users.some(user => user.id === store.getters.getUser.id)
+    }
     if (!haveAccess.value) {
       haveAccess.value = store.getters.getTeam.organizerId === store.getters.getUser.id
     }

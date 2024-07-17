@@ -79,10 +79,6 @@
             </div>
             <ul v-show="isDropDownVisible" class="dropdown">
               <li>
-                <i class="fa fa-user-alt"></i>
-                <span @click="$emit('changeSideBarStatus', 'compositon')">Composition</span>
-              </li>
-              <li>
                 <i class="fa fa-file-edit"></i>
                 <span @click="$emit('changeSideBarStatus', 'configuration')">Configuration</span>
               </li>

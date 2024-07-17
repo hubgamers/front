@@ -67,6 +67,7 @@
 
 <script setup>
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 defineComponent({
   name: 'NavbarComponent',
@@ -79,9 +80,10 @@ if (localStorage.getItem('userId')) {
   isConnected.value = true
 }
 
+const router = useRouter();
 function logout() {
   localStorage.clear();
-  window.location.reload();
+  router.push('/');
 }
 
 function toggleMenu() {
