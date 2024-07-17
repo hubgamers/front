@@ -8,7 +8,7 @@
     <div class="py-10 px-10">
       <Topbar :title="store.getters.getTournament.name" />
       <div class="flex flex-row">
-        <span v-if="store.getters.getGames" class="bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"><i class="fa-solid fa-gamepad"></i> {{store.getters.getGames.filter(game => game.id === parseInt(store.getters.getTournament.game))[0].name }}</span>
+        <span v-if="store.getters.getGames && store.getters.getGames.filter(game => game.id === parseInt(store.getters.getTournament.game))[0]" class="bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"><i class="fa-solid fa-gamepad"></i> {{store.getters.getGames.filter(game => game.id === parseInt(store.getters.getTournament.game))[0].name }}</span>
         <span class="bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"><i class="fa-solid fa-laptop"></i> {{ store.getters.getTournament.platform }}</span>
       </div>
 
@@ -40,9 +40,11 @@
           <SidebarOnPage :entity="store.getters.getTournament" :tab-status="sideBarStatus" @changeSideBarStatus="changeSideBarStatus"  type-sidebar="tournament"/>
           <div v-if="sideBarStatus === 'tournaments_registrations'">
             <h3>Inscriptions aux tournois</h3>
+            <p>Retrouvez prochainement les inscriptions à vos tournois.</p>
           </div>
           <div v-if="sideBarStatus === 'messages'">
             <h3>Messages</h3>
+            <p>Prochainement, retrouvez une messagerie interne pour votre tournoi.</p>
           </div>
           <div v-if="sideBarStatus === 'compositon'">
             <h3 class="text-2xl mt-5 mb-3">Composition</h3>
