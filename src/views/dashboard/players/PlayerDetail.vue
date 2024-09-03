@@ -3,8 +3,7 @@
     <div>
       <img class="max-w-[200px] my-2" :src="store.getters.getPlayer.avatar ? store.getters.getPlayer.avatar : 'https://avatar.iran.liara.run/public/6'" alt="">
 
-      <h2>Rosters</h2>
-      <Table :columns="store.getters.getTeamRosterColumns" :items="store.getters.getTeamRosters" />
+      <Table :columns="store.getters.getTeamRosterColumns.filter(column => column !== 'visibility')" :items="store.getters.getTeamRosters" />
     </div>
   </DashboardLayout>
 </template>
@@ -20,6 +19,9 @@ const route = useRoute();
 const params = route.params;
 
 store.dispatch('getTeamRosterColumns')
-store.dispatch('getPlayerById', params.id);
-store.dispatch('getTeamRosterByPlayerId', params.id) 
+console.log(params)
+if (params.id) {
+  store.dispatch('getPlayerById', params.id);
+  store.dispatch('getTeamRosterByPlayerId', params.id)
+}
 </script>
