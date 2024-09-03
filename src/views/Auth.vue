@@ -72,7 +72,6 @@ function register() {
       login();
     })
     .catch((error) => {
-      console.log(error)
       notify({
         title: 'Erreur',
         text: error,
@@ -99,7 +98,6 @@ function login() {
       }, 300)
      })
     .catch((error) => {
-      console.log(error)
       notify({
         title: 'Erreur',
         text: error,

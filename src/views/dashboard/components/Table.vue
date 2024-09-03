@@ -32,6 +32,9 @@
           <template v-else-if="column === 'status'">
             <span :class="getStatusClass(item[column])">{{ getStatusText(item[column]) }}</span>
           </template>
+          <template v-else-if="column === 'game'">
+            <p>{{store.getters.getGames.filter((game) => game.id === parseInt(item[column]))[0].name }}</p>
+          </template>
           <template v-else>
             {{ getColumnValue(item, column) }}
           </template>
@@ -51,6 +54,11 @@
             </template>
             <template v-else-if="type === 'teamRoster'">
               <button @click="editTeamRoster(item['id'])" class="text-blue-600 hover:underline dark:text-blue-500">Editer</button>
+            </template>
+            <template v-else-if="type === 'teamId'">
+              <button class="text-blue-600 hover:underline dark:text-blue-500">
+                <RouterLink to="/team/{{ item['id'] }}">Voir</RouterLink>
+              </button>
             </template>
           </div>
         </td>
@@ -93,6 +101,7 @@ defineProps({
 const emit = defineEmits(['edit', 'delete']);
 
 const store = useStore();
+store.dispatch('getAllGames')
 
 function getColumnHeader(column) {
   switch (column) {

@@ -18,7 +18,6 @@ const store = useStore()
 if (query.session_id) {
   // Call the API to get the checkout session details
   store.dispatch('createPortalSession', query.session_id).then((response) => {
-    console.log(response)
     window.location.href = response
   })
   

@@ -4,7 +4,7 @@
       <button class="info my-4 w-full">
         <RouterLink to="/dashboard/teams/create">Créer une équipe</RouterLink>
       </button>
-      <CardComponent v-for="(team, key) in store.getters.getMyTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" />
+      <CardComponent v-for="(team, key) in store.getters.getMyTeams" :key="key" :title-card="team.name" :desc="team.description" :image="team.logo" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" />
     </div>
     <div class="mt-10" v-else>
       <p class="pb-3">Aucune équipe de créée.</p>
@@ -20,7 +20,7 @@
         <button @click="searchInTeams" class="info">Rechercher</button>
       </div>
       <div class="flex flex-wrap flex-row gap-5 mt-2">
-        <CardComponent v-for="(team, key) in store.getters.getTeams" :key="key" :title-card="team.name" :desc="team.description" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" btn-modal-text="Rejoindre l'équipe" @modal="openJoinModal(team.id)" />
+        <CardComponent v-for="(team, key) in store.getters.getTeams" :key="key" :title-card="team.name" :desc="team.description" :image="team.logo" :link-one="'/dashboard/teams/' + team.id" link-one-text="Détails de l'équipe" btn-modal-text="Rejoindre l'équipe" @modal="openJoinModal(team.id)" />
       </div>
     </div>
     
@@ -48,7 +48,6 @@ store.dispatch('getAllPlayers')
 let search = ref('')
 
 function searchInTeams() {
-  console.log('search', search.value)
   if (search.value === '') {
     store.dispatch('getAllPublicTeams')
   } else {

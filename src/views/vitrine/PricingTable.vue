@@ -89,7 +89,6 @@ function subscribe() {
 }
 
 function editPlan() {
-  console.info('editPlan', props.stripeSessionId)
   store.dispatch('createPortalSession', props.stripeSessionId).then((response) => {
     window.location.href = response
   })

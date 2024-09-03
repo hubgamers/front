@@ -39,9 +39,7 @@ const store = useStore();
 
 let lookupKey = ref('')
 function createCheckoutSession() {
-  console.log(lookupKey.value)
   store.dispatch('createCheckoutSession', 'Abonnement_silver-f045422').then((response) => {
-    console.log(response)
     window.location.href = response
   })
 }

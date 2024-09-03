@@ -81,10 +81,40 @@ onBeforeMount(async () => {
 
 function acceptInvitation(invitationId) {
   store.dispatch('acceptInvitation', invitationId)
+  .then(() => {
+    notify({
+      title: "Invitation acceptée",
+      text: "Vous avez accepté l'invitation avec succès",
+      type: "success"
+    });
+  })
+  .catch(() => {
+    notify({
+      title: "Erreur",
+      text: "Une erreur est survenue lors de l'acceptation de l'invitation",
+      type: "error"
+    });
+  });
+  store.dispatch('getAllInvitationsbyPlayerId', store.getters.getPlayer.id)
 }
 
 function declineInvitation(invitationId) {
   store.dispatch('declineInvitation', invitationId)
+  .then(() => {
+    notify({
+      title: "Invitation refusée",
+      text: "Vous avez refusé l'invitation avec succès",
+      type: "success"
+    });
+  })
+  .catch(() => {
+    notify({
+      title: "Erreur",
+      text: "Une erreur est survenue lors du refus de l'invitation",
+      type: "error"
+    });
+  });
+  store.dispatch('getAllInvitationsbyPlayerId', store.getters.getPlayer.id)
 }
 
 const userForm = ref({

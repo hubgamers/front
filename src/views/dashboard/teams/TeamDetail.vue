@@ -25,6 +25,7 @@
           <Topbar title="Composition de l'équipe" subtitle="Des joueurs au staff" class="mb-10" />
           <p>Vous pouvez ajouter des utilisateurs parmis la liste ci-dessous afin qu'ils puissent gérer votre équipe.</p>
           <br>
+          <h3 class="text-2xl mt-5 mb-3">Staff</h3>
           <ul v-if="store.getters.getTeam.users != null && store.getters.getTeam.users.length > 0">
             <li v-for="(user, index) in store.getters.getTeam.users" :key="index">
               <span>{{user.username}}</span>
@@ -137,7 +138,6 @@ watchEffect(() => {
 })
 
 onBeforeRouteLeave(() => {
-  console.log('leave')
   store.dispatch('resetTeam')
 })
 
