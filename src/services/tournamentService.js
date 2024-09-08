@@ -19,6 +19,9 @@ export default {
   getTournamentById(id) {
     return axiosCustom.get(`/tournament/id/${id}`);
   },
+  getTournamentByName(name) {
+    return axiosCustom.get(`/tournament/name/${name}`);
+  },
   createTournament(tournament) {
     return axiosCustom.post("/tournament/create", tournament);
   },

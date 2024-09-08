@@ -65,6 +65,8 @@ onBeforeMount(() => {
           type: "error"
         });
       });
+  } else {
+    store.dispatch('resetTeam')
   }
 })
 
