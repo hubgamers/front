@@ -69,6 +69,12 @@
               <span>Besoin d'aide</span>
             </RouterLink>
           </li>
+          <li v-if="userIdAdmin" class="li">
+            <RouterLink to="/admin">
+              <i class="fa fa-kitchen-set"></i>
+              <span>Admin</span>
+            </RouterLink>
+          </li>
           <li>
             <a href="#" @click="logout">
               <i class="fa fa-door-open"></i>
@@ -99,6 +105,7 @@ function toggleSidebar() {
 
 const router = useRouter();
 const { notify } = useNotification();
+const userIdAdmin = ref(localStorage.getItem('roles').includes('ROLE_ADMIN'));
 function logout() {
   localStorage.clear();
   notify({

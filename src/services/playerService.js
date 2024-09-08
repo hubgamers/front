@@ -7,7 +7,10 @@ export default {
   getColumns() {
     return axiosCustom.get("/player/columns");
   },
-  getAllPlayers () {
+  getAllPlayersAdmin() {
+    return axiosCustom.get("/player/admin/all");
+  },
+  getAllPlayers() {
     return axiosCustom.get("/player/all");
   },
   getAllPlayersLikeByName(name) {

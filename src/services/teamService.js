@@ -7,6 +7,9 @@ export default {
   getColumns() {
     return axiosCustom.get("/team/columns");
   },
+  getAllTeams() {
+    return axiosCustom.get("/team/all");
+  },
   getAllMyTeams() {
     return axiosCustom.get("/team/my-teams");
   },

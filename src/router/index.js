@@ -140,6 +140,96 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: () => import('@/views/admin/Admin.vue')
+  },
+  {
+    path: '/admin/user',
+    name: 'UserList',
+    component: () => import('@/views/admin/User.vue')
+  },
+  {
+    path: '/admin/user/edit/:id',
+    name: 'UserEdit',
+    component: () => import('@/views/admin/User.vue')
+  },
+  {
+    path: '/admin/user/view/:id',
+    name: 'UserView',
+    component: () => import('@/views/admin/User.vue')
+  },
+  {
+    path: '/admin/tournament',
+    name: 'TournamentList',
+    component: () => import('@/views/admin/Tournament.vue')
+  },
+  {
+    path: '/admin/tournament/edit/:id',
+    name: 'TournamentEdit',
+    component: () => import('@/views/admin/Tournament.vue')
+  },
+  {
+    path: '/admin/tournament/view/:id',
+    name: 'TournamentView',
+    component: () => import('@/views/admin/Tournament.vue')
+  },
+  {
+    path: '/admin/team',
+    name: 'TeamList',
+    component: () => import('@/views/admin/Team.vue')
+  },
+  {
+    path: '/admin/team/edit/:id',
+    name: 'TeamEdit',
+    component: () => import('@/views/admin/Team.vue')
+  },
+  {
+    path: '/admin/team/view/:id',
+    name: 'TeamView',
+    component: () => import('@/views/admin/Team.vue')
+  },
+  {
+    path: '/admin/player',
+    name: 'PlayerList',
+    component: () => import('@/views/admin/Player.vue')
+  },
+  {
+    path: '/admin/player/edit/:id',
+    name: 'PlayerEdit',
+    component: () => import('@/views/admin/Player.vue')
+  },
+  {
+    path: '/admin/player/view/:id',
+    name: 'PlayerView',
+    component: () => import('@/views/admin/Player.vue')
+  },
+  {
+    path: '/admin/tag',
+    name: 'TagList',
+    component: () => import('@/views/admin/Tag.vue')
+  },
+  {
+    path: '/admin/tag/edit/:id',
+    name: 'TagEdit',
+    component: () => import('@/views/admin/Tag.vue')
+  },
+  {
+    path: '/admin/tag/view/:id',
+    name: 'TagView',
+    component: () => import('@/views/admin/Tag.vue')
+  },
+  {
+    path: '/admin/invitation',
+    name: 'InvitationList',
+    component: () => import('@/views/admin/Invitation.vue')
+  },
+  {
+    path: '/admin/invitation/edit/:id',
+    name: 'InvitationEdit',
+    component: () => import('@/views/admin/Invitation.vue')
+  },
+  {
+    path: '/admin/invitation/view/:id',
+    name: 'InvitationView',
+    component: () => import('@/views/admin/Invitation.vue')
   }
 ];
 
