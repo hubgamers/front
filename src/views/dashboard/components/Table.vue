@@ -41,11 +41,14 @@
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
           <div class="flex items-center">
-            <template v-if="type === ''">
+            <div v-if="type === ''" class="flex gap-1">
               <RouterLink :to="url + 'edit/' + item['id']" class="text-blue-600 hover:underline dark:text-blue-500">
                 Editer
               </RouterLink>
-            </template>
+              <RouterLink :to="url + 'view/' + item['id']" class="text-blue-600 hover:underline dark:text-blue-500">
+                Détails
+              </RouterLink>
+            </div>
             <template v-else-if="type === 'invitation'">
               <template v-if="item['status'] === 'PENDING' && (canAcceptInvitation || item['type'] === 'JOIN_STAFF' || item['type'] === 'JOIN_TEAM_ROSTER')">
                 <button @click="acceptInvitation(item['id'])" class="text-green-600 hover:underline dark:text-green-500">Accepter</button>

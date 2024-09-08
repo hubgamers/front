@@ -43,6 +43,17 @@ const actions = {
       });
     });
   },
+  getAllPlayersAdmin() {
+    return new Promise((resolve, reject) => {
+      playerService.getAllPlayersAdmin()
+      .then((response) => {
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
   getAllPlayers(context) {
     return new Promise((resolve, reject) => {
       playerService.getAllPlayers()

@@ -110,10 +110,12 @@ function login() {
 
 <style scoped>
 .containerAuth {
+  background: #FFFFFF;
   max-width: 1400px;
   margin: 0 auto;
-  height: 100vh;
-  padding: 1rem;
+  height: fit-content;
+  padding: 4rem;
+  border-radius: 8px;
 }
 
 .containerForm {
@@ -127,15 +129,15 @@ function login() {
 }
 
 h1 {
-  color: #FFFFFF;
+  color: #000;
 }
 
 a {
-  color: #FFFFFF;
+  color: #000;
 
   &:hover {
     text-decoration-line: underline;
-    text-decoration-color: #FFFFFF;
+    text-decoration-color: #000;
   }
 }
 </style>
