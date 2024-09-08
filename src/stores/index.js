@@ -46,6 +46,7 @@ export default createStore({
         authService.login(login, password)
           .then((response) => {
             if (response.status === 200) {
+              localStorage.setItem('roles', response.data.data.roles);
               localStorage.setItem('jwtToken', response.data.data.jwtToken);
               localStorage.setItem('userId', response.data.data.userId);
             }
