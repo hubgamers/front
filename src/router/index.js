@@ -135,6 +135,11 @@ const routes = [
     path: '/checkout/cancel',
     name: 'CheckoutCancel',
     component: () => import('@/views/checkout/CheckoutCancel.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('@/views/admin/Admin.vue')
   }
 ];
 
