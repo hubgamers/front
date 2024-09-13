@@ -1,181 +1,181 @@
-import teamService from '@/services/teamService.js'
+import structureService from '@/services/structureService.js'
 
 const state = () => ({
-  teamColumns: [],
-  myTeams: [],
-  teams: [],
-  team: null,
+  structureColumns: [],
+  myStructures: [],
+  structures: [],
+  structure: null,
 });
 
 const getters = {
-  getTeamColumns(state) {
-    return state.teamColumns;
+  getStructureColumns(state) {
+    return state.structureColumns;
   },
-  getMyTeams(state) {
-    return state.myTeams;
+  getMyStructures(state) {
+    return state.myStructures;
   },
-  getTeams(state) {
-    return state.teams;
+  getStructures(state) {
+    return state.structures;
   },
-  getTeam(state) {
-    return state.team;
+  getStructure(state) {
+    return state.structure;
   }
 };
 
 const mutations = {
-  updateTeamColumns(state, columns) {
-    state.teamColumns = columns;
+  updateStructureColumns(state, columns) {
+    state.structureColumns = columns;
   },
-  updateMyTeams(state, teams) {
-    state.myTeams = teams;
+  updatemyStructures(state, structures) {
+    state.myStructures = structures;
   },
-  updateTeamList(state, teams) {
-    state.teams = teams;
+  updateStructureList(state, structures) {
+    state.structures = structures;
   },
-  updateTeam(state, team) {
-    state.team = team;
+  updateStructure(state, structure) {
+    state.structure = structure;
   }
 };
 
 const actions = {
-  resetTeam({ commit }) {
-    commit('updateTeam', null);
+  resetStructure({ commit }) {
+    commit('updateStructure', null);
   },
-  getTeamColumns({ commit }) {
+  getStructureColumns({ commit }) {
     return new Promise((resolve, reject) => {
-      teamService.getColumns()
+      structureService.getColumns()
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeamColumns', response.data.data);
+        commit('updateStructureColumns', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  getAllTeams({ commit }) {
+  getAllStructures({ commit }) {
     return new Promise((resolve, reject) => {
-      teamService.getAllTeams()
+      structureService.getAllStructures()
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeamList', response.data.data);
+        commit('updateStructureList', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  getAllMyTeams({ commit }) {
+  getAllMyStructures({ commit }) {
     return new Promise((resolve, reject) => {
-      teamService.getAllMyTeams()
+      structureService.getAllMyStructures()
       .then((response) => {
         resolve(response.data.data);
-        commit('updateMyTeams', response.data.data);
+        commit('updatemyStructures', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  getAllPublicTeams({ commit }) {
+  getAllPublicStructures({ commit }) {
     return new Promise((resolve, reject) => {
-      teamService.getAllPublicTeams()
+      structureService.getAllPublicStructures()
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeamList', response.data.data);
+        commit('updateStructureList', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  getAllTeamsByName({ commit }, name) {
+  getAllStructuresByName({ commit }, name) {
     return new Promise((resolve, reject) => {
-      teamService.getAllTeamsByName(name)
+      structureService.getAllStructuresByName(name)
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeamList', response.data.data);
+        commit('updateStructureList', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  getTeamByName({ commit }, name) {
+  getStructureByName({ commit }, name) {
     return new Promise((resolve, reject) => {
-      teamService.getTeamByName(name)
+      structureService.getStructureByName(name)
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeam', response.data.data);
+        commit('updateStructure', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  getTeamById({ commit }, id) {
+  getStructureById({ commit }, id) {
     return new Promise((resolve, reject) => {
-      teamService.getTeamById(id)
+      structureService.getStructureById(id)
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeam', response.data.data);
+        commit('updateStructure', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  createTeam({ commit }, team) {
+  createStructure({ commit }, team) {
     return new Promise((resolve, reject) => {
-      teamService.createTeam(team)
+      structureService.createStructure(team)
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeam', response.data.data);
+        commit('updateStructure', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  uploadTeamBanner({ commit }, payload) {
+  uploadStructureBanner({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      teamService.uploadTeamBanner(payload.teamId, payload.file)
+      structureService.uploadStructureBanner(payload.structureId, payload.file)
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeam', response.data.data);
+        commit('updateStructure', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  uploadTeamLogo({ commit }, payload) {
+  uploadStructureLogo({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      teamService.uploadTeamLogo(payload.teamId, payload.file)
+      structureService.uploadStructureLogo(payload.structureId, payload.file)
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeam', response.data.data);
+        commit('updateStructure', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  updateTeam({ commit }, team) {
+  updateStructure({ commit }, team) {
     return new Promise((resolve, reject) => {
-      teamService.updateTeam(team)
+      structureService.updateStructure(team)
       .then((response) => {
         resolve(response.data.data);
-        commit('updateTeam', response.data.data);
+        commit('updateStructure', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
       });
     });
   },
-  deleteTeam(id) {
+  deleteStructure(id) {
     return new Promise((resolve, reject) => {
-      teamService.deleteTeam(id)
+      structureService.deleteStructure(id)
       .then((response) => {
         resolve(response.data.data);
       })

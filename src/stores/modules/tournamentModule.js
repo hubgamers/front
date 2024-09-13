@@ -26,8 +26,8 @@ const mutations = {
   updateTournamentColumns(state, columns) {
     state.tournamentColumns = columns;
   },
-  updateMyTournaments(state, teams) {
-    state.myTournaments = teams;
+  updateMyTournaments(state, structures) {
+    state.myTournaments = structures;
   },
   updateTournamentList(state, tournaments) {
     state.tournaments = tournaments;

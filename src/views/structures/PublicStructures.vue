@@ -8,7 +8,7 @@
 
       <!-- lister les équipes publiques -->
       <ul class="mt-5 flex flex-col gap-3">
-        <li v-for="(team, teamIndex) in store.getters.getTeams" :key="teamIndex" class="rounded-lg bg-gray-300 flex items-center justify-around px-2">
+        <li v-for="(team, teamIndex) in store.getters.getStructures" :key="teamIndex" class="rounded-lg bg-gray-300 flex items-center justify-around px-2">
           <div class="flex items-center gap-2">
             <img :src="team.logo" alt="team" class="w-20 h-20 rounded-full">
             <div class="flex flex-col">
@@ -62,7 +62,7 @@ import { useStore } from 'vuex'
 import { ref } from 'vue'
 
 const store = useStore();
-store.dispatch('getAllPublicTeams');
+store.dispatch('getAllPublicStructures');
 
 let invitationModal = ref(false);
 

@@ -1,24 +1,24 @@
 <template>
-  <DashboardLayout title="Gérer mon équipe" :subtitle="store.getters.getTeam != null ? 'Editer mon équipe' :' Créer une équipe'">
-    <div v-if="teamForm !== null && store.getters.getTeam != null" class="relative">
+  <DashboardLayout title="Gérer ma structure" :subtitle="store.getters.getStructure != null ? 'Editer ma structure' :' Créer une structure'">
+    <div v-if="teamForm !== null && store.getters.getStructure != null" class="relative">
       <div>
-        <input-text type="file" label="Bannière" @uploadFile="uploadTeamBanner" />
+        <input-text type="file" label="Bannière" @uploadFile="uploadStructureBanner" />
       </div>
       <div>
-        <input-text type="file" label="Logo" @uploadFile="uploadTeamLogo" />
+        <input-text type="file" label="Logo" @uploadFile="uploadStructureLogo" />
       </div>
     </div>
     
     <form @submit.prevent="submitForm">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" required />
-        <input-text v-model="teamForm.description" label="Description" placeholder="Une équipe de choc" required />
+        <input-text v-model="teamForm.description" label="Description" placeholder="Une structure de choc" required />
         <input-text v-model="teamForm.tags" type="select" label="Sélectionner les tags" :multiple="true">
           <option v-for="(tag, index) in store.getters.getTags" :key="index" :value="tag.id">{{ tag.name }}</option>
         </input-text>
       </div>
       <button type="button" class="info my-4 mr-1" @click="back">Retour</button>
-      <button type="submit" class="green my-4">{{store.getters.getTeam != null ? 'Editer mon équipe' :' Créer une équipe'}}</button>
+      <button type="submit" class="green my-4">{{store.getters.getStructure != null ? 'Editer mon structure' :' Créer une structure'}}</button>
     </form>
 
   </DashboardLayout>
@@ -54,31 +54,31 @@ const params = route.params;
 onBeforeMount(() => {
   // On vérifie s'il s'agit d'une édition ou d'une création
   if (router.currentRoute.value.name === 'EditTeam') {
-    store.dispatch('getTeamById', params.id)
+    store.dispatch('getStructureById', params.id)
       .then(() => {
-        teamForm.value = store.getters.getTeam
+        teamForm.value = store.getters.getStructure
       })
       .catch(() => {
         notify({
           title: "Erreur",
-          text: "Une erreur est survenue lors de la récupération de l'équipe",
+          text: "Une erreur est survenue lors de la récupération de la structure",
           type: "error"
         });
       });
   } else {
-    store.dispatch('resetTeam')
+    store.dispatch('resetStructure')
   }
 })
 
 store.dispatch('getAllPlayers')
 store.dispatch('getAllTags')
 
-function uploadTeamBanner(e) {
+function uploadStructureBanner(e) {
   const files = e.target.files || e.dataTransfer.files
   if (!files.length)
     return;
-  store.dispatch('uploadTeamBanner', {
-    teamId: params.id,
+  store.dispatch('uploadStructureBanner', {
+    structureId: params.id,
     file: files[0]
   })
     .then(() => {
@@ -97,12 +97,12 @@ function uploadTeamBanner(e) {
     });
 }
 
-function uploadTeamLogo(e) {
+function uploadStructureLogo(e) {
   const files = e.target.files || e.dataTransfer.files
   if (!files.length)
     return;
-  store.dispatch('uploadTeamLogo', {
-    teamId: params.id,
+  store.dispatch('uploadStructureLogo', {
+    structureId: params.id,
     file: files[0]
   })
     .then(() => {
@@ -123,36 +123,36 @@ function uploadTeamLogo(e) {
 
 function submitForm() {
   if (params && params.id) {
-    store.dispatch('updateTeam', teamForm.value).then(() => {
+    store.dispatch('updateStructure', teamForm.value).then(() => {
       notify({
         title: "Mis à jour",
-        text: "Votre équipe a été mise à jour avec succès",
+        text: "Votre structure a été mise à jour avec succès",
         type: "success"
       });
       // Redirect to the team page
-      router.push({ name: 'TeamDetail', params: { id: params.id } })
+      router.push({ name: 'StructureDetail', params: { id: params.id } })
     })
       .catch(() => {
         notify({
           title: "Erreur",
-          text: "Une erreur est survenue lors de la mise à jour de l'équipe",
+          text: "Une erreur est survenue lors de la mise à jour de la structure",
           type: "error"
         });
       });
   } else {
-    store.dispatch('createTeam', teamForm.value).then((res) => {
+    store.dispatch('createStructure', teamForm.value).then((res) => {
       notify({
         title: "Création",
-        text: "Votre équipe a été créée avec succès",
+        text: "Votre structure a été créée avec succès",
         type: "success"
       });
       // Redirect to the team page
-      router.push({ name: 'TeamDetail', params: { id: res.id } })
+      router.push({ name: 'StructureDetail', params: { id: res.id } })
     })
       .catch(() => {
         notify({
           title: "Erreur",
-          text: "Une erreur est survenue lors de la création de l'équipe",
+          text: "Une erreur est survenue lors de la création de la structure",
           type: "error"
         });
       });
@@ -160,10 +160,10 @@ function submitForm() {
 }
 
 function back() {
-  if (store.getters.getTeam != null) {
-    router.push({ name: 'TeamDetail', params: { id: store.getters.getTeam.id } })
+  if (store.getters.getStructure != null) {
+    router.push({ name: 'StructureDetail', params: { id: store.getters.getStructure.id } })
   } else {
-    router.push({ name: 'Teams' })
+    router.push({ name: 'Structures' })
   }
 }
 </script>

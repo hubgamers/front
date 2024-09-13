@@ -2,10 +2,10 @@
   <DashboardLayout title="Tableau de bord" subtitle="Bienvenue sur votre compte" :show-search-bar="true">
     <div class="row justify-around gap-2 pt-2">
      <CardActionDashboardComponent
-        title="Equipes créées"
+        title="Structures créées"
         :subtitle="teamSize"
-        btnUri="/dashboard/teams"
-        btnText="Voir mes équipes"
+        btnUri="/dashboard/structures"
+        btnText="Voir mes structures"
         bg-color="blue"
      />
      <CardActionDashboardComponent
@@ -42,7 +42,7 @@ import { defineComponent, onBeforeMount, ref } from 'vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import CardActionDashboardComponent from '@/views/dashboard/components/CardDashboardComponent.vue'
 import { useStore } from 'vuex'
-import teamService from '@/services/teamService'
+import teamService from '@/services/structureService'
 import tournamentService from '@/services/tournamentService'
 import { useRouter } from 'vue-router'
 defineComponent({
@@ -59,7 +59,7 @@ onBeforeMount(() => {
 store.dispatch('getProductByUser')
 
 const teamSize = ref(0);
-teamService.countAllTeams().then((res) => {
+teamService.countAllStructures().then((res) => {
   teamSize.value = res.data.data;
 })
 

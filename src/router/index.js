@@ -27,9 +27,9 @@ const routes = [
     component: () => import('@/views/vitrine/Contact.vue')
   },
   {
-    path: '/teams',
-    name: 'Teams',
-    component: () => import('@/views/teams/PublicTeams.vue')
+    path: '/structures',
+    name: 'Structures',
+    component: () => import('@/views/structures/PublicStructures.vue')
   },
   {
     path: '/players',
@@ -72,24 +72,24 @@ const routes = [
     component: () => import('@/views/dashboard/Profile.vue')
   },
   {
-    path: '/dashboard/teams',
-    name: 'MyTeams',
-    component: () => import('@/views/dashboard/teams/Teams.vue')
+    path: '/dashboard/structures',
+    name: 'Structures',
+    component: () => import('@/views/dashboard/structures/Structures.vue')
   },
   {
-    path: '/dashboard/teams/create',
-    name: 'CreateTeam',
-    component: () => import('@/views/dashboard/teams/TeamEdit.vue')
+    path: '/dashboard/structures/create',
+    name: 'CreateStructure',
+    component: () => import('@/views/dashboard/structures/StructureEdit.vue')
   },
   {
-    path: '/dashboard/teams/edit/:id',
-    name: 'EditTeam',
-    component: () => import('@/views/dashboard/teams/TeamEdit.vue')
+    path: '/dashboard/structures/edit/:id',
+    name: 'StructureEdit',
+    component: () => import('@/views/dashboard/structures/StructureEdit.vue')
   },
   {
-    path: '/dashboard/teams/:id',
-    name: 'TeamDetail',
-    component: () => import('@/views/dashboard/teams/TeamDetail.vue')
+    path: '/dashboard/structures/:id',
+    name: 'StructureDetail',
+    component: () => import('@/views/dashboard/structures/StructureDetail.vue')
   },
   {
     path: '/dashboard/players',
@@ -172,19 +172,19 @@ const routes = [
     component: () => import('@/views/admin/Tournament.vue')
   },
   {
-    path: '/admin/team',
-    name: 'TeamList',
-    component: () => import('@/views/admin/Team.vue')
+    path: '/admin/structure',
+    name: 'StructureList',
+    component: () => import('@/views/admin/Structure.vue')
   },
   {
-    path: '/admin/team/edit/:id',
-    name: 'TeamEdit',
-    component: () => import('@/views/admin/Team.vue')
+    path: '/admin/structure/edit/:id',
+    name: 'StructureEdit',
+    component: () => import('@/views/admin/Structure.vue')
   },
   {
-    path: '/admin/team/view/:id',
-    name: 'TeamView',
-    component: () => import('@/views/admin/Team.vue')
+    path: '/admin/structure/view/:id',
+    name: 'StructureView',
+    component: () => import('@/views/admin/Structure.vue')
   },
   {
     path: '/admin/player',

@@ -20,13 +20,13 @@ const getters = {
 };
 
 const mutations = {
-  updateTeamRosters(state, teamRosters) {
+  updateStructureRosters(state, teamRosters) {
     state.teamRosters = teamRosters;
   },
-  updateTeamRosterColumns(state, teamRosterColumns) {
+  updateStructureRosterColumns(state, teamRosterColumns) {
     state.teamRosterColumns = teamRosterColumns;
   },
-  updateTeamRoster(state, teamRoster) {
+  updateStructureRoster(state, teamRoster) {
     state.teamRoster = teamRoster;
   }
 };
@@ -36,7 +36,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       teamRosterService.getAllTeamRostersByTeamId(teamId)
       .then((response) => {
-        commit('updateTeamRosters', response.data.data);
+        commit('updateStructureRosters', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       teamRosterService.getColumns()
       .then((response) => {
-        commit('updateTeamRosterColumns', response.data.data);
+        commit('updateStructureRosterColumns', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
@@ -58,9 +58,9 @@ const actions = {
   },
   getTeamRosterById({ commit }, teamRosterId) {
     return new Promise((resolve, reject) => {
-      teamRosterService.getTeamById(teamRosterId)
+      teamRosterService.getStructureById(teamRosterId)
       .then((response) => {
-        commit('updateTeamRoster', response.data.data);
+        commit('updateStructureRoster', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
@@ -72,7 +72,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       teamRosterService.getTeamRosterByPlayerId(playerId)
       .then((response) => {
-        commit('updateTeamRosters', response.data.data);
+        commit('updateStructureRosters', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
@@ -80,11 +80,11 @@ const actions = {
       });
     });
   },
-  createTeamRoster({ commit }, teamRoster) {
+  createStructureRoster({ commit }, teamRoster) {
     return new Promise((resolve, reject) => {
       teamRosterService.create(teamRoster)
       .then((response) => {
-        commit('updateTeamRoster', response.data.data);
+        commit('updateStructureRoster', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {

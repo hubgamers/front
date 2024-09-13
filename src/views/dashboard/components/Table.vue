@@ -136,8 +136,8 @@ function getColumnHeader(column) {
 function getColumnValue(item, column) {
   if (column === 'playerId' && store.getters.getPlayer !== null) {
     return store.getters.getPlayer.username;
-  } else if (column === 'teamId' && store.getters.getTeam !== null) {
-    return store.getters.getTeam.name;
+  } else if (column === 'teamId' && store.getters.getStructure !== null) {
+    return store.getters.getStructure.name;
   } else {
     return item[column];
   }
@@ -177,7 +177,7 @@ function acceptInvitation(invitationId) {
       title: 'Invitation acceptée',
       text: 'Vous avez accepté l\'invitation'
     });
-    store.dispatch('getAllInvitationsByTeamId', store.getters.getTeam.id);
+    store.dispatch('getAllInvitationsByTeamId', store.getters.getStructure.id);
   })
   .catch(() => {
     notify({
@@ -196,7 +196,7 @@ function declineInvitation(invitationId) {
       title: 'Invitation refusée',
       text: 'Vous avez refusé l\'invitation'
     });
-    store.dispatch('getAllInvitationsByTeamId', store.getters.getTeam.id);
+    store.dispatch('getAllInvitationsByTeamId', store.getters.getStructure.id);
   })
   .catch(() => {
     notify({

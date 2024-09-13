@@ -10,19 +10,19 @@ export default {
   getAllTeamRostersByTeamId(teamId) {
     return axiosCustom.get(`/teamRoster/team/${teamId}`);
   },
-  countAllTeams() {
+  countAllStructures() {
     return axiosCustom.get("/teamRoster/count-all");
   },
-  getAllPublicTeams () {
+  getAllPublicStructures () {
     return axiosCustom.get("/teamRoster/all-public");
   },
-  getAllTeamsByName(name) {
+  getAllStructuresByName(name) {
     return axiosCustom.get(`/teamRoster/all/name/${name}`);
   },
-  getTeamByName(name) {
+  getStructureByName(name) {
     return axiosCustom.get(`/teamRoster/name/${name}`);
   },
-  getTeamById(id) {
+  getStructureById(id) {
     return axiosCustom.get(`/teamRoster/id/${id}`);
   },
   getTeamRosterByPlayerId(playerId) {
@@ -31,10 +31,10 @@ export default {
   create(team) {
     return axiosCustom.post("/teamRoster/create", team);
   },
-  updateTeam(team) {
+  updateStructure(team) {
     return axiosCustom.put("/teamRoster/update", team);
   },
-  deleteTeam(id) {
+  deleteStructure(id) {
     return axiosCustom.delete(`/teamRoster/delete/${id}`);
   }
 }

@@ -70,8 +70,8 @@ switch (entityName.value) {
   case 'tournament':
     details.value = store.getters.getTournament;
     break;
-  case 'team':
-    details.value = store.getters.getTeam;
+  case 'structure':
+    details.value = store.getters.getStructure;
     break;
   case 'player':
     details.value = store.getters.getPlayer;
@@ -98,8 +98,8 @@ function submitForm() {
       case 'tournament':
         store.dispatch('updateTournament', userForm.value)
         break;
-      case 'team':
-        store.dispatch('updateTeam', userForm.value)
+      case 'structure':
+        store.dispatch('updateStructure', userForm.value)
         break;
       case 'player':
         store.dispatch('updatePlayer', userForm.value)
@@ -119,8 +119,8 @@ function submitForm() {
       case 'tournament':
         store.dispatch('createTournament', userForm.value)
         break;
-      case 'team':
-        store.dispatch('createTeam', userForm.value)
+      case 'structure':
+        store.dispatch('createStructure', userForm.value)
         break;
       case 'player':
         store.dispatch('createPlayer', userForm.value)
@@ -144,7 +144,7 @@ const loadEntityData = async (entity, params) => {
   const entityMapping = {
     'user': { getter: 'getUserColumns', items: 'getUsers', actions: ['getUserColumns', 'getAllUsers'] },
     'tournament': { getter: 'getTournamentColumns', items: 'getTournaments', actions: ['getTournamentColumns', 'getAllTournaments'] },
-    'team': { getter: 'getTeamColumns', items: 'getTeams', actions: ['getTeamColumns', 'getAllTeams'] },
+    'structure': { getter: 'getStructureColumns', items: 'getStructures', actions: ['getStructureColumns', 'getAllStructures'] },
     'player': { getter: 'getPlayerColumns', items: 'getPlayers', actions: ['getPlayerColumns', 'getAllPlayersAdmin'] },
     'tag': { items: 'getTags', actions: ['getAllTags'] },
     'invitation': { getter: 'getInvitationColumns', items: 'getInvitations', actions: ['getInvitationColumns', 'getAllInvitations'] },
@@ -187,8 +187,8 @@ onBeforeRouteLeave((to, from, next) => {
       case 'tournament':
         store.dispatch('getTournamentById', to.params.id)
         break;
-      case 'team':
-        store.dispatch('getTeamById', to.params.id);
+      case 'structure':
+        store.dispatch('getStructureById', to.params.id);
         break;
       case 'player':
         store.dispatch('getPlayerById', to.params.id)
