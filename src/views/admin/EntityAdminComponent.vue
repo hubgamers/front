@@ -53,40 +53,6 @@ const props = defineProps({
 
 const store = useStore();
 const entityName = ref(props.entityName);
-const columns = ref([]);
-const items = ref([]);
-const url = ref(`/admin/${entityName.value}/`);
-if (entityName.value === 'user') {
-  store.dispatch('getUserColumns')
-  store.dispatch('getAllUsers')
-  columns.value = store.getters.getUserColumns;
-  items.value = store.getters.getUsers;
-} else if (entityName.value === 'tournament') {
-  store.dispatch('getTournamentColumns')
-  store.dispatch('getAllTournaments')
-  columns.value = store.getters.getTournamentColumns;
-  items.value = store.getters.getTournaments;
-} else if (entityName.value === 'team') {
-  store.dispatch('getTeamColumns')
-  store.dispatch('getAllTeams')
-  columns.value = store.getters.getTeamColumns;
-  items.value = store.getters.getTeams;
-} else if (entityName.value === 'player') {
-  store.dispatch('getPlayerColumns')
-  store.dispatch('getAllPlayersAdmin')
-  columns.value = store.getters.getPlayerColumns;
-  items.value = store.getters.getPlayers;
-} else if (entityName.value === 'tag') {
-  store.dispatch('getTagColumns')
-  store.dispatch('getAllTags')
-  // columns.value = store.getters.getTagColumns;
-  items.value = store.getters.getTags;
-} else if (entityName.value === 'invitation') {
-  store.dispatch('getInvitationColumns')
-  store.dispatch('getAllInvitations')
-  columns.value = store.getters.getInvitationColumns;
-  items.value = store.getters.getInvitations;
-}
 
 const details = ref({});
 const userForm = ref({});
@@ -169,40 +135,48 @@ function submitForm() {
   }
 }
 
-onBeforeMount(async () => {
+const columns = ref([]);
+const items = ref([]);
+const url = ref(`/admin/${entityName.value}/`);
+
+// Fonction générique pour les dispatchs
+const loadEntityData = async (entity, params) => {
+  const entityMapping = {
+    'user': { getter: 'getUserColumns', items: 'getUsers', actions: ['getUserColumns', 'getAllUsers'] },
+    'tournament': { getter: 'getTournamentColumns', items: 'getTournaments', actions: ['getTournamentColumns', 'getAllTournaments'] },
+    'team': { getter: 'getTeamColumns', items: 'getTeams', actions: ['getTeamColumns', 'getAllTeams'] },
+    'player': { getter: 'getPlayerColumns', items: 'getPlayers', actions: ['getPlayerColumns', 'getAllPlayersAdmin'] },
+    'tag': { items: 'getTags', actions: ['getAllTags'] },
+    'invitation': { getter: 'getInvitationColumns', items: 'getInvitations', actions: ['getInvitationColumns', 'getAllInvitations'] },
+  };
+
+  const entityData = entityMapping[entity];
+  if (entityData) {
+    await Promise.all(entityData.actions.map(action => store.dispatch(action)));
+    columns.value = store.getters[entityData.getter] || [];
+    items.value = store.getters[entityData.items];
+  }
+
   if (params && params.id) {
-    switch (entityName.value) {
-      case 'user':
-        await store.dispatch('getUserById', params.id)
-        break;
-      case 'tournament':
-        await store.dispatch('getTournamentById', params.id)
-        break;
-      case 'team':
-        await store.dispatch('getTeamById', params.id);
-        break;
-      case 'player':
-        await store.dispatch('getPlayerById', params.id)
-        break;
-      case 'tag':
-        await store.dispatch('getTagById', params.id)
-        break;
-      case 'invitation':
-        await store.dispatch('getInvitationById', params.id)
-        break;
-    }
+    await store.dispatch(`get${entity.charAt(0).toUpperCase() + entity.slice(1)}ById`, params.id);
   }
-  
-  if (route && route.name && route.name.includes('View')) {
-    pageState.value = 'details';
-  } else if (route && route.name && route.name.includes('List')) {
-    pageState.value = 'list';
-  } else if (route && route.name && route.name.includes('Edit')) {
-    pageState.value = 'edit';
-  } else {
-    pageState.value = 'create';
+};
+
+// Détection de l'état de la page
+const determinePageState = (routeName) => {
+  if (routeName.includes('View')) return 'details';
+  if (routeName.includes('List')) return 'list';
+  if (routeName.includes('Edit')) return 'edit';
+  return 'create';
+};
+
+onBeforeMount(async () => {
+  await loadEntityData(entityName.value, params);
+  if (route && route.name) {
+    pageState.value = determinePageState(route.name);
   }
-})
+});
+
 
 onBeforeRouteLeave((to, from, next) => {
   if (to.params && to.params.id) {
