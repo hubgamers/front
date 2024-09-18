@@ -1,7 +1,7 @@
 <template>
   <EntityAdminComponent
-    title="Gérer les équipes"
-    entity-name="team"
+    title="Gérer les structures"
+    entity-name="strucutre"
   />
 </template>
 <script setup>
@@ -9,6 +9,6 @@ import EntityAdminComponent from '@/views/admin/EntityAdminComponent.vue'
 import { defineComponent } from 'vue'
 
 defineComponent({
-  name: 'AdminTeamPage',
+  name: 'AdminStructurePage',
 })
 </script>

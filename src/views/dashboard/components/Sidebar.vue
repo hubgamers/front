@@ -31,9 +31,9 @@
             </RouterLink>
           </li>
           <li class="li">
-            <RouterLink to="/dashboard/teams">
+            <RouterLink to="/dashboard/structures">
               <i class="fa fa-people-group"></i>
-              <span>Équipes</span>
+              <span>Structures</span>
             </RouterLink>
           </li>
           <li class="li">

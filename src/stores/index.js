@@ -2,7 +2,7 @@ import { createStore } from 'vuex';
 import authService from '@/services/authService.js'
 import stripeService from '@/services/stripeService.js'
 import teamRosterModule from '@/stores/modules/teamRosterModule.js'
-import teamModule from '@/stores/modules/teamModule.js'
+import structureModule from '@/stores/modules/structureModule.js'
 import gameModule from '@/stores/modules/gameModule.js'
 import playerModule from '@/stores/modules/playerModule.js'
 import userModule from '@/stores/modules/userModule.js'
@@ -98,7 +98,7 @@ export default createStore({
     invitationModule,
     playerModule,
     tagModule,
-    teamModule,
+    structureModule,
     teamRosterModule,
     tournamentModule,
     userModule

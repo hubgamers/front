@@ -52,7 +52,7 @@ const teamRosterForm = ref({
   description: '',
   game: '',
   platform: '',
-  teamId: store.getters.getTeam.id
+  teamId: store.getters.getStructure.id
 })
 
 store.dispatch('getAllGames')
@@ -74,7 +74,7 @@ onBeforeMount(() => {
 })
 
 function submitForm() {
-  store.dispatch('createTeamRoster', teamRosterForm.value)
+  store.dispatch('createStructureRoster', teamRosterForm.value)
     .then(() => {
       notify({ type: 'success', text: props.teamRosterId ? 'Roster édité avec succès' : 'Roster créé avec succès'})
       close();

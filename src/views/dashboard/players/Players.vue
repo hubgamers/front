@@ -27,7 +27,7 @@ import CardComponent from '@/views/dashboard/components/TeamCardComponent.vue'
 import { useStore } from 'vuex'
 import { defineComponent, ref } from 'vue'
 import InputText from '@/components/InputText.vue'
-import JoinTeamModal from '@/views/dashboard/teams/modal/JoinTeamModal.vue'
+import JoinTeamModal from '@/views/dashboard/structures/modal/JoinTeamModal.vue'
 
 defineComponent({
   name: 'PlayersPage'

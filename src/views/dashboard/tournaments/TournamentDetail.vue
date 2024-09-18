@@ -60,7 +60,7 @@
             </ul>
             <p v-else>Aucun participant</p>
             <h3 class="text-2xl mt-5 mb-3">Invitations</h3>
-            <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/teams/invitations/" />
+            <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/structures/invitations/" />
           </div>
           <div v-if="sideBarStatus === 'configuration'">
             <h3 class="text-2xl mt-5 mb-3">Configuration</h3>
