@@ -1,7 +1,7 @@
 <template>
   <EntityAdminComponent
     title="Gérer les structures"
-    entity-name="strucutre"
+    entity-name="structure"
   />
 </template>
 <script setup>

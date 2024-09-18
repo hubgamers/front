@@ -151,6 +151,7 @@ const loadEntityData = async (entity, params) => {
   };
 
   const entityData = entityMapping[entity];
+  console.log(entity);
   if (entityData) {
     await Promise.all(entityData.actions.map(action => store.dispatch(action)));
     columns.value = store.getters[entityData.getter] || [];
