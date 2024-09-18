@@ -10,7 +10,7 @@
         <router-link to="/admin/tournament">Gérer les tournois</router-link>
       </button>
       <button class="info">
-        <router-link to="/admin/team">Gérer les équipes</router-link>
+        <router-link to="/admin/structure">Gérer les structures</router-link>
       </button>
       <button class="info">
         <router-link to="/admin/player">Gérer les joueurs</router-link>
