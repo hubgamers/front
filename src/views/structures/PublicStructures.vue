@@ -70,7 +70,7 @@ function toggleInvitationModal() {
   invitationModal.value = !invitationModal.value;
 }
 
-function sendInvitation(teamId) {
-  store.dispatch('sendInvitation', teamId)
+function sendInvitation(structureId) {
+  store.dispatch('sendInvitation', structureId)
 }
 </script>

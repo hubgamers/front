@@ -9,7 +9,7 @@ import { useStore } from 'vuex'
 import { notify } from '@kyvg/vue3-notification'
 
 const props = defineProps({
-  teamId: String
+  structureId: String
 })
 
 const store = useStore();
@@ -17,7 +17,7 @@ const store = useStore();
 function joinTeam() {
   store.dispatch('createInvitation', {
     userId: localStorage.getItem('userId'),
-    teamId: props.teamId,
+    structureId: props.structureId,
     type: 'JOIN_STAFF'
   })
   .then(() => {

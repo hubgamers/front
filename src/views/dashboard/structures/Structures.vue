@@ -24,7 +24,7 @@
       </div>
     </div>
     
-    <JoinTeamModal v-if="showJoinModal" @close="closeJoinModal" :team-id="teamIdSelected" />
+    <JoinTeamModal v-if="showJoinModal" @close="closeJoinModal" :team-id="structureIdSelected" />
   </DashboardLayout>
 </template>
 <script setup>
@@ -56,10 +56,10 @@ function searchInTeams() {
 }
 
 let showJoinModal = ref(false)
-let teamIdSelected = ref("")
-function openJoinModal(teamId) {
+let structureIdSelected = ref("")
+function openJoinModal(structureId) {
   showJoinModal.value = true
-  teamIdSelected.value = teamId
+  structureIdSelected.value = structureId
 }
 
 function closeJoinModal() {

@@ -10,17 +10,17 @@ export default {
   getAllInvitations () {
     return axiosCustom.get("/invitation/all");
   },
-  getAllInvitationsByTeamId (teamId) {
-    return axiosCustom.get(`/invitation/allByTeamId/${teamId}`);
+  getAllInvitationsByStructureId (structureId) {
+    return axiosCustom.get(`/invitation/allByStructureId/${structureId}`);
   },
   getAllInvitationsByPlayerId (playerId) {
     return axiosCustom.get(`/invitation/allByPlayerId/${playerId}`);
   },
-  getAllJoinInvitationByTeamId (teamId) {
-    return axiosCustom.get(`/invitation/allJoinByTeamId/${teamId}`);
+  getAllJoinInvitationByStructureId (structureId) {
+    return axiosCustom.get(`/invitation/allJoinByStructureId/${structureId}`);
   },
-  getAllRecruitPlayerInvitationByTeamId (teamId) {
-    return axiosCustom.get(`/invitation/allRecruitPlayerByTeamId/${teamId}`);
+  getAllRecruitPlayerInvitationByStructureId (structureId) {
+    return axiosCustom.get(`/invitation/allRecruitPlayerByStructureId/${structureId}`);
   },
   getInvitationById(id) {
     return axiosCustom.get(`/invitation/id/${id}`);

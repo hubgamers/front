@@ -20,13 +20,13 @@ const props = defineProps({
 })
 
 const store = useStore();
-let teamIdSelected = ref("");
+let structureIdSelected = ref("");
 let teamRosterIdSelected = ref("");
 function recruitStaff() {
   store.dispatch('createInvitation', {
     userId: localStorage.getItem('userId'),
     playerId: props.playerId,
-    teamId: teamIdSelected,
+    structureId: structureIdSelected,
     type: 'JOIN_STAFF'
   })
   .then(() => {

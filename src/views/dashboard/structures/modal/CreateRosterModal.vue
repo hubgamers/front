@@ -15,7 +15,7 @@
         <option value="PC">PC</option>
       </input-text>
       <template v-if="teamRosterId">
-        <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" type="invitation" />
+        <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'structureId')" :items="store.getters.getInvitationsByTeamId" type="invitation" />
         <form class="mt-10">
           <div class="grid gap-6 mb-6 md:grid-cols-2">
             <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une équipe" required />
@@ -52,7 +52,7 @@ const teamRosterForm = ref({
   description: '',
   game: '',
   platform: '',
-  teamId: store.getters.getStructure.id
+  structureId: store.getters.getStructure.id
 })
 
 store.dispatch('getAllGames')
@@ -94,7 +94,7 @@ function close() {
 let playerSearch = ref('');
 store.dispatch('getAllPlayers');
 if (props.teamRosterId) {
-  store.dispatch('getAllInvitationsByTeamId', props.teamRosterId);
+  store.dispatch('getAllInvitationsByStructureId', props.teamRosterId);
 }
 store.dispatch('getInvitationColumns')
 function searchPlayer() {
@@ -105,7 +105,7 @@ async function recruitTeamRoster(playerId) {
   invitationStatus.value = 'disabled';
   await store.dispatch('createInvitation', {
     playerId: playerId,
-    teamId: props.teamRosterId,
+    structureId: props.teamRosterId,
     type: 'RECRUIT_PLAYER'
   })
   .then(() => {
@@ -114,7 +114,7 @@ async function recruitTeamRoster(playerId) {
       title: 'Invitation envoyée',
       text: 'Le joueur a bien été invité dans le roster.'
     })
-    store.dispatch('getAllInvitationsByTeamId', props.teamRosterId)
+    store.dispatch('getAllInvitationsByStructureId', props.teamRosterId)
   })
   .catch(() => {
     notify({

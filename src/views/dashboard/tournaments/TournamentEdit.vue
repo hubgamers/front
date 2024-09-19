@@ -75,7 +75,7 @@ function uploadTournamentBanner(e) {
   if (!files.length)
     return;
   store.dispatch('uploadTournamentBanner', {
-    teamId: params.id,
+    structureId: params.id,
     file: files[0]
   }).then(() => {
     store.dispatch('getTournamentById', params.id)
@@ -87,7 +87,7 @@ function uploadTournamentLogo(e) {
   if (!files.length)
     return;
   store.dispatch('uploadTournamentLogo', {
-    teamId: params.id,
+    structureId: params.id,
     file: files[0]
   }).then(() => {
     store.dispatch('getTournamentById', params.id)

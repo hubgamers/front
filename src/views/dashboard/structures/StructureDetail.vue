@@ -44,7 +44,7 @@
         </div>
         <div v-if="tabStatus === 'invitations'">
           <Topbar title="Invitations" subtitle="Retrouvez toutes les invitations" class="mb-10" />
-          <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" type="invitation" />
+          <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'structureId')" :items="store.getters.getInvitationsByTeamId" type="invitation" />
           <form class="mt-10">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
               <input-text v-model:model-value="playerSearch" label="Recherche" placeholder="Rechercher une structure" required />
@@ -142,7 +142,7 @@ onBeforeRouteLeave(() => {
 })
 
 store.dispatch('getTeamRosterColumns')
-store.dispatch('getAllTeamRostersByTeamId', params.id)
+store.dispatch('getAllTeamRostersByStructureId', params.id)
 
 // TODO: faire la gestion des onglets avec tab=... dans l'url
 let tabStatus = ref('palmarès')
@@ -166,7 +166,7 @@ function changeSideBarStatus(tab) {
 // Feat : ajout de joueur à une structure
 let playerSearch = ref('');
 store.dispatch('getAllPlayers');
-store.dispatch('getAllInvitationsByTeamId', params.id);
+store.dispatch('getAllInvitationsByStructureId', params.id);
 store.dispatch('getInvitationColumns')
 function searchPlayer() {
   store.dispatch('getPlayerByUsername', playerSearch.value);
@@ -176,7 +176,7 @@ async function recruitStaff(playerId) {
   invitationStatus.value = 'disabled';
   await store.dispatch('createInvitation', {
     playerId: playerId,
-    teamId: params.id,
+    structureId: params.id,
     type: 'RECRUIT_STAFF'
   })
     .then(() => {
@@ -185,7 +185,7 @@ async function recruitStaff(playerId) {
         title: 'Invitation envoyée',
         text: 'L\'utilisateur a bien été invité dans staff.'
       })
-      store.dispatch('getAllInvitationsByTeamId', params.id)
+      store.dispatch('getAllInvitationsByStructureId', params.id)
     })
     .catch(() => {
       notify({
@@ -211,7 +211,7 @@ function openTeamRoster(id) {
 
 function closeTeamRoster() {
   showTeamRoster.value = false;
-  store.dispatch('getAllTeamRostersByTeamId', params.id)
+  store.dispatch('getAllTeamRostersByStructureId', params.id)
 }
 </script>
 

@@ -1,4 +1,3 @@
-// store/modules/team.js
 import teamRosterService from '@/services/teamRosterService.js';
 
 const state = () => ({
@@ -32,9 +31,9 @@ const mutations = {
 };
 
 const actions = {
-  getAllTeamRostersByTeamId({ commit }, teamId) {
+  getAllTeamRostersByStructureId({ commit }, structureId) {
     return new Promise((resolve, reject) => {
-      teamRosterService.getAllTeamRostersByTeamId(teamId)
+      teamRosterService.getAllTeamRostersByStructureId(structureId)
       .then((response) => {
         commit('updateStructureRosters', response.data.data);
         resolve(response.data.data);
