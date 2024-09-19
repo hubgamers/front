@@ -9,6 +9,9 @@ import userModule from '@/stores/modules/userModule.js'
 import tournamentModule from '@/stores/modules/tournamentModule.js'
 import tagModule from '@/stores/modules/tagModule.js'
 import invitationModule from '@/stores/modules/invitationModule.js'
+import tierModule from './modules/tierModule';
+import boFormatModule from './modules/boFormatModule';
+import platformModule from './modules/platformModule';
 
 export default createStore({
   state() {
@@ -101,6 +104,9 @@ export default createStore({
     structureModule,
     teamRosterModule,
     tournamentModule,
-    userModule
+    userModule,
+    tierModule,
+    boFormatModule,
+    platformModule
   }
 });

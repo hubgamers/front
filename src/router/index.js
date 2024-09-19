@@ -217,6 +217,66 @@ const routes = [
     component: () => import('@/views/admin/Tag.vue')
   },
   {
+    path: '/admin/bo-format',
+    name: 'BoFormatList',
+    component: () => import('@/views/admin/BoFormat.vue')
+  },
+  {
+    path: '/admin/bo-format/edit/:id',
+    name: 'BoFormatEdit',
+    component: () => import('@/views/admin/BoFormat.vue')
+  },
+  {
+    path: '/admin/bo-format/view/:id',
+    name: 'BoFormatView',
+    component: () => import('@/views/admin/BoFormat.vue')
+  },
+  {
+    path: '/admin/platform',
+    name: 'PlatformList',
+    component: () => import('@/views/admin/Platform.vue')
+  },
+  {
+    path: '/admin/platform/edit/:id',
+    name: 'PlatformEdit',
+    component: () => import('@/views/admin/Platform.vue')
+  },
+  {
+    path: '/admin/platform/view/:id',
+    name: 'PlatformView',
+    component: () => import('@/views/admin/Platform.vue')
+  },
+  {
+    path: '/admin/tier',
+    name: 'TierList',
+    component: () => import('@/views/admin/Tier.vue')
+  },
+  {
+    path: '/admin/tier/edit/:id',
+    name: 'TierEdit',
+    component: () => import('@/views/admin/Tier.vue')
+  },
+  {
+    path: '/admin/tier/view/:id',
+    name: 'TierView',
+    component: () => import('@/views/admin/Tier.vue')
+  },
+  {
+    path: '/admin/game',
+    name: 'GameList',
+    component: () => import('@/views/admin/Game.vue')
+  },
+  {
+    path: '/admin/game/edit/:id',
+    name: 'GameEdit',
+    component: () => import('@/views/admin/Game.vue')
+  },
+  {
+    path: '/admin/game/view/:id',
+    name: 'GameView',
+    component: () => import('@/views/admin/Game.vue')
+  },
+  {
     path: '/admin/invitation',
     name: 'InvitationList',
     component: () => import('@/views/admin/Invitation.vue')

@@ -1,46 +1,46 @@
-import gameService from '@/services/gameService.js'
+import tierService from "@/services/tierService";
 
 const state = () => ({
-  games: [],
-  gameColumns: [],
+  tiers: [],
+  tiersColumns: []
 });
 
 const getters = {
-  getGames(state) {
-    return state.games;
+  getTiers(state) {
+    return state.tiers;
   },
-  getGameColumns(state) {
-    return state.gameColumns;
+  getTierColumns(state) {
+    return state.tiersColumns;
   }
 };
 
 const mutations = {
-  updateGames(state, games) {
-    state.games = games;
+  updateTiers(state, tiers) {
+    state.tiers = tiers;
   },
-  updateGameColumns(state, gameColumns) {
-    state.gameColumns = gameColumns;
+  updateTiersColumns(state, tiersColumns) {
+    state.tiersColumns = tiersColumns;
   }
 };
 
 const actions = {
-  getAllGames(context) {
+  getAllTiers(context) {
     return new Promise((resolve, reject) => {
-      gameService.getAllGames()
+      tierService.getAllTiers()
       .then((response) => {
         resolve(response.data.data);
-        context.commit('updateGames', response.data.data);
+        context.commit('updateTiers', response.data.data);
       })
       .catch((error) => {
         reject(error);
       });
     });
   },
-  getGameColumns({ commit }) {
+  getTiersColumns({ commit }) {
     return new Promise((resolve, reject) => {
-      gameService.getColumns()
+      tierService.getColumns()
       .then((response) => {
-        commit('updateGameColumns', response.data.data);
+        commit('updateTiersColumns', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
