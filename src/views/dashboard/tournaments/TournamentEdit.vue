@@ -21,15 +21,11 @@
         <input-text v-model="tournamentForm.rules" type="textarea" label="Règes" placeholder="Les p't" />
         <input-text v-model="tournamentForm.startDate" type="datetime-local" label="Date de début" placeholder="Les p't" />
         <input-text v-model="tournamentForm.endDate" type="datetime-local" label="Date de fin" placeholder="Les p't" />
-        <input-text v-model="tournamentForm.game" type="select" label="Sélectionner le jeu">
+        <input-text v-model="tournamentForm.game_id" type="select" label="Sélectionner le jeu">
           <option v-for="(game, key) in store.getters.getGames" :key="key" :value="game.id">{{ game.name }}</option>
         </input-text>
-        <input-text v-model="tournamentForm.platform" type="select" label="Sélectionner la plateforme" placeholder="Les p't">
-          <option value="PS4">PS4</option>
-          <option value="PS5">PS5</option>
-          <option value="XBOX">XBOX</option>
-          <option value="Switch">Switch</option>
-          <option value="PC">PC</option>
+        <input-text v-model="tournamentForm.platform_id" type="select" label="Sélectionner la plateforme">
+          <option v-for="(platform, key) in store.getters.getPlatforms" :key="key" :value="platform.id">{{ platform.name }}</option>
         </input-text>
 
         <button type="submit" class="green my-4">{{store.getters.getTournament != null ? 'Editer mon tournoi' :' Créer un tournoi'}}</button>
@@ -53,8 +49,8 @@ let tournamentForm = ref({
   rules: '',
   startDate: '',
   endDate: '',
-  game: '',
-  platform: '',
+  game_id: 0,
+  platform_id: 0,
   logo: '',
   banner: '',
   type: ''
@@ -69,6 +65,7 @@ if (params.id) {
   tournamentForm.value = store.getters.getTournament
 }
 store.dispatch('getAllGames')
+store.dispatch('getAllPlatforms')
 
 function uploadTournamentBanner(e) {
   const files = e.target.files || e.dataTransfer.files

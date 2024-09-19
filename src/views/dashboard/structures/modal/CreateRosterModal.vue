@@ -4,15 +4,11 @@
     <form>
       <input-text v-model="teamRosterForm.name" label="Nom" placeholder="Roster Valorant" />
       <input-text v-model="teamRosterForm.description" label="Description" type="textarea" placeholder="Roster de Valorant pour l'équipe Alpha" />
-      <input-text v-model="teamRosterForm.game" type="select" label="Sélectionner le jeu">
+      <input-text v-model="teamRosterForm.game_id" type="select" label="Sélectionner le jeu">
         <option v-for="(game, key) in store.getters.getGames" :key="key" :value="game.id">{{ game.name }}</option>
       </input-text>
-      <input-text v-model="teamRosterForm.platform" type="select" label="Sélectionner la plateforme" placeholder="Les p't">
-        <option value="PS4">PS4</option>
-        <option value="PS5">PS5</option>
-        <option value="XBOX">XBOX</option>
-        <option value="Switch">Switch</option>
-        <option value="PC">PC</option>
+      <input-text v-model="teamRosterForm.platform_id" type="select" label="Sélectionner la plateforme">
+        <option v-for="(platform, key) in store.getters.getPlatforms" :key="key" :value="platform.id">{{ platform.name }}</option>
       </input-text>
       <template v-if="teamRosterId">
         <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'structureId')" :items="store.getters.getInvitationsByTeamId" type="invitation" />
@@ -50,12 +46,13 @@ const store = useStore();
 const teamRosterForm = ref({
   name: '',
   description: '',
-  game: '',
-  platform: '',
+  game_id: 0,
+  platform_id: 0,
   structureId: store.getters.getStructure.id
 })
 
 store.dispatch('getAllGames')
+store.dispatch('getAllPlatforms')
 onBeforeMount(() => {
   // On vérifie s'il s'agit d'une édition ou d'une création
   if (props.teamRosterId) {
