@@ -26,6 +26,17 @@
     </fwb-sidebar-dropdown-item>
     <fwb-sidebar-dropdown-item>
       <template #icon>
+        <i class="fa-solid fa-gamepad"></i>
+      </template>
+      <template #trigger>Scrims</template>
+      <template #default>
+        <fwb-sidebar-item class="pl-11" link="/dashboard/scrims"> Toutes les scrims </fwb-sidebar-item>
+        <fwb-sidebar-item class="pl-11"  link="/dashboard/my-scrims"> Mes scrims </fwb-sidebar-item>
+        <fwb-sidebar-item class="pl-11"  link="/dashboard/scrims/create"> Créer une scrim </fwb-sidebar-item>
+      </template>
+    </fwb-sidebar-dropdown-item>
+    <fwb-sidebar-dropdown-item>
+      <template #icon>
         <i class="fa-solid fa-trophy"></i>
       </template>
       <template #trigger>Tournois</template>

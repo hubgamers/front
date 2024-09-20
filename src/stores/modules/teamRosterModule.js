@@ -2,6 +2,7 @@ import teamRosterService from '@/services/teamRosterService.js';
 
 const state = () => ({
   teamRosters: [],
+  myTeamRosters: [],
   teamRosterColumns: [],
   teamRoster: {}
 });
@@ -9,6 +10,9 @@ const state = () => ({
 const getters = {
   getTeamRosters(state) {
     return state.teamRosters;
+  },
+  getMyTeamRosters(state) {
+    return state.myTeamRosters;
   },
   getTeamRosterColumns(state) {
     return state.teamRosterColumns;
@@ -19,23 +23,62 @@ const getters = {
 };
 
 const mutations = {
-  updateStructureRosters(state, teamRosters) {
+  updateTeamRosters(state, teamRosters) {
     state.teamRosters = teamRosters;
   },
-  updateStructureRosterColumns(state, teamRosterColumns) {
+  updateMyTeamRosters(state, myTeamRosters) {
+    state.myTeamRosters = myTeamRosters;
+  },
+  updateTeamRosterColumns(state, teamRosterColumns) {
     state.teamRosterColumns = teamRosterColumns;
   },
-  updateStructureRoster(state, teamRoster) {
+  updateTeamRoster(state, teamRoster) {
     state.teamRoster = teamRoster;
   }
 };
 
 const actions = {
+  getAllPublicTeamRosters({ commit }) {
+    return new Promise((resolve, reject) => {
+      teamRosterService.getAllPublicTeamRosters()
+      .then((response) => {
+        commit('updateTeamRosters', response.data.data);
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
   getAllTeamRostersByStructureId({ commit }, structureId) {
     return new Promise((resolve, reject) => {
       teamRosterService.getAllTeamRostersByStructureId(structureId)
       .then((response) => {
-        commit('updateStructureRosters', response.data.data);
+        commit('updateTeamRosters', response.data.data);
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
+  getMyTeamRostersByStructureId({ commit }, structureId) {
+    return new Promise((resolve, reject) => {
+      teamRosterService.getAllTeamRostersByStructureId(structureId)
+      .then((response) => {
+        commit('updateMyTeamRosters', response.data.data);
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
+  getAllMyTeamRosters({ commit }) {
+    return new Promise((resolve, reject) => {
+      teamRosterService.getAllMyTeamRosters()
+      .then((response) => {
+        commit('updateMyTeamRosters', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
@@ -47,7 +90,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       teamRosterService.getColumns()
       .then((response) => {
-        commit('updateStructureRosterColumns', response.data.data);
+        commit('updateTeamRosterColumns', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
@@ -59,7 +102,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       teamRosterService.getStructureById(teamRosterId)
       .then((response) => {
-        commit('updateStructureRoster', response.data.data);
+        commit('updateTeamRoster', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
@@ -71,7 +114,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       teamRosterService.getTeamRosterByPlayerId(playerId)
       .then((response) => {
-        commit('updateStructureRosters', response.data.data);
+        commit('updateTeamRoster', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {
@@ -83,7 +126,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       teamRosterService.create(teamRoster)
       .then((response) => {
-        commit('updateStructureRoster', response.data.data);
+        commit('updateTeamRoster', response.data.data);
         resolve(response.data.data);
       })
       .catch((error) => {

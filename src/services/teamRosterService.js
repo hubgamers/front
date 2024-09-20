@@ -10,10 +10,13 @@ export default {
   getAllTeamRostersByStructureId(structureId) {
     return axiosCustom.get(`/teamRoster/structure/${structureId}`);
   },
+  getAllMyTeamRosters() {
+    return axiosCustom.get("/teamRoster/my");
+  },
   countAllStructures() {
     return axiosCustom.get("/teamRoster/count-all");
   },
-  getAllPublicStructures () {
+  getAllPublicTeamRosters () {
     return axiosCustom.get("/teamRoster/all-public");
   },
   getAllStructuresByName(name) {

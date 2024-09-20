@@ -12,6 +12,7 @@ import invitationModule from '@/stores/modules/invitationModule.js'
 import tierModule from './modules/tierModule';
 import boFormatModule from './modules/boFormatModule';
 import platformModule from './modules/platformModule';
+import scrimModule from './modules/scrimModule';
 
 export default createStore({
   state() {
@@ -109,6 +110,7 @@ export default createStore({
     userModule,
     tierModule,
     boFormatModule,
-    platformModule
+    platformModule,
+    scrimModule
   }
 });

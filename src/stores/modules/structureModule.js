@@ -26,7 +26,7 @@ const mutations = {
   updateStructureColumns(state, columns) {
     state.structureColumns = columns;
   },
-  updatemyStructures(state, structures) {
+  updateMyStructures(state, structures) {
     state.myStructures = structures;
   },
   updateStructureList(state, structures) {
@@ -70,7 +70,7 @@ const actions = {
       structureService.getAllMyStructures()
       .then((response) => {
         resolve(response.data.data);
-        commit('updatemyStructures', response.data.data);
+        commit('updateMyStructures', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
