@@ -54,7 +54,7 @@
       <template #trigger>Abonnement</template>
       <template #default>
         <fwb-sidebar-item class="pl-11" link="/dashboard/subscriptions"> Offres d'abonnement </fwb-sidebar-item>
-        <fwb-sidebar-item class="pl-11"  link="/dashboard/my-subscriptions"> Gérer mon abonnement </fwb-sidebar-item>
+        <fwb-sidebar-item class="pl-11"  link="/dashboard/my-subscription"> Gérer mon abonnement </fwb-sidebar-item>
       </template>
     </fwb-sidebar-dropdown-item>
     <fwb-sidebar-item link="/contact">

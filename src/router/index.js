@@ -67,6 +67,11 @@ const routes = [
     component: () => import('@/views/dashboard/subscriptions/Subscriptions.vue')
   },
   {
+    path: '/dashboard/my-subscription',
+    name: 'MySubscriptionDashboard',
+    component: () => import('@/views/dashboard/subscriptions/MySubscription.vue')
+  },
+  {
     path: '/dashboard/profile',
     name: 'Profile',
     component: () => import('@/views/dashboard/Profile.vue')
