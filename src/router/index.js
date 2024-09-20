@@ -82,6 +82,11 @@ const routes = [
     component: () => import('@/views/dashboard/structures/Structures.vue')
   },
   {
+    path: '/dashboard/my-structures',
+    name: 'MyStructures',
+    component: () => import('@/views/dashboard/structures/MyStructures.vue')
+  },
+  {
     path: '/dashboard/structures/create',
     name: 'CreateStructure',
     component: () => import('@/views/dashboard/structures/StructureEdit.vue')
@@ -108,8 +113,13 @@ const routes = [
   },
   {
     path: '/dashboard/tournaments',
-    name: 'MyTournaments',
+    name: 'Tournaments',
     component: () => import('@/views/dashboard/tournaments/Tournaments.vue')
+  },
+  {
+    path: '/dashboard/my-tournaments',
+    name: 'MyTournaments',
+    component: () => import('@/views/dashboard/tournaments/MyTournaments.vue')
   },
   {
     path: '/dashboard/tournaments/create',
