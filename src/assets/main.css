@@ -261,3 +261,13 @@ nav.tabs .active {
     flex-flow: column nowrap;
     gap: 1rem;
 }
+
+.fwb-button-group .bg-blue-700, button.bg-blue-700 {
+    background-color: var(--blue)!important;
+
+    transition: all 0.3s;
+    &:hover {
+        transition: all 0.3s;
+        background-color: #548196!important;
+    }
+}
