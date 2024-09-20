@@ -87,7 +87,16 @@ function login() {
     login: auth.value.login, 
     password: auth.value.password
   })
-    .then(() => {
+    .then((data) => {
+      if (data.statusCode && data.statusCode === 401) {
+        notify({
+          title: 'Erreur',
+          text: 'Identifiant ou mot de passe incorrect',
+          type: 'error'
+        })
+        isSubmitted.value = false;
+        return;
+      }
       notify({
         title: 'Succès',
         text: 'Vous êtes connecté',

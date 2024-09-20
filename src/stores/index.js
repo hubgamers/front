@@ -48,12 +48,15 @@ export default createStore({
       return new Promise((resolve, reject) => {
         authService.login(login, password)
           .then((response) => {
+            console.log(response);
             if (response.status === 200) {
               localStorage.setItem('roles', response.data.data.roles);
               localStorage.setItem('jwtToken', response.data.data.jwtToken);
               localStorage.setItem('userId', response.data.data.userId);
+              resolve(response.data.data);
+            } else if (response.status === 401) {
+              reject(response);
             }
-            resolve(response.data.data);
           })
           .catch((error) => {
             reject(error.response.data.error);
