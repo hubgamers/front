@@ -1,5 +1,12 @@
 <template>
-  <DashboardLayout title="Mes tournois" subtitle="Gérer l'ensemble de vos tournois.">
+  <DashboardLayout 
+      title="Mes tournois" 
+      subtitle="Gérer l'ensemble de mes tournois."
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Tournois', url: '/dashboard/tournaments' }
+      ]"
+      >
     <div v-if="store.getters.getMyTournaments.length > 0" class="flex flex-wrap flex-row gap-5 mt-10">
       <button class="info my-4">
         <RouterLink to="/dashboard/tournaments/create">Créer un tournoi</RouterLink>

@@ -1,5 +1,11 @@
 <template>
-  <DashboardLayout title="Gérer mon tournoi" subtitle="Créer ou éditer mon tournoi">
+  <DashboardLayout 
+      title="Créer ou éditer le tournoi" 
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Tournois', url: '/dashboard/tournaments' }
+      ]"
+      >
     <div class="relative" v-if="store.getters.getTournament != null">
       <div>
         <input-text type="file" label="Bannière" @uploadFile="uploadTournamentBanner" />

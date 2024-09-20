@@ -1,5 +1,11 @@
 <template>
-  <DashboardLayout>
+  <DashboardLayout 
+      title="Détails du tournoi" 
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Tournois', url: '/dashboard/tournaments' }
+      ]"
+      >
     <div v-if="store.getters.getTournament !== null">
     <div v-if="store.getters.getTournament.banner || store.getters.getTournament.logo" class="relative">
       <img v-if="store.getters.getTournament.banner" class="relative max-h-[300px] w-full object-cover rounded-b" :src="store.getters.getTournament.banner" alt="banner">

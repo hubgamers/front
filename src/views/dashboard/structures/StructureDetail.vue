@@ -1,5 +1,11 @@
 <template>
-  <DashboardLayout>
+  <DashboardLayout 
+      title="Détails de la structure" 
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Structures', url: '/dashboard/structures' }
+      ]"
+      >
     <div v-if="store.getters.getStructure !== null">
       <div class="relative images">
         <img class="relative banner w-full object-cover rounded-b" :src="(store.getters.getStructure.banner !== null && store.getters.getStructure.banner !== '') ? store.getters.getStructure.banner : 'https://picsum.photos/1000/800'" alt="banner">

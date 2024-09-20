@@ -1,5 +1,12 @@
 <template>
-  <DashboardLayout title="Mes structures" subtitle="Gérer l'ensemble de vos structures.">
+  <DashboardLayout 
+      title="Mes structures" 
+      subtitle="Gérer l'ensemble de mes structures."
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Structures', url: '/dashboard/structures' }
+      ]"
+      >
     <div v-if="store.getters.getMyStructures.length > 0" class="flex flex-wrap flex-row gap-5 mt-10">
       <button class="info my-4 w-full">
         <RouterLink to="/dashboard/structures/create">Créer une structure</RouterLink>

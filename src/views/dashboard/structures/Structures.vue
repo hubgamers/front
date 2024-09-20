@@ -1,5 +1,8 @@
 <template>
-  <DashboardLayout title="Toutes les structures" subtitle="Faites le tour de toutes les structures.">
+  <DashboardLayout 
+      title="Toutes les structures" 
+      subtitle="Faites le tour de toutes les structures."
+      >
     <div class="flex flex-wrap justify-between mt-10">
       <div class="flex flex-col max-w-[300px] w-full">
         <input-text v-model:model-value="search" label="Recherche" placeholder="Rechercher une structure" required />
@@ -20,6 +23,7 @@ import CardComponent from '@/views/dashboard/components/TeamCardComponent.vue'
 import InputText from '@/components/InputText.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import JoinTeamModal from '@/views/dashboard/structures/modal/JoinTeamModal.vue'
+
 defineComponent({
   name: 'StructuresPage'
 })

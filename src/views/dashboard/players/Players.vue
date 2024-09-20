@@ -1,5 +1,8 @@
 <template>
-  <DashboardLayout title="Découvrez les joueurs du moment" subtitle="Vous pouvez inviter quiconque à rejoindre votre équipe">
+  <DashboardLayout 
+      title="Recherche de joueurs" 
+      subtitle="Trouvez des joueurs pour votre équipe"
+      >
         <form @submit.prevent="searchInTeams" class="py-4">   
           <h3 class="text-2xl font-bold">Rechercher un joueur</h3>
           <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Rechercher un joueur</label>

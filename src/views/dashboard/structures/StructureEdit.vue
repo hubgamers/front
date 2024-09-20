@@ -1,5 +1,11 @@
 <template>
-  <DashboardLayout title="Gérer ma structure" :subtitle="store.getters.getStructure != null ? 'Editer ma structure' :' Créer une structure'">
+  <DashboardLayout 
+      title="Créer ou éditer une structure" 
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Structures', url: '/dashboard/structures' }
+      ]"
+      >
     <div v-if="teamForm !== null && store.getters.getStructure != null" class="relative">
       <div>
         <input-text type="file" label="Bannière" @uploadFile="uploadStructureBanner" />

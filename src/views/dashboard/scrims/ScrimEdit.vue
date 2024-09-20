@@ -1,5 +1,11 @@
 <template>
-  <DashboardLayout title="Gérer ma scrim" subtitle="Créer ou éditer ma scrim">
+  <DashboardLayout 
+      title="Créer ou éditer une scrim" 
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Scrims', url: '/dashboard/scrims' }
+      ]"
+      >
     <fwb-button-group>
       <fwb-button @click="toggleFormState('create')">Créer une scrim</fwb-button>
       <fwb-button color="purple" @click="toggleFormState('annonce')">Déposer une annonce de scrim</fwb-button>
