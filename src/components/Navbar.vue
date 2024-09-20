@@ -66,6 +66,7 @@
 </template>
 
 <script setup>
+import { useNotification } from '@kyvg/vue3-notification';
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -81,9 +82,15 @@ if (localStorage.getItem('userId')) {
 }
 
 const router = useRouter();
+const { notify } = useNotification();
 function logout() {
   localStorage.clear();
-  router.push('/');
+  notify({
+    type: 'info',
+    title: 'Déconnexion',
+    text: 'Vous avez été déconnecté avec succès.'
+  });
+  router.push('/auth/login');
 }
 
 function toggleMenu() {
