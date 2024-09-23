@@ -16,29 +16,7 @@
           </div>
         </form>
       <div class="flex flex-wrap flex-row gap-5 mt-2">
-        <fwb-card
-          v-for="(structure, key) in store.getters.getStructures"
-          :key="key"
-        >
-          <div class="relative">
-            <img :src="structure.banner" alt="" class="rounded-t relative">
-            <img :src="structure.logo" alt="" class="rounded-full absolute bottom-2 left-2 max-w-28">
-          </div>
-          <div class="p-5">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {{structure.name}}
-            </h5>
-            <p>{{structure.teamRosters.length}} équipe(s) créée(s).</p>
-            <div class="flex mb-3">
-              <fwb-badge v-for="(tag, tagIndex) in structure.tags.slice(0, 3)" :key="tagIndex" type="dark">
-                {{ tag.name }}
-              </fwb-badge>
-            </div>
-            <fwb-button-group class="gap-2">
-              <fwb-button :href="'/dashboard/structures/' + structure.id">Détails de la structure</fwb-button>
-            </fwb-button-group>
-          </div>
-        </fwb-card>
+        <StructureCardComponent />
       </div>
   </DashboardLayout>
 </template>
@@ -46,14 +24,13 @@
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
-import { FwbCard, FwbButton, FwbButtonGroup, FwbBadge } from 'flowbite-vue'
+import StructureCardComponent from '../components/StructureCardComponent.vue';
 
 defineComponent({
   name: 'StructuresPage'
 })
 
 const store = useStore()
-store.dispatch('getAllPublicStructures')
 store.dispatch('getStructureColumns')
 store.dispatch('getAllPlayers')
 

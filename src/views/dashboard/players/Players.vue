@@ -34,7 +34,7 @@
 </template>
 <script setup>
 import DashboardLayout from '@/layout/DashboardLayout.vue'
-import CardComponent from '@/views/dashboard/components/TeamCardComponent.vue'
+import CardComponent from '@/views/dashboard/components/StructureCardComponent.vue'
 import { useStore } from 'vuex'
 import { defineComponent, ref } from 'vue'
 
