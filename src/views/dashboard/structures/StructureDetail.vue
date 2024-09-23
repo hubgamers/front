@@ -155,7 +155,7 @@ let tabStatus = ref('palmarès')
 function changeTabStatus(tab) {
   tabStatus.value = tab
   if (tab === 'edit') {
-    router.push({name: 'EditTeam', params: { id: params.id }});
+    router.push({name: 'StructureEdit', params: { id: params.id }});
   }
 }
 

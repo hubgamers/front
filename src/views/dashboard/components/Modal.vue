@@ -1,16 +1,28 @@
 <template>
-  <div>
-    <div class="bg" @click="close"></div>
-    <div class="content">
-      <Topbar :title="title" :subtitle="subtitle" />
+  <fwb-modal>
+    <template #header>
+      <div class="flex items-center text-lg">
+        {{title}}
+      </div>
+    </template>
+    <template #body>
       <slot></slot>
-    </div>
-  </div>
+    </template>
+    <template #footer>
+      <div class="flex justify-between">
+        <fwb-button @click="closeModal" color="alternative">
+          Fermer
+        </fwb-button>
+        <fwb-button @click="successModal" color="green">
+          {{ successTextButotn }}
+        </fwb-button>
+      </div>
+    </template>
+  </fwb-modal>
 </template>
 
 <script setup>
 import { defineComponent } from 'vue'
-import Topbar from '@/views/dashboard/components/Topbar.vue'
 
 defineComponent({
   name: 'ModalComponent'
@@ -18,12 +30,17 @@ defineComponent({
 
 defineProps({
   title: String,
-  subtitle: String
+  subtitle: String,
+  successTextButotn: String
 })
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'success'])
 
-function close() {
+function closeModal() {
   emit('close')
+}
+
+function successModal() {
+  emit('success')
 }
 </script>
 

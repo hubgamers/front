@@ -59,7 +59,7 @@ const params = route.params;
 
 onBeforeMount(() => {
   // On vérifie s'il s'agit d'une édition ou d'une création
-  if (router.currentRoute.value.name === 'EditTeam') {
+  if (router.currentRoute.value.name === 'StructureEdit') {
     store.dispatch('getStructureById', params.id)
       .then(() => {
         teamForm.value = store.getters.getStructure

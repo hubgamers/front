@@ -30,7 +30,6 @@
           @modal="openInviteModal(player.id)" />
      </div>
 
-    <JoinTeamModal v-if="showJoinModal" @close="closeJoinModal" :team-id="teamIdSelected" />
   </DashboardLayout>
 </template>
 <script setup>
@@ -38,7 +37,6 @@ import DashboardLayout from '@/layout/DashboardLayout.vue'
 import CardComponent from '@/views/dashboard/components/TeamCardComponent.vue'
 import { useStore } from 'vuex'
 import { defineComponent, ref } from 'vue'
-import JoinTeamModal from '@/views/dashboard/structures/modal/JoinTeamModal.vue'
 
 defineComponent({
   name: 'PlayersPage'
@@ -55,12 +53,5 @@ function searchInTeams() {
   } else {
     store.dispatch('getAllPlayersLikeByName', search.value)
   }
-}
-
-let showJoinModal = ref(false)
-let teamIdSelected = ref("")
-
-function closeJoinModal() {
-  showJoinModal.value = false
 }
 </script>

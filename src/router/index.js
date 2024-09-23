@@ -218,7 +218,7 @@ const routes = [
   },
   {
     path: '/admin/structure/edit/:id',
-    name: 'StructureEdit',
+    name: 'AdminStructureEdit',
     component: () => import('@/views/admin/Structure.vue')
   },
   {
