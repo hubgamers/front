@@ -17,8 +17,8 @@
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             <!-- {{scrim}} -->
           </h5>
-          <p>{{ scrim.date }}</p>
-          <div class="flex flex-col gap-1">
+          <span v-if="scrim.date" class="py-2 px-1 bg-[#28536B] text-white rounded">{{ moment(scrim.date).format('DD/MM/YYYY à hh:mm')}}</span>
+          <div class="flex flex-col gap-1 mt-2">
             <p>Jeu : {{ scrim.game.name }}</p>
             <p>Plateforme : {{ scrim.platform.name }}</p>
             <p>Format : {{ scrim.boFormat.name }}</p>
@@ -39,6 +39,7 @@
 import { computed, defineComponent } from 'vue';
 import { FwbCard, FwbBadge, FwbButton } from 'flowbite-vue'
 import { useStore } from 'vuex';
+import moment from 'moment';
 
 defineComponent({
   name: 'ScrimCardComponent'

@@ -41,15 +41,11 @@
         </div>
       </div>
       <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <div class="relative max-w-sm">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-            </svg>
-          </div>
-          <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sélectionner une date</span>
-          <input v-model="scrimForm.date" datepicker id="default-datepicker" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-        </div>
+        <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Définissez la date</label>
+        <input v-model="scrimForm.date" type="date" id="date" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+
+        <label for="time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Définissez l'heure</label>
+        <input v-model="scrimForm.time" type="time" id="time" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="09:00" max="18:00" value="00:00" required />
 
         <fwb-select
           v-model="scrimForm.gameId"
@@ -151,6 +147,7 @@ import { FwbSelect } from 'flowbite-vue'
 import { FwbInput } from 'flowbite-vue'
 import { FwbTextarea } from 'flowbite-vue'
 import { FwbButtonGroup, FwbButton } from 'flowbite-vue'
+import moment from 'moment'
 
 defineComponent({
   name: 'ScrimEditPage'
@@ -165,6 +162,7 @@ let scrimForm = ref({
   gameId: null,
   platformId: null,
   date: null,
+  time: null,
   tiers: [],
   boFormatId: null,
   status: null,
@@ -184,6 +182,7 @@ function toggleFormState(newState) {
     gameId: null,
     platformId: null,
     date: null,
+    time: null,
     tiers: [],
     boFormatId: null,
     status: null,
@@ -234,6 +233,11 @@ watch(() => scrimForm.value.structureIdBeta, (newValue, oldValue) => {
 });
 
 function submitCreateForm() {
+  // Cumuler la date et l'heure
+  scrimForm.value.date = moment(scrimForm.value.date).format('YYYY-MM-DD'); // Ex: '2024-09-25'
+  scrimForm.value.time = moment(scrimForm.value.time, 'HH:mm').format('HH:mm'); // Ex: '10:00'
+  // Combinez-les dans un seul champ si nécessaire
+  scrimForm.value.date = scrimForm.value.date + 'T' + scrimForm.value.time; // Ex: '2024-09-25T10:00'
   if (params && params.id) {
     store.dispatch('updateScrim', scrimForm.value).then(() => {
       router.push({ name: 'ScrimDetail', params: { id: params.id } })
