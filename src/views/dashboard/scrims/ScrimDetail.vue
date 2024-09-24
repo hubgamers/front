@@ -41,7 +41,7 @@
               <span>{{store.getters.getScrim.teamRosterNameBeta}}</span>
             </template>
             <template v-else>
-              <fwb-button color="default" class="mt-2" @click="">Affronter</fwb-button>
+              <fwb-button color="default" class="mt-2">Affronter</fwb-button>
             </template>
           </div>
         </div>
