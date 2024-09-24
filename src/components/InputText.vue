@@ -1,114 +1,86 @@
 <template>
-  <div>
+  <div class="mb-4">
     <div v-if="type === 'checkbox'" class="checkbox">
-      <input :type="type" :placeholder="placeholder" v-model="model" :disabled="disabled">
-      <label>{{ label }} <span v-if="required" class="required">*</span></label>
+      <fwb-checkbox 
+        v-model="model"
+        :placeholder="placeholder"
+        :label="label"
+        :disabled="disabled"
+        :required="required"
+      />
     </div>
     <template v-else-if="type === 'textarea'">
-      <label>{{ label }} <span v-if="required" class="required">*</span></label>
-      <textarea :placeholder="placeholder" v-model="model" :disabled="disabled"></textarea>
+      <fwb-textarea
+        v-model="model"
+        :rows="4"
+        :placeholder="placeholder"
+        :label="label"
+        :disabled="disabled"
+        :required="required"
+      />
     </template>
     <template v-else-if="type === 'file'">
-      <label>{{ label }} <span v-if="required" class="required">*</span></label>
-      <input :type="type" @change="uploadFile" v-model="model" :disabled="disabled">
+      <fwb-file-input 
+        v-model="model"
+        :placeholder="placeholder"
+        :label="label"
+        :disabled="disabled"
+        :required="required"
+        @change="uploadFile"
+      />
     </template>
-    <template v-else-if="type === 'select'">
-      <label>{{ label }} <span v-if="required" class="required">*</span></label>
-      <select v-model="model" :disabled="disabled" :multiple="multiple">
-        <slot></slot>
-      </select>
+    <template v-if="type === 'select'">
+      <template v-if="multiple">
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ label }}</label>
+        <multiselect v-model="model" :options="options" label="name" track-by="id" :placeholder="placeholder" multiple="true"></multiselect>
+      </template>
+      <template v-else>
+        <fwb-select
+          v-model="model"
+          :options="options"
+          :placeholder="placeholder"
+          :label="label"
+          :disabled="disabled"
+          :required="required"
+        />
+      </template>
     </template>
-    <template v-else>
-      <label>{{ label }} <span v-if="required" class="required">*</span></label>
-      <input :type="type" :placeholder="placeholder" v-model="model" :disabled="disabled">
+    <template v-else-if="type === 'email' || type === 'password' || type === 'text'">
+      <fwb-input
+        v-model="model"
+        :placeholder="placeholder"
+        :label="label"
+        :disabled="disabled"
+        :required="required"
+        :type="type"
+      />
     </template>
     <p class="info">{{info}}</p>
   </div>
 </template>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <script setup>
-import { defineProps } from 'vue';
-const model = defineModel();
-const emit = defineEmits(['uploadFile'])
-function uploadFile($event) {
-  // Emit an event to the parent component
-  emit('uploadFile', $event)
-}
+import { defineProps, ref } from 'vue';
+import Multiselect from 'vue-multiselect';
+import { FwbInput, FwbTextarea, FwbFileInput, FwbSelect, FwbCheckbox } from 'flowbite-vue';
 
-defineProps({
-  label: {
-    type: String,
-    default: 'Label'
-  },
-  placeholder: {
-    type: String,
-    default: 'Placeholder'
-  },
-  type: {
-    type: String,
-    default: 'text'
-  },
-  required: {
-    type: Boolean,
-    default: false
-  },
-  info: {
-    type: String,
-    default: ''
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  multiple: {
-    type: Boolean,
-    default: false
-  }
+const props = defineProps({
+  label: { type: String, default: 'Label' },
+  placeholder: { type: String, default: 'Placeholder' },
+  type: { type: String, default: 'text' },
+  required: { type: Boolean, default: false },
+  info: { type: String, default: '' },
+  disabled: { type: Boolean, default: false },
+  multiple: { type: Boolean, default: false },
+  options: { type: Array, default: () => [] }
 });
 
+const model = ref(props.model); // Liez à props.model
+const emit = defineEmits(['uploadFile']);
+
+function uploadFile($event) {
+  emit('uploadFile', $event);
+}
 </script>
 
-
-
-<style scoped>
-div {
-  display: flex;
-  flex-flow: column;
-  gap: .3rem;
-}
-label {
-  color: #6F7482;
-  font-size: 16px;
-}
-span.required {
-  color: #ED0131;
-}
-input, textarea, select {
-  background-color: #e8f6fd;
-  padding: .5rem 1rem;
-  border: none;
-}
-input::placeholder {
-  color: #B8BCCA;
-}
-input[type="checkbox"] {
-  padding: .5rem;
-  width: 20px;
-  height: 20px;
-  background-color: #9fe1ff;
-}
-textarea {
-  min-height: 100px;
-}
-p.info {
-  color: #1b9cf8;
-  font-size: 14px;
-  margin: 0;
-}
-.checkbox {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  gap: .5rem;
-}
-</style>
