@@ -62,15 +62,12 @@ store.dispatch('getUserById', localStorage.getItem('userId'))
     grid-template-columns: 0.5fr 3fr;
 
     @media screen and (min-width: 768px) {
-      gap: 20px;
+      gap: 10px;
     }
     & > div:last-of-type {
       width: 100%;
       background-color: #fff;
       padding: 1rem;
-      @media screen and (min-width: 768px) {
-        padding: 2rem;
-      }
     }
   }
 </style>
