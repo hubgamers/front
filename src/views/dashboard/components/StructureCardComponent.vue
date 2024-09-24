@@ -43,8 +43,8 @@ const store = useStore()
 
 const structures = computed(() => {
   return props.isMyStructures
-    ? store.getters.getMyStructures // Assure-toi que le getter existe
-    : store.getters.getStructures; // Ou tout autre getter approprié
+    ? store.getters.getMyStructures
+    : store.getters.getStructures;
 });
 
 if (props.isMyStructures) {

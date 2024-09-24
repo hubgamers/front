@@ -8,7 +8,7 @@
       ]"
       >
       <div class="flex flex-wrap flex-row gap-5 mt-2">
-        <StructureCardComponent />
+        <StructureCardComponent :isMyStructures="true" />
       </div>
   </DashboardLayout>
 </template>

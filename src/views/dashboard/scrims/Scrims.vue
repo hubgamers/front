@@ -1,22 +1,19 @@
 <template>
   <DashboardLayout title="Toutes les scrims" subtitle="Affrontez les équipes une à une.">
-    <div class="flex flex-wrap justify-between mt-10">
-      <div class="flex flex-col max-w-[300px] w-full">
-        <input-text v-model:model-value="search" label="Recherche" placeholder="Rechercher une scrim" required />
-        <button @click="searchInScrims" class="info">Rechercher</button>
-      </div>
-      <div class="flex flex-wrap flex-row gap-5 mt-2">
-        <fwb-card v-for="(scrim, key) in store.getters.getScrims" :key="key" :href="'/dashboard/scrims/' + scrim.id">
-          <div class="p-5">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {{ scrim }}
-            </h5>
-            <p class="font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-            </p>
+    <form @submit.prevent="searchInScrims" class="py-4">   
+      <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Rechercher une structure</label>
+      <div class="relative">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+              </svg>
           </div>
-        </fwb-card>
+          <input v-model="search" type="search" id="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Valorant" />
+          <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rechercher</button>
       </div>
+    </form>
+    <div class="flex flex-wrap flex-row gap-5 mt-2">
+      <ScrimCardComponent />
     </div>
   </DashboardLayout>
 </template>
@@ -24,15 +21,13 @@
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
-import InputText from '@/components/InputText.vue'
-import { FwbCard } from 'flowbite-vue'
+import ScrimCardComponent from '../components/ScrimCardComponent.vue';
 
 defineComponent({
   name: 'ScrimsPage'
 })
 
 const store = useStore()
-store.dispatch('getAllScrims')
 store.dispatch('getScrimsColumns')
 
 let search = ref('');

@@ -12,6 +12,7 @@ const getters = {
     return state.scrims;
   },
   getMyScrims(state) {
+    console.log(state.myScrims);
     return state.myScrims;
   },
   getScrim(state) {
