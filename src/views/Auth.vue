@@ -4,9 +4,9 @@
       <h1 v-if="isLogin">Se connecter</h1>
       <h1 v-else>Créer un compte</h1>
       <div class="containerForm columns gap-1">
-        <input-text v-if="!isLogin" v-model="auth.username" type="string" label="Nom d'utilisateur" placeholder="Nom d'utilisateur" :required="true" />
-        <input-text v-if="!isLogin" v-model="auth.email" type="string" label="Email" placeholder="example@hubgamers.fr" :required="true" />
-        <input-text v-if="isLogin" v-model="auth.login" type="string" label="Identifiant" placeholder="example@hubgamers.fr" :required="true" />
+        <input-text v-if="!isLogin" v-model="auth.username" type="text" label="Nom d'utilisateur" placeholder="Nom d'utilisateur" :required="true" />
+        <input-text v-if="!isLogin" v-model="auth.email" type="email" label="Email" placeholder="example@hubgamers.fr" :required="true" />
+        <input-text v-if="isLogin" v-model="auth.login" type="text" label="Identifiant" placeholder="example@hubgamers.fr" :required="true" />
         <input-text v-model="auth.password" type="password" label="Mot de passe" placeholder="•••••••••" :required="true" />
         <input-text v-if="!isLogin" type="checkbox" label="J'accepte les conditions générales d'utilisation." :required="true" />
       </div>
@@ -18,10 +18,10 @@
         <RouterLink v-else to="/auth/login" class="info">Déjà un compte ? Se connecter</RouterLink>
       </div>
       <div v-if="isLogin">
-        <button @click="login" :disabled="isSubmitted" class="info">Se connecter</button>
+        <fwb-button color="default" @click="login" :disabled="isSubmitted">Se connecter</fwb-button>
       </div>
       <template v-else>
-        <button @click="register" :disabled="isSubmitted" class="info">Créer un compte</button>
+        <fwb-button color="default" @click="register" :disabled="isSubmitted">S'inscrire</fwb-button>
       </template>
     </div>
   </VitrineLayout>
@@ -34,6 +34,8 @@ import { useRoute } from 'vue-router'
 import InputText from '@/components/InputText.vue'
 import VitrineLayout from '@/layout/VitrineLayout.vue'
 import { useNotification } from '@kyvg/vue3-notification'
+import { FwbButton } from 'flowbite-vue'
+
 defineComponent({
   name: 'AuthentificationPage',
 })

@@ -110,6 +110,18 @@ const actions = {
       });
     });
   },
+  getTeamRosterByNameAndStructureId({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      teamRosterService.getTeamRosterByNameAndStructureId(payload.teamRosterName, payload.structureId)
+      .then((response) => {
+        commit('updateTeamRoster', response.data.data);
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
   getTeamRosterByPlayerId({ commit }, playerId) {
     return new Promise((resolve, reject) => {
       teamRosterService.getTeamRosterByPlayerId(playerId)

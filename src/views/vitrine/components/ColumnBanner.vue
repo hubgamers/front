@@ -2,14 +2,13 @@
   <div class="column_banner_feat">
     <h4>{{title}}</h4>
     <p>{{content}}</p>
-    <button class="green">
-      <RouterLink to="/dashboard">{{buttonText}}</RouterLink>
-    </button>
+    <fwb-button color="default"><RouterLink to="/dashboard">{{buttonText}}</RouterLink></fwb-button>
   </div>
 </template>
 
 <script setup>
 import { defineComponent } from 'vue'
+import { FwbButton } from 'flowbite-vue'
 
 defineComponent({
   name: 'ColumnBannerComponent'

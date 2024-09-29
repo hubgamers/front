@@ -9,9 +9,7 @@
         <p>Organisez vos propres évènements</p>
         <p>Et bien plus !</p>
 
-        <button class="green">
-          <RouterLink to="/auth/register">Commencez dès maintenant</RouterLink>
-        </button>
+        <fwb-button color="default"><RouterLink to="/auth/register">Commencez dès maintenant</RouterLink></fwb-button>
       </div>
       <div class="image">
         <img src="../../../public/bg-esport.jpg" alt="BG Esport">
@@ -23,6 +21,8 @@
 <script setup>
 import { defineComponent } from 'vue'
 import VitrineLayout from '@/layout/VitrineLayout.vue'
+import { FwbButton } from 'flowbite-vue'
+
 
 defineComponent({
   name: 'HomePage'

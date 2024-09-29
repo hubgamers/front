@@ -28,6 +28,9 @@ export default {
   getStructureById(id) {
     return axiosCustom.get(`/teamRoster/id/${id}`);
   },
+  getTeamRosterByNameAndStructureId(name, structureId) {
+    return axiosCustom.get(`/teamRoster/name/${name}/structure/${structureId}`);
+  },
   getTeamRosterByPlayerId(playerId) {
     return axiosCustom.get(`/teamRoster/player/${playerId}`);
   },

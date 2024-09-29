@@ -36,14 +36,10 @@
     </div>
     <div class="actions">
       <template v-if="isConnected">
-        <button class="green">
-          <RouterLink to="/dashboard">Tableau de bord</RouterLink>
-        </button>
-        <button class="green" @click="logout">Déconnexion</button>
+        <fwb-button color="default"><RouterLink to="/dashboard">Tableau de bord</RouterLink></fwb-button>
+        <fwb-button color="default" @click="logout">Déconnexion</fwb-button>
       </template>
-      <button v-else class="green">
-        <RouterLink to="/auth/register">S'inscrire gratuitement</RouterLink>
-      </button>
+      <fwb-button v-else color="default"><RouterLink to="/auth/register">S'inscrire gratuitement</RouterLink></fwb-button>
       <ul class="socials">
         <li>
           <a href="https://linkedin.com/in/alexis-briet" target="_blank">
@@ -69,6 +65,7 @@
 import { useNotification } from '@kyvg/vue3-notification';
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { FwbButton } from 'flowbite-vue'
 
 defineComponent({
   name: 'NavbarComponent',

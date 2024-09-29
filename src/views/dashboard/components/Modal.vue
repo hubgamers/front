@@ -1,5 +1,5 @@
 <template>
-  <fwb-modal>
+  <fwb-modal :size="size" @close="closeModal">
     <template #header>
       <div class="flex items-center text-lg">
         {{title}}
@@ -14,7 +14,7 @@
           Fermer
         </fwb-button>
         <fwb-button @click="successModal" color="green">
-          {{ successTextButotn }}
+          {{ successTextButton }}
         </fwb-button>
       </div>
     </template>
@@ -23,6 +23,7 @@
 
 <script setup>
 import { defineComponent } from 'vue'
+import { FwbButton, FwbModal } from 'flowbite-vue'
 
 defineComponent({
   name: 'ModalComponent'
@@ -31,7 +32,11 @@ defineComponent({
 defineProps({
   title: String,
   subtitle: String,
-  successTextButotn: String
+  successTextButton: String,
+  size: {
+    type: String,
+    default: 'xl'
+  }
 })
 const emit = defineEmits(['close', 'success'])
 

@@ -129,6 +129,7 @@ function uploadStructureLogo(e) {
 }
 
 function submitForm() {
+  teamForm.value.tags = teamForm.value.tags.map(tag => tag.id)
   if (params && params.id) {
     store.dispatch('updateStructure', teamForm.value).then(() => {
       notify({
