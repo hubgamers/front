@@ -51,7 +51,6 @@ function openDetails(teamRoster) {
   emit('details', teamRoster)
 }
 function openForm(teamRosterId) {
-  console.log('openFormopenForm', teamRosterId)
   emit('edition', teamRosterId)
 }
 function verifIfOwner() {

@@ -90,7 +90,6 @@ let routeName = ref('StructureDetail_Informations');
 const updateRouteName = () => {
   // Récupérer le ?tab=xxx de l'url
   routeName.value = route.query.tab ? `StructureDetail_${route.query.tab}` : 'StructureDetail_Informations';
-  console.log('routeName', routeName.value);
 
   // Vérifier si un ID est présent dans les paramètres de route
   if (route.params && route.params.id) {
@@ -161,6 +160,5 @@ async function closeTeamRoster() {
   showTeamRosterDetails.value = false;
   await store.dispatch('getAllTeamRostersByStructureId', params.id)
   teamRosterId.value = null;
-  console.log(store.getters.getTeamRosters)
 }
 </script>

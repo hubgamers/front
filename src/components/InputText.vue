@@ -101,7 +101,6 @@ watch(() => props.modelValue, (newValue) => {
 const selectedIds = ref([]); // Un tableau pour les IDs sélectionnés
 // Méthode pour mettre à jour le modèle
 function updateSelectedIds(selectedOptions) {
-  console.log(selectedOptions);
   selectedIds.value = selectedOptions.map(option => option.id); // Mettre à jour pour garder uniquement les IDs
   model.value = selectedIds.value; // Mettre à jour le modèle principal si nécessaire
 }

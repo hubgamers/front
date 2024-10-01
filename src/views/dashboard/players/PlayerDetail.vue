@@ -25,7 +25,6 @@ const route = useRoute();
 const params = route.params;
 
 store.dispatch('getTeamRosterColumns')
-console.log(params)
 if (params.id) {
   store.dispatch('getPlayerById', params.id);
   store.dispatch('getTeamRosterByPlayerId', params.id)

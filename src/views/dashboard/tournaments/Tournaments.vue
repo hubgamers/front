@@ -27,7 +27,6 @@ store.dispatch('getTournamentColumns')
 
 let search = ref('');
 function searchInTournaments() {
-  console.log('search', search.value)
   if (search.value === '') {
     store.dispatch('getAllTournaments')
   } else {

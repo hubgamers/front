@@ -212,8 +212,7 @@ onMounted(() => {
   store.dispatch('getAllBoFormats')
 })
 
-function onStructureIdAlphaChange(newValue, oldValue) {
-  console.log('structureIdAlpha has changed:', newValue, oldValue);
+function onStructureIdAlphaChange(newValue) {
   store.dispatch('getMyTeamRostersByStructureId', newValue)
 }
 
@@ -222,8 +221,7 @@ watch(() => scrimForm.value.structureIdAlpha, (newValue, oldValue) => {
   onStructureIdAlphaChange(newValue, oldValue);
 });
 
-function onStructureIdBetaChange(newValue, oldValue) {
-  console.log('structureIdBeta has changed:', newValue, oldValue);
+function onStructureIdBetaChange(newValue) {
   store.dispatch('getAllTeamRostersByStructureId', newValue)
 }
 

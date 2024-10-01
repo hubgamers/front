@@ -38,7 +38,6 @@ onBeforeMount(async () => {
 
 let search = ref('');
 function searchInScrims() {
-  console.log('search', search.value)
   if (search.value === '') {
     store.dispatch('getAllScrims')
   } else {
