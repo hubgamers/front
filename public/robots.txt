@@ -1,0 +1,24 @@
+User-agent: *
+Disallow: /
+
+Allow: /features
+Allow: /pricing
+Allow: /about
+Allow: /contact
+Allow: /dashboard/structures
+Allow: /dashboard/my-structures
+Allow: /dashboard/structures/create
+Allow: /dashboard/structures/edit/
+Allow: /dashboard/structures/
+Allow: /dashboard/players
+Allow: /dashboard/players/
+Allow: /dashboard/tournaments
+Allow: /dashboard/my-tournaments
+Allow: /dashboard/tournaments/create
+Allow: /dashboard/tournaments/edit/
+Allow: /dashboard/tournaments/
+Allow: /dashboard/scrims
+Allow: /dashboard/my-scrims
+Allow: /dashboard/scrims/create
+Allow: /dashboard/scrims/edit/
+Allow: /dashboard/scrims/
