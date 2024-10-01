@@ -14,7 +14,7 @@
       <p class="text-primary">{{teamRoster.players.length}} joueur(s).</p>
       <fwb-button-group class="gap-2">
         <fwb-button @click="openDetails(teamRoster)" class="bg-primary">Détails de l'équipe</fwb-button>
-        <fwb-button @click="openForm(teamRoster.id)" class="bg-secondary">Edition</fwb-button>
+        <fwb-button v-if="verifIfOwner" @click="openForm(teamRoster.id)" class="bg-secondary">Edition</fwb-button>
       </fwb-button-group>
     </div>
   </fwb-card>
@@ -53,5 +53,8 @@ function openDetails(teamRoster) {
 function openForm(teamRosterId) {
   console.log('openFormopenForm', teamRosterId)
   emit('edition', teamRosterId)
+}
+function verifIfOwner() {
+  return store.getters.getStructure.organizerId == store.getters.getUser.id
 }
 </script>
