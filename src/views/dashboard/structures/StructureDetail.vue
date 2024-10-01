@@ -14,10 +14,10 @@
             <div class="mt-28 flex items-center gap-40">
               <h2 class="text-3xl font-bold">{{store.getters.getStructure.name}}</h2>
               <ul class="flex items-center justify-item-around gap-2">
-                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '/'">Informations</RouterLink></li>
-                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '/teams'">Equipes</RouterLink></li>
-                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '/tournaments'">Tournois</RouterLink></li>
-                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '/twitch'">Chaine Twitch</RouterLink></li>
+                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Informations'">Informations</RouterLink></li>
+                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Teams'">Equipes</RouterLink></li>
+                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Tournaments'">Tournois</RouterLink></li>
+                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Twitch'">Chaine Twitch</RouterLink></li>
               </ul>
             </div>
           </div>
@@ -62,7 +62,7 @@
 <script setup>
 import { useStore } from 'vuex'
 import { onBeforeRouteLeave, RouterLink, useRoute } from 'vue-router'
-import { defineComponent, onBeforeMount, ref, watchEffect } from 'vue'
+import { defineComponent, onBeforeMount, ref, watch, watchEffect } from 'vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import CreateRosterModal from '@/views/dashboard/structures/modal/CreateRosterModal.vue'
 import TeamRosterCardComponent from '../components/TeamRosterCardComponent.vue'
@@ -85,13 +85,24 @@ let teamForm = ref({
 
 let haveAccess = ref(false);
 let routeName = ref('StructureDetail_Informations');
-onBeforeMount(() => {
-  routeName.value = route.name;
-  if (params && params.id) {
-    store.dispatch('getStructureById', params.id)
-    teamForm.value = store.getters.getStructure
+const updateRouteName = () => {
+  // Récupérer le ?tab=xxx de l'url
+  routeName.value = route.query.tab ? `StructureDetail_${route.query.tab}` : 'StructureDetail_Informations';
+  console.log('routeName', routeName.value);
+
+  // Vérifier si un ID est présent dans les paramètres de route
+  if (route.params && route.params.id) {
+    store.dispatch('getStructureById', route.params.id);
+    teamForm.value = store.getters.getStructure;
   }
+};
+onBeforeMount(() => {
+  updateRouteName();
 })
+
+watch(() => route.query.tab, () => {
+  updateRouteName();
+});
 
 watchEffect(() => {
   if (store.getters.getUser && store.getters.getStructure) {

@@ -23,20 +23,5 @@ export default [
         path: '/dashboard/structures/:id',
         name: 'StructureDetail',
         component: () => import('@/views/dashboard/structures/StructureDetail.vue')
-      },
-      {
-        path: '/dashboard/structures/:id/teams',
-        name: 'StructureDetail_Teams',
-        component: () => import('@/views/dashboard/structures/StructureDetail.vue')
-      },
-      {
-        path: '/dashboard/structures/:id/tournaments',
-        name: 'StructureDetail_Tournaments',
-        component: () => import('@/views/dashboard/structures/StructureDetail.vue')
-      },
-      {
-        path: '/dashboard/structures/:id/twitch',
-        name: 'StructureDetail_Twitch',
-        component: () => import('@/views/dashboard/structures/StructureDetail.vue')
       }
 ]
