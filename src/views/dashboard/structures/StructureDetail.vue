@@ -38,7 +38,7 @@
             </form>
             <fwb-button color="default" @click="openTeamRosterEdit" class="mt-2">Créer une équipe</fwb-button>
             <div class="flex flex-wrap flex-row gap-5 mt-2">
-              <TeamRosterCardComponent :structureId="store.getters.getStructure.id" @details="openTeamRosterDetails" @edition="openTeamRosterEdit" />
+              <TeamRosterCardComponent :options="teamRosters" :structureId="store.getters.getStructure.id" @details="openTeamRosterDetails" @edition="openTeamRosterEdit" />
             </div>
           </div>
           <div v-else-if="routeName === 'StructureDetail_Tournaments'">
@@ -62,7 +62,7 @@
 <script setup>
 import { useStore } from 'vuex'
 import { onBeforeRouteLeave, RouterLink, useRoute } from 'vue-router'
-import { defineComponent, onBeforeMount, ref, watch, watchEffect } from 'vue'
+import { computed, defineComponent, onBeforeMount, ref, watch, watchEffect } from 'vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import CreateRosterModal from '@/views/dashboard/structures/modal/CreateRosterModal.vue'
 import TeamRosterCardComponent from '../components/TeamRosterCardComponent.vue'
@@ -82,6 +82,8 @@ let teamForm = ref({
   game: '',
   platform: ''
 });
+const teamRosters = computed(() => store.getters.getTeamRosters);
+
 
 let haveAccess = ref(false);
 let routeName = ref('StructureDetail_Informations');
@@ -97,6 +99,8 @@ const updateRouteName = () => {
   }
 };
 onBeforeMount(() => {
+  store.dispatch('getTeamRosterColumns')
+  store.dispatch('getAllTeamRostersByStructureId', params.id)
   updateRouteName();
 })
 
@@ -119,12 +123,9 @@ onBeforeRouteLeave(() => {
   store.dispatch('resetStructure')
 })
 
-store.dispatch('getTeamRosterColumns')
-store.dispatch('getAllTeamRostersByStructureId', params.id)
 
 // Recherche d'équipe
 let searchTeamRoster = ref('')
-
 function searchInTeamRosters() {
   if (searchTeamRoster.value === '') {
     store.dispatch('getAllTeamRostersByStructureId', params.id)
@@ -139,26 +140,23 @@ function searchInTeamRosters() {
 // Ouvrir le modal de création d'équipe
 let showTeamRosterDetails = ref(false);
 function openTeamRosterDetails($event) {
-  console.log('openTeamRosterDetails', $event)
   teamRosterId.value = $event.id;
-  console.log('teamRosterId', teamRosterId.value)
   showTeamRosterDetails.value = true;
 }
 
 let showTeamRosterEdit = ref(false);
 let teamRosterId = ref(null);
 function openTeamRosterEdit(id) {
-  console.log('openTeamRosterEdit', id)
   if (typeof id === 'number') {
     teamRosterId.value = id;
   }
-  console.log('teamRosterId', teamRosterId.value)
   showTeamRosterEdit.value = true;
 }
 
-function closeTeamRoster() {
+async function closeTeamRoster() {
   showTeamRosterEdit.value = false;
   showTeamRosterDetails.value = false;
-  store.dispatch('getAllTeamRostersByStructureId', params.id)
+  await store.dispatch('getAllTeamRostersByStructureId', params.id)
+  console.log(store.getters.getTeamRosters)
 }
 </script>

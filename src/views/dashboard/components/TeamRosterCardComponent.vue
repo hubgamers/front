@@ -1,6 +1,6 @@
 <template>
   <fwb-card
-    v-for="(teamRoster, key) in teamRosters"
+    v-for="(teamRoster, key) in options"
     :key="key"
   >
     <div class="relative">
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { computed, defineComponent } from 'vue';
+import { defineComponent, onBeforeMount } from 'vue';
 import { FwbCard, FwbButton, FwbButtonGroup } from 'flowbite-vue'
 import { useStore } from 'vuex';
 
@@ -33,16 +33,18 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  options: {
+    type: Array,
+    default: () => [],
+  },
 });
-
 const store = useStore()
-const teamRosters = computed(() => {
-  return store.getters.getMyTeamRosters
-});
 
-if (props.structureId) {
-  store.dispatch('getMyTeamRostersByStructureId', props.structureId)
-}
+onBeforeMount(async () => {
+  if (props.structureId) {
+    await store.dispatch('getMyTeamRostersByStructureId', props.structureId)
+  }
+})
 
 const emit = defineEmits(['details', 'edition'])
 function openDetails(teamRoster) {
