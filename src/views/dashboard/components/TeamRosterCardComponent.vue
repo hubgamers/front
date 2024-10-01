@@ -14,6 +14,7 @@
       <p class="text-primary">{{teamRoster.players.length}} joueur(s).</p>
       <fwb-button-group class="gap-2">
         <fwb-button @click="openDetails(teamRoster)" class="bg-primary">Détails de l'équipe</fwb-button>
+        <fwb-button @click="openForm(teamRoster.id)" class="bg-secondary">Edition</fwb-button>
       </fwb-button-group>
     </div>
   </fwb-card>
@@ -43,8 +44,12 @@ if (props.structureId) {
   store.dispatch('getMyTeamRostersByStructureId', props.structureId)
 }
 
-const emit = defineEmits(['details'])
-function openDetails(teamRosterId) {
-  emit('details', teamRosterId)
+const emit = defineEmits(['details', 'edition'])
+function openDetails(teamRoster) {
+  emit('details', teamRoster)
+}
+function openForm(teamRosterId) {
+  console.log('openFormopenForm', teamRosterId)
+  emit('edition', teamRosterId)
 }
 </script>

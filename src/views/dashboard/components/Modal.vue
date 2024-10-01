@@ -13,7 +13,7 @@
         <fwb-button @click="closeModal" color="alternative">
           Fermer
         </fwb-button>
-        <fwb-button @click="successModal" color="green">
+        <fwb-button v-if="successTextButton" @click="successModal" color="green">
           {{ successTextButton }}
         </fwb-button>
       </div>

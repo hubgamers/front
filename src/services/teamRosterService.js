@@ -37,7 +37,7 @@ export default {
   create(team) {
     return axiosCustom.post("/teamRoster/create", team);
   },
-  updateStructure(team) {
+  update(team) {
     return axiosCustom.put("/teamRoster/update", team);
   },
   deleteStructure(id) {

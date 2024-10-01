@@ -134,7 +134,7 @@ const actions = {
       });
     });
   },
-  createStructureRoster({ commit }, teamRoster) {
+  createTeamRoster({ commit }, teamRoster) {
     return new Promise((resolve, reject) => {
       teamRosterService.create(teamRoster)
       .then((response) => {
@@ -145,7 +145,19 @@ const actions = {
         reject(error.response.data.error);
       });
     });
-  }
+  },
+  updateTeamRoster({ commit }, teamRoster) {
+    return new Promise((resolve, reject) => {
+      teamRosterService.update(teamRoster)
+      .then((response) => {
+        commit('updateTeamRoster', response.data.data);
+        resolve(response.data.data);
+      })
+      .catch((error) => {
+        reject(error.response.data.error);
+      });
+    });
+  },
 };
 
 export default {

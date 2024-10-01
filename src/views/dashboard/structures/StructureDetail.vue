@@ -36,9 +36,9 @@
                   <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rechercher</button>
               </div>
             </form>
-            <fwb-button color="default" @click="openTeamRoster" class="mt-2">Créer une équipe</fwb-button>
+            <fwb-button color="default" @click="openTeamRosterEdit" class="mt-2">Créer une équipe</fwb-button>
             <div class="flex flex-wrap flex-row gap-5 mt-2">
-              <TeamRosterCardComponent :structureId="store.getters.getStructure.id" @details="openTeamRosterDetails" />
+              <TeamRosterCardComponent :structureId="store.getters.getStructure.id" @details="openTeamRosterDetails" @edition="openTeamRosterEdit" />
             </div>
           </div>
           <div v-else-if="routeName === 'StructureDetail_Tournaments'">
@@ -145,42 +145,14 @@ function openTeamRosterDetails($event) {
   showTeamRosterDetails.value = true;
 }
 
-// Feat : ajout de joueur à une structure
-// let invitationStatus = ref('');
-// async function recruitStaff(playerId) {
-//   invitationStatus.value = 'disabled';
-//   await store.dispatch('createInvitation', {
-//     playerId: playerId,
-//     structureId: params.id,
-//     type: 'RECRUIT_STAFF'
-//   })
-//     .then(() => {
-//       notify({
-//         type: 'success',
-//         title: 'Invitation envoyée',
-//         text: 'L\'utilisateur a bien été invité dans staff.'
-//       })
-//       store.dispatch('getAllInvitationsByStructureId', params.id)
-//     })
-//     .catch(() => {
-//       notify({
-//         type: 'error',
-//         title: 'Erreur',
-//         text: 'Une erreur est survenue lors de l\'invitation de l\'utilisateur.'
-//       })
-//     });
-//   invitationStatus.value = 'success';
-//   setTimeout(() => {
-//     invitationStatus.value = '';
-//   }, 3000)
-// }
-
 let showTeamRosterEdit = ref(false);
 let teamRosterId = ref(null);
-function openTeamRoster(id) {
+function openTeamRosterEdit(id) {
+  console.log('openTeamRosterEdit', id)
   if (typeof id === 'number') {
     teamRosterId.value = id;
   }
+  console.log('teamRosterId', teamRosterId.value)
   showTeamRosterEdit.value = true;
 }
 
