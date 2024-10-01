@@ -43,7 +43,6 @@ onBeforeMount(async () => {
       await store.dispatch('getStructureById', route.params.id);
       const structure = store.getters.getStructure;
       if (structure) {
-        console.log('Structure récupérée :', structure);
         teamRosterForm.value = {
           ...teamRosterForm.value,
           structureId: route.params.id,  // Assigner l'id de la structure
@@ -58,7 +57,6 @@ onBeforeMount(async () => {
     if (props.teamRosterId) {
       const teamRoster = await store.dispatch('getTeamRosterById', props.teamRosterId);
       if (teamRoster) {
-        console.log('Sous-équipe récupérée :', teamRoster);
         teamRosterForm.value = {
           ...teamRosterForm.value,
           id: teamRoster.id,
@@ -77,7 +75,6 @@ onBeforeMount(async () => {
     }
     isLoading.value = false;
   } catch (error) {
-    console.error('Erreur lors de la récupération des données :', error);
     notify({
       title: "Erreur",
       text: "Une erreur est survenue lors de la récupération des données.",

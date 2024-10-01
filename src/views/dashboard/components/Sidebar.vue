@@ -14,7 +14,7 @@
       :class="{'-translate-x-full': !isSidebarOpen, 'translate-x-0': isSidebarOpen}"
     >
       <div>
-        <img src="../../../assets/logo.svg" alt="Logo HubGamers">
+        <img src="../../../assets/HubGamers.png" alt="Logo HubGamers">
         <RouterLink to="/dashboard/profile" class="flex items-center gap-1 my-4">
           <img class="w-10 h-10 rounded-full" :src="(store.getters.getUser && store.getters.getUser.avatar) ? store.getters.getUser.avatar : 'https://avatar.iran.liara.run/public/6'" alt="Rounded avatar">
           <span class="font-semibold">{{ (store.getters.getUser && store.getters.getUser.username) ? store.getters.getUser.username : ''}}</span>

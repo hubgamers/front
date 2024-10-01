@@ -36,7 +36,7 @@
                   <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rechercher</button>
               </div>
             </form>
-            <fwb-button color="default" @click="openTeamRosterEdit" class="mt-2">Créer une équipe</fwb-button>
+            <fwb-button color="default" @click="openTeamRosterCreate" class="mt-2">Créer une équipe</fwb-button>
             <div class="flex flex-wrap flex-row gap-5 mt-2">
               <TeamRosterCardComponent :options="teamRosters" :structureId="store.getters.getStructure.id" @details="openTeamRosterDetails" @edition="openTeamRosterEdit" />
             </div>
@@ -90,7 +90,6 @@ let routeName = ref('StructureDetail_Informations');
 const updateRouteName = () => {
   // Récupérer le ?tab=xxx de l'url
   routeName.value = route.query.tab ? `StructureDetail_${route.query.tab}` : 'StructureDetail_Informations';
-  console.log('routeName', routeName.value);
 
   // Vérifier si un ID est présent dans les paramètres de route
   if (route.params && route.params.id) {
@@ -146,6 +145,9 @@ function openTeamRosterDetails($event) {
 
 let showTeamRosterEdit = ref(false);
 let teamRosterId = ref(null);
+function openTeamRosterCreate() {
+  showTeamRosterEdit.value = true;
+}
 function openTeamRosterEdit(id) {
   if (typeof id === 'number') {
     teamRosterId.value = id;
@@ -157,6 +159,6 @@ async function closeTeamRoster() {
   showTeamRosterEdit.value = false;
   showTeamRosterDetails.value = false;
   await store.dispatch('getAllTeamRostersByStructureId', params.id)
-  console.log(store.getters.getTeamRosters)
+  teamRosterId.value = null;
 }
 </script>
