@@ -1,5 +1,11 @@
 <template>
-  <DashboardLayout>
+  <DashboardLayout 
+      title="Détails du tournoi" 
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Tournois', url: '/dashboard/tournaments' }
+      ]"
+      >
     <div v-if="store.getters.getTournament !== null">
     <div v-if="store.getters.getTournament.banner || store.getters.getTournament.logo" class="relative">
       <img v-if="store.getters.getTournament.banner" class="relative max-h-[300px] w-full object-cover rounded-b" :src="store.getters.getTournament.banner" alt="banner">
@@ -60,7 +66,7 @@
             </ul>
             <p v-else>Aucun participant</p>
             <h3 class="text-2xl mt-5 mb-3">Invitations</h3>
-            <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'teamId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/structures/invitations/" />
+            <Table :columns="store.getters.getInvitationColumns.filter((column) => column !== 'type' && column !== 'structureId')" :items="store.getters.getInvitationsByTeamId" url="/dashboard/structures/invitations/" />
           </div>
           <div v-if="sideBarStatus === 'configuration'">
             <h3 class="text-2xl mt-5 mb-3">Configuration</h3>

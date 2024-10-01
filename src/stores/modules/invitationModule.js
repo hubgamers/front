@@ -81,9 +81,9 @@ const actions = {
       });
     });
   },
-  getAllInvitationsByTeamId(context, teamId) {
+  getAllInvitationsByStructureId(context, structureId) {
     return new Promise((resolve, reject) => {
-      invitationService.getAllInvitationsByTeamId(teamId)
+      invitationService.getAllInvitationsByStructureId(structureId)
       .then((response) => {
         resolve(response.data.data);
         context.commit('updateInvitationsByTeam', response.data.data);
@@ -105,9 +105,9 @@ const actions = {
       });
     })
   },
-  getAllJoinInvitationByTeamId(context, teamId) {
+  getAllJoinInvitationByStructureId(context, structureId) {
     return new Promise((resolve, reject) => {
-      invitationService.getAllJoinInvitationByTeamId(teamId)
+      invitationService.getAllJoinInvitationByStructureId(structureId)
       .then((response) => {
         resolve(response.data.data);
         context.commit('updateInvitations', response.data.data);
@@ -117,9 +117,9 @@ const actions = {
       });
     });
   },
-  getAllRecruitPlayerInvitationByTeamId(context, teamId) {
+  getAllRecruitPlayerInvitationByStructureId(context, structureId) {
     return new Promise((resolve, reject) => {
-      invitationService.getAllRecruitPlayerInvitationByTeamId(teamId)
+      invitationService.getAllRecruitPlayerInvitationByStructureId(structureId)
       .then((response) => {
         resolve(response.data.data);
         context.commit('updateInvitations', response.data.data);

@@ -159,7 +159,6 @@ function togglePeriod() {
 
 <style lang="scss" scoped>
 .togglePeriod {
-  color: #FFFFFF;
   padding: 1rem 0;
 }
 

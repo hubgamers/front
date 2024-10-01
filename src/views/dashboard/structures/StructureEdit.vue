@@ -1,5 +1,11 @@
 <template>
-  <DashboardLayout title="Gérer ma structure" :subtitle="store.getters.getStructure != null ? 'Editer ma structure' :' Créer une structure'">
+  <DashboardLayout 
+      title="Créer ou éditer une structure" 
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Structures', url: '/dashboard/structures' }
+      ]"
+      >
     <div v-if="teamForm !== null && store.getters.getStructure != null" class="relative">
       <div>
         <input-text type="file" label="Bannière" @uploadFile="uploadStructureBanner" />
@@ -10,15 +16,15 @@
     </div>
     
     <form @submit.prevent="submitForm">
-      <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <input-text v-model="teamForm.name" label="Nom" placeholder="Les p't" required />
-        <input-text v-model="teamForm.description" label="Description" placeholder="Une structure de choc" required />
-        <input-text v-model="teamForm.tags" type="select" label="Sélectionner les tags" :multiple="true">
-          <option v-for="(tag, index) in store.getters.getTags" :key="index" :value="tag.id">{{ tag.name }}</option>
-        </input-text>
+      <div class="flex flex-col">
+        <input-text v-model="teamForm.name" label="Saisissez un nom pour votre structure" placeholder="Vitality" required />
+        <input-text v-model="teamForm.tags" :options="store.getters.getTags" type="select" label="Sélectionner les tags" placeholder="FPS, Battle Royale" info="Choisir les bons tags vous permettra de référencer votre structure dans notre moteur de recherche. Les joueurs pourront rechercher en fonction de tags précis pour vous retrouver." :multiple="true" />
+        <input-text v-model="teamForm.description" type="textarea" label="Décrivez votre structure" placeholder="Une structure de choc" required />
       </div>
-      <button type="button" class="info my-4 mr-1" @click="back">Retour</button>
-      <button type="submit" class="green my-4">{{store.getters.getStructure != null ? 'Editer mon structure' :' Créer une structure'}}</button>
+      <div class="flex gap-2 mt-2">
+        <fwb-button color="alternative" @click="back">Retour</fwb-button>
+        <fwb-button type="submit" color="default">{{store.getters.getStructure != null ? 'Editer mon structure' :' Créer une structure'}}</fwb-button>
+      </div>
     </form>
 
   </DashboardLayout>
@@ -30,6 +36,7 @@ import { useRoute, useRouter } from 'vue-router'
 import InputText from '@/components/InputText.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import { useNotification } from "@kyvg/vue3-notification";
+import { FwbButton } from 'flowbite-vue'
 
 defineComponent({
   name: 'TeamEditPage'
@@ -53,7 +60,7 @@ const params = route.params;
 
 onBeforeMount(() => {
   // On vérifie s'il s'agit d'une édition ou d'une création
-  if (router.currentRoute.value.name === 'EditTeam') {
+  if (router.currentRoute.value.name === 'StructureEdit') {
     store.dispatch('getStructureById', params.id)
       .then(() => {
         teamForm.value = store.getters.getStructure
@@ -122,6 +129,7 @@ function uploadStructureLogo(e) {
 }
 
 function submitForm() {
+  teamForm.value.tags = teamForm.value.tags.map(tag => tag.id)
   if (params && params.id) {
     store.dispatch('updateStructure', teamForm.value).then(() => {
       notify({

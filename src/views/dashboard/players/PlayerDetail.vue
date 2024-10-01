@@ -1,5 +1,11 @@
 <template>
-  <DashboardLayout :title="store.getters.getPlayer.username" subtitle="Découvrez tous les détails">
+  <DashboardLayout 
+      :title="store.getters.getPlayer.username" 
+      show-breadcrumb="true"
+      :breadcrumb-list="[
+        { name: 'Joueurs', url: '/dashboard/players' }
+      ]"
+      >
     <div>
       <img class="max-w-[200px] my-2" :src="store.getters.getPlayer.avatar ? store.getters.getPlayer.avatar : 'https://avatar.iran.liara.run/public/6'" alt="">
 

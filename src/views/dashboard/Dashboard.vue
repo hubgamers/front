@@ -1,5 +1,5 @@
 <template>
-  <DashboardLayout title="Tableau de bord" subtitle="Bienvenue sur votre compte" :show-search-bar="true">
+  <DashboardLayout title="Tableau de bord" subtitle="Bienvenue sur votre compte">
     <div class="row justify-around gap-2 pt-2">
      <CardActionDashboardComponent
         title="Structures créées"

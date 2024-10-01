@@ -2,7 +2,7 @@
   <div class="bg-gray-200 rounded-2xl p-4 mt-5" v-if="store.getters.getPlayer == null">
     <h3 class="text-2xl mb-3">Mode joueur</h3>
     <p>Vous pouvez activer le mode joueur afin d'être visible auprès des équipes pour recevoir des invitations.</p>
-    <button class="info" @click="activatePlayerMode">Activer le mode joueur</button>
+    <fwb-button color="default" @click="activatePlayerMode">Activer le mode joueur</fwb-button>
   </div>
 </template>
 
@@ -10,6 +10,7 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { useNotification } from '@kyvg/vue3-notification'
+import { FwbButton } from 'flowbite-vue'
 
 defineComponent({
   name: 'PlayerModeComponent'

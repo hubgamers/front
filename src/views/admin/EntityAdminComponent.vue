@@ -77,10 +77,22 @@ switch (entityName.value) {
     details.value = store.getters.getPlayer;
     break;
   case 'tag':
-    // details.value = store.getters.getTag;
+    details.value = store.getters.getTag;
     break;
   case 'invitation':
     details.value = store.getters.getInvitation;
+    break;
+  case 'bo-format':
+    details.value = store.getters.getBoFormat;
+    break;
+  case 'platform':
+    details.value = store.getters.getPlatform;
+    break;
+  case 'tier':
+    details.value = store.getters.getTier;
+    break;
+  case 'game':
+    details.value = store.getters.getGame;
     break;
 }
 
@@ -110,6 +122,18 @@ function submitForm() {
       case 'invitation':
         store.dispatch('updateInvitation', userForm.value)
         break;
+      case 'bo-format':
+        store.dispatch('updateBoFormat', userForm.value)
+        break;
+      case 'platform':
+        store.dispatch('updatePlatform', userForm.value)
+        break;
+      case 'tier':
+        store.dispatch('updateTier', userForm.value)
+        break;
+      case 'game':
+        store.dispatch('updateGame', userForm.value)
+        break;
     }
   } else {
     switch (entityName.value) {
@@ -131,6 +155,18 @@ function submitForm() {
       case 'invitation':
         store.dispatch('createInvitation', userForm.value)
         break;
+      case 'bo-format':
+        store.dispatch('createBoFormat', userForm.value)
+        break;
+      case 'platform':
+        store.dispatch('createPlatform', userForm.value)
+        break;
+      case 'tier':
+        store.dispatch('createTier', userForm.value)
+        break;
+      case 'game':
+        store.dispatch('createGame', userForm.value)
+        break;
     }
   }
 }
@@ -146,12 +182,15 @@ const loadEntityData = async (entity, params) => {
     'tournament': { getter: 'getTournamentColumns', items: 'getTournaments', actions: ['getTournamentColumns', 'getAllTournaments'] },
     'structure': { getter: 'getStructureColumns', items: 'getStructures', actions: ['getStructureColumns', 'getAllStructures'] },
     'player': { getter: 'getPlayerColumns', items: 'getPlayers', actions: ['getPlayerColumns', 'getAllPlayersAdmin'] },
-    'tag': { items: 'getTags', actions: ['getAllTags'] },
     'invitation': { getter: 'getInvitationColumns', items: 'getInvitations', actions: ['getInvitationColumns', 'getAllInvitations'] },
+    'bo-format': { getter: 'getBoFormatColumns', items: 'getBoFormats', actions: ['getBoFormatColumns', 'getAllBoFormats'] },
+    'platform': { getter: 'getPlatformColumns', items: 'getPlatforms', actions: ['getPlatformColumns', 'getAllPlatforms'] },
+    'tier': { getter: 'getTierColumns', items: 'getTiers', actions: ['getTierColumns', 'getAllTiers'] },
+    'game': { getter: 'getGameColumns', items: 'getGames', actions: ['getGameColumns', 'getAllGames'] },
+    'tag': { getter: 'getTagColumns', items: 'getTags', actions: ['getTagColumns', 'getAllTags'] },
   };
 
   const entityData = entityMapping[entity];
-  console.log(entity);
   if (entityData) {
     await Promise.all(entityData.actions.map(action => store.dispatch(action)));
     columns.value = store.getters[entityData.getter] || [];
@@ -199,6 +238,18 @@ onBeforeRouteLeave((to, from, next) => {
         break;
       case 'invitation':
         store.dispatch('getInvitationById', to.params.id)
+        break;
+      case 'bo-format':
+        store.dispatch('getBoFormatById', to.params.id)
+        break;
+      case 'platform':
+        store.dispatch('getPlatformById', to.params.id)
+        break;
+      case 'tier':
+        store.dispatch('getTierById', to.params.id)
+        break;
+      case 'game':
+        store.dispatch('getGameById', to.params.id)
         break;
     }
   }

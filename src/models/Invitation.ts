@@ -3,16 +3,16 @@ export class Invitation {
   
   playerId: string;
   
-  teamId: string;
+  structureId: string;
   
   status: InvitationStatus;
   
   type: InvitationType;
   
-  constructor(id: string, playerId: string, teamId: string, status: InvitationStatus, type: InvitationType) {
+  constructor(id: string, playerId: string, structureId: string, status: InvitationStatus, type: InvitationType) {
     this.id = id;
     this.playerId = playerId;
-    this.teamId = teamId;
+    this.structureId = structureId;
     this.status = status;
     this.type = type;
   }

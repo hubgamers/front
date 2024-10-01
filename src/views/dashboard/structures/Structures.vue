@@ -1,49 +1,44 @@
 <template>
-  <DashboardLayout title="Mes structures" subtitle="Gérer l'ensemble de vos structures.">
-    <div v-if="store.getters.getMyStructures.length > 0" class="flex flex-wrap flex-row gap-5 mt-10">
-      <button class="info my-4 w-full">
-        <RouterLink to="/dashboard/structures/create">Créer une structure</RouterLink>
-      </button>
-      <CardComponent v-for="(team, key) in store.getters.getMyStructures" :key="key" :title-card="team.name" :desc="team.description" :image="team.logo" :link-one="'/dashboard/structures/' + team.id" link-one-text="Détails de l'structure" />
-    </div>
-    <div class="mt-10" v-else>
-      <p class="pb-3">Aucune structure de créée.</p>
-      <button class="info">
-        <RouterLink to="/dashboard/structures/create">Créer une structure dès maintenant</RouterLink>
-      </button>
-    </div>
-    
-    <Topbar class="mt-20" title="Structures publiques" subtitle="Vous pouvez rejoindre une structure parmi la liste" />
-    <div class="flex flex-wrap justify-between mt-10">
-      <div class="flex flex-col max-w-[300px] w-full">
-        <input-text v-model:model-value="search" label="Recherche" placeholder="Rechercher une structure" required />
-        <button @click="searchInTeams" class="info">Rechercher</button>
-      </div>
+  <DashboardLayout 
+      title="Toutes les structures" 
+      subtitle="Faites le tour de toutes les structures."
+      >
+      <form @submit.prevent="searchInTeams" class="py-4">   
+          <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Rechercher une structure</label>
+          <div class="relative">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                  </svg>
+              </div>
+              <input v-model="search" type="search" id="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Valorant" />
+              <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rechercher</button>
+          </div>
+        </form>
       <div class="flex flex-wrap flex-row gap-5 mt-2">
-        <CardComponent v-for="(team, key) in store.getters.getStructures" :key="key" :title-card="team.name" :desc="team.description" :image="team.logo" :link-one="'/dashboard/structures/' + team.id" link-one-text="Détails de l'structure" btn-modal-text="Rejoindre l'structure" @modal="openJoinModal(team.id)" />
+        <StructureCardComponent v-if="!isLoading" :options="store.getters.getStructures" />
+        <Loading v-else />
       </div>
-    </div>
-    
-    <JoinTeamModal v-if="showJoinModal" @close="closeJoinModal" :team-id="teamIdSelected" />
   </DashboardLayout>
 </template>
 <script setup>
-import Topbar from '@/views/dashboard/components/Topbar.vue'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useStore } from 'vuex'
-import CardComponent from '@/views/dashboard/components/TeamCardComponent.vue'
-import InputText from '@/components/InputText.vue'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
-import JoinTeamModal from '@/views/dashboard/structures/modal/JoinTeamModal.vue'
+import StructureCardComponent from '../components/StructureCardComponent.vue';
+import Loading from '../components/Loading.vue';
+
 defineComponent({
-  name: 'TeamsPage'
+  name: 'StructuresPage'
 })
 
 const store = useStore()
-store.dispatch('getAllMyStructures')
-store.dispatch('getAllPublicStructures')
-store.dispatch('getStructureColumns')
-store.dispatch('getAllPlayers')
+let isLoading = ref(true)
+onBeforeMount(async () => {
+  await store.dispatch('getAllPlayers')
+  await store.dispatch('getAllPublicStructures')
+  isLoading.value = false;
+})
 
 let search = ref('')
 
@@ -53,16 +48,5 @@ function searchInTeams() {
   } else {
     store.dispatch('getAllStructuresByName', search.value)
   }
-}
-
-let showJoinModal = ref(false)
-let teamIdSelected = ref("")
-function openJoinModal(teamId) {
-  showJoinModal.value = true
-  teamIdSelected.value = teamId
-}
-
-function closeJoinModal() {
-  showJoinModal.value = false
 }
 </script>

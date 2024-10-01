@@ -132,9 +132,9 @@ const actions = {
       });
     });
   },
-  uploadTournamentBanner(context, { teamId, file }) {
+  uploadTournamentBanner(context, { structureId, file }) {
     return new Promise((resolve, reject) => {
-      tournamentService.uploadTournamentBanner(teamId, file)
+      tournamentService.uploadTournamentBanner(structureId, file)
       .then((response) => {
         resolve(response.data.data);
       })
@@ -143,9 +143,9 @@ const actions = {
       });
     });
   },
-  uploadTournamentLogo(context, { teamId, file }) {
+  uploadTournamentLogo(context, { structureId, file }) {
     return new Promise((resolve, reject) => {
-      tournamentService.uploadTournamentLogo(teamId, file)
+      tournamentService.uploadTournamentLogo(structureId, file)
       .then((response) => {
         resolve(response.data.data);
       })

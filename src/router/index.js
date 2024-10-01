@@ -1,4 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import authModule from './authModule';
+import subscriptionModule from './subscriptionModule';
+import structureModule from './structureModule';
+import playersModule from './playersModule';
+import tournamentModule from './tournamentModule';
+import scrimModule from './scrimModule';
+import adminUserModule from './adminUserModule';
+import adminTournamentModule from './adminTournamentModule';
+import adminStructureModule from './adminStructureModule';
+import adminPlayerModule from './adminPlayerModule';
+import adminTagModule from './adminTagModule';
+import adminBoFormatModule from './adminBoFormatModule';
+import adminPlatformModule from './adminPlatformModule';
+import adminTierModule from './adminTierModule';
+import adminGameModule from './adminGameModule';
+import adminInvitationModule from './adminInvitationModule';
 
 const routes = [
   {
@@ -46,191 +62,32 @@ const routes = [
     name: 'CGU',
     component: () => import('@/views/vitrine/CGU.vue')
   },
-  {
-    path: '/auth/login',
-    name: 'Login',
-    component: () => import('@/views/Auth.vue')
-  },
-  {
-    path: '/auth/register',
-    name: 'Register',
-    component: () => import('@/views/Auth.vue')
-  },
+  ...authModule,
   {
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('@/views/dashboard/Dashboard.vue')  // Assurez-vous que ce chemin est correct
   },
-  {
-    path: '/dashboard/subscriptions',
-    name: 'SubscriptionsDashboard',
-    component: () => import('@/views/dashboard/subscriptions/Subscriptions.vue')
-  },
+  ...subscriptionModule,
   {
     path: '/dashboard/profile',
     name: 'Profile',
     component: () => import('@/views/dashboard/Profile.vue')
   },
-  {
-    path: '/dashboard/structures',
-    name: 'Structures',
-    component: () => import('@/views/dashboard/structures/Structures.vue')
-  },
-  {
-    path: '/dashboard/structures/create',
-    name: 'CreateStructure',
-    component: () => import('@/views/dashboard/structures/StructureEdit.vue')
-  },
-  {
-    path: '/dashboard/structures/edit/:id',
-    name: 'StructureEdit',
-    component: () => import('@/views/dashboard/structures/StructureEdit.vue')
-  },
-  {
-    path: '/dashboard/structures/:id',
-    name: 'StructureDetail',
-    component: () => import('@/views/dashboard/structures/StructureDetail.vue')
-  },
-  {
-    path: '/dashboard/players',
-    name: 'Players',
-    component: () => import('@/views/dashboard/players/Players.vue')
-  },
-  {
-    path: '/dashboard/players/:id',
-    name: 'PlayerDetail',
-    component: () => import('@/views/dashboard/players/PlayerDetail.vue')
-  },
-  {
-    path: '/dashboard/tournaments',
-    name: 'MyTournaments',
-    component: () => import('@/views/dashboard/tournaments/Tournaments.vue')
-  },
-  {
-    path: '/dashboard/tournaments/create',
-    name: 'CreateTournament',
-    component: () => import('@/views/dashboard/tournaments/TournamentEdit.vue')
-  },
-  {
-    path: '/dashboard/tournaments/edit/:id',
-    name: 'EditTournament',
-    component: () => import('@/views/dashboard/tournaments/TournamentEdit.vue')
-  },
-  {
-    path: '/dashboard/tournaments/:id',
-    name: 'TournamentDetail',
-    component: () => import('@/views/dashboard/tournaments/TournamentDetail.vue')
-  },
-  {
-    path: '/checkout',
-    name: 'Checkout',
-    component: () => import('@/views/checkout/Checkout.vue')
-  },
-  {
-    path: '/checkout/success',
-    name: 'CheckoutSuccess',
-    component: () => import('@/views/checkout/CheckoutSuccess.vue')
-  },
-  {
-    path: '/checkout/cancel',
-    name: 'CheckoutCancel',
-    component: () => import('@/views/checkout/CheckoutCancel.vue')
-  },
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: () => import('@/views/admin/Admin.vue')
-  },
-  {
-    path: '/admin/user',
-    name: 'UserList',
-    component: () => import('@/views/admin/User.vue')
-  },
-  {
-    path: '/admin/user/edit/:id',
-    name: 'UserEdit',
-    component: () => import('@/views/admin/User.vue')
-  },
-  {
-    path: '/admin/user/view/:id',
-    name: 'UserView',
-    component: () => import('@/views/admin/User.vue')
-  },
-  {
-    path: '/admin/tournament',
-    name: 'TournamentList',
-    component: () => import('@/views/admin/Tournament.vue')
-  },
-  {
-    path: '/admin/tournament/edit/:id',
-    name: 'TournamentEdit',
-    component: () => import('@/views/admin/Tournament.vue')
-  },
-  {
-    path: '/admin/tournament/view/:id',
-    name: 'TournamentView',
-    component: () => import('@/views/admin/Tournament.vue')
-  },
-  {
-    path: '/admin/structure',
-    name: 'StructureList',
-    component: () => import('@/views/admin/Structure.vue')
-  },
-  {
-    path: '/admin/structure/edit/:id',
-    name: 'StructureEdit',
-    component: () => import('@/views/admin/Structure.vue')
-  },
-  {
-    path: '/admin/structure/view/:id',
-    name: 'StructureView',
-    component: () => import('@/views/admin/Structure.vue')
-  },
-  {
-    path: '/admin/player',
-    name: 'PlayerList',
-    component: () => import('@/views/admin/Player.vue')
-  },
-  {
-    path: '/admin/player/edit/:id',
-    name: 'PlayerEdit',
-    component: () => import('@/views/admin/Player.vue')
-  },
-  {
-    path: '/admin/player/view/:id',
-    name: 'PlayerView',
-    component: () => import('@/views/admin/Player.vue')
-  },
-  {
-    path: '/admin/tag',
-    name: 'TagList',
-    component: () => import('@/views/admin/Tag.vue')
-  },
-  {
-    path: '/admin/tag/edit/:id',
-    name: 'TagEdit',
-    component: () => import('@/views/admin/Tag.vue')
-  },
-  {
-    path: '/admin/tag/view/:id',
-    name: 'TagView',
-    component: () => import('@/views/admin/Tag.vue')
-  },
-  {
-    path: '/admin/invitation',
-    name: 'InvitationList',
-    component: () => import('@/views/admin/Invitation.vue')
-  },
-  {
-    path: '/admin/invitation/edit/:id',
-    name: 'InvitationEdit',
-    component: () => import('@/views/admin/Invitation.vue')
-  },
-  {
-    path: '/admin/invitation/view/:id',
-    name: 'InvitationView',
-    component: () => import('@/views/admin/Invitation.vue')
-  }
+  ...structureModule,
+  ...playersModule,
+  ...tournamentModule,
+  ...scrimModule,
+  ...adminUserModule,
+  ...adminTournamentModule,
+  ...adminStructureModule,
+  ...adminPlayerModule,
+  ...adminTagModule,
+  ...adminBoFormatModule,
+  ...adminPlatformModule,
+  ...adminTierModule,
+  ...adminGameModule,
+  ...adminInvitationModule
 ];
 
 const router = createRouter({

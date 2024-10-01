@@ -8,31 +8,10 @@
     box-sizing: border-box;
     margin: 0;
     width: 100%;
-    --blue: #28536B;
-    --yellow: #F4D06F;
-    --orange: #FF8811;
-    --green: #9DD9D2;
-    --white: #FFFFFF;
-    --black: #000000;
-}
-
-.bg-blue {
-    background-color: var(--blue);
-}
-.bg-yellow {
-    background-color: var(--yellow);
-}
-.bg-orange {
-    background-color: var(--orange);
-}
-.bg-green {
-    background-color: var(--green);
-}
-.bg-white {
-    background-color: var(--white);
-}
-.bg-black {
-    background-color: var(--black);
+    --color-primary: #339CA9;
+    --color-secondary: #000000;
+    --color-background: #ffffff;
+    --color-text: #000000;
 }
 
 * {
@@ -72,75 +51,6 @@ a {
     font-size: 1.5rem;
 }
 
-
-button {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-button.small {
-    padding: 0.5rem 1rem;
-}
-button.large {
-    border: none;
-    min-width: 200px;
-    max-width: 300px;
-}
-button a {
-    color: var(--white);
-    font-weight: normal;
-}
-button.info {
-    transition: all 0.3s;
-    background-color: var(--blue);
-    color: var(--white);
-}
-button.info:hover {
-    transition: all 0.3s;
-    background-color: #548196;
-    color: var(--white);
-}
-
-button.green {
-    transition: all 0.3s;
-    background-color: var(--green);
-    color: var(--black);
-    a {
-        color: var(--black)!important;
-    }
-}
-button.green:hover {
-    transition: all 0.3s;
-    background-color: #46cdbd;
-    color: var(--black);
-    a {
-        color: var(--black)!important;
-    }
-}
-
-button.warning {
-    transition: all 0.3s;
-    background-color: var(--orange);
-    color: var(--white);
-}
-button.warning:hover {
-    transition: all 0.3s;
-    background-color: #FFA23D;
-    color: var(--white);
-}
-
-button.yellow {
-    transition: all 0.3s;
-    background-color: var(--yellow);
-    color: var(--black);
-}
-button.yellow:hover {
-    transition: all 0.3s;
-    background-color: #F4D06F;
-    color: var(--black);
-}
 
 /* TABS */
 nav.tabs {
@@ -260,4 +170,21 @@ nav.tabs .active {
     display: flex;
     flex-flow: column nowrap;
     gap: 1rem;
+}
+
+.fwb-button-group .bg-blue-700, button.bg-blue-700 {
+    background-color: var(--color-primary)!important;
+
+    transition: all 0.3s;
+    &:hover {
+        transition: all 0.3s;
+        background-color: #548196!important;
+    }
+}
+
+label {
+    color: var(--color-primary)!important;
+    span {
+        color: var(--color-primary)!important;
+    }
 }

@@ -1,111 +1,141 @@
 <template>
-  <div>
-    <button @click="toggleSidebar" :class="isSidebarHidden ? 'toggle-sidebar' : 'toggle-sidebar close-btn'">
-      <i v-if="isSidebarHidden" class="fa-solid fa-bars" style="color: #FFFFFF"></i>
-      <i v-else class="fa-solid fa-close" style="color: #FFFFFF"></i>
+  <div class="flex">
+    <!-- Bouton pour ouvrir la sidebar sur mobile -->
+    <button 
+      @click="toggleSidebar" 
+      class="sm:hidden p-4 text-gray-500 focus:outline-none fixed top-0 left-0 z-50"
+    >
+      <i class="fa-solid fa-bars"></i>
     </button>
-    <div :class="['sidebar', { 'hidden': isSidebarHidden }]">
-      <div class="profile">
-        <RouterLink to="/dashboard/profile">
-          <div class="avatar">
-            <img :src="(store.getters.getUser && store.getters.getUser.avatar) ? store.getters.getUser.avatar : 'https://avatar.iran.liara.run/public/6'" alt="avatar" />
-          </div>
-          <div>
-            <p>Accéder à mon profil</p>
-          </div>
+
+    <!-- Sidebar -->
+    <fwb-sidebar 
+      class="fixed sm:static h-full z-40 sm:z-auto bg-white sm:bg-transparent transition-transform transform sm:translate-x-0"
+      :class="{'-translate-x-full': !isSidebarOpen, 'translate-x-0': isSidebarOpen}"
+    >
+      <div>
+        <img src="../../../assets/logo.svg" alt="Logo HubGamers">
+        <RouterLink to="/dashboard/profile" class="flex items-center gap-1 my-4">
+          <img class="w-10 h-10 rounded-full" :src="(store.getters.getUser && store.getters.getUser.avatar) ? store.getters.getUser.avatar : 'https://avatar.iran.liara.run/public/6'" alt="Rounded avatar">
+          <span class="font-semibold">{{ (store.getters.getUser && store.getters.getUser.username) ? store.getters.getUser.username : ''}}</span>
         </RouterLink>
       </div>
-      <nav>
-        <ul class="menu">
-          <li>MENU</li>
-          <li class="li">
-            <RouterLink to="/dashboard">
-              <i class="fa fa-dashboard"></i>
-              <span>Tableau de bord</span>
-            </RouterLink>
-          </li>
-          <li class="li">
-            <RouterLink to="/dashboard/profile?tab=invitations">
-              <i class="fa fa-envelope-open"></i>
-              <span>Mes invitations</span>
-            </RouterLink>
-          </li>
-          <li class="li">
-            <RouterLink to="/dashboard/structures">
-              <i class="fa fa-people-group"></i>
-              <span>Structures</span>
-            </RouterLink>
-          </li>
-          <li class="li">
-            <RouterLink to="/dashboard/players">
-              <i class="fa-solid fa-users"></i>
-              <span>Joueurs</span>
-            </RouterLink>
-          </li>
-          <li class="li">
-            <RouterLink to="#">
-              <i class="fa fa-satellite-dish"></i>
-              <span>Production <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></span>
-            </RouterLink>
-          </li>
-          <li class="li">
-            <RouterLink to="/dashboard/tournaments">
-              <i class="fa fa-trophy"></i>
-              <span>Tournois <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">A venir</span></span>
-            </RouterLink>
-          </li>
-        </ul>
-        <ul class="autres">
-          <li>AUTRES</li>
-          <li class="li">
-            <RouterLink to="/dashboard/subscriptions">
-              <i class="fa fa-wallet"></i>
-              <span>Abonnement</span>
-            </RouterLink>
-          </li>
-          <li class="li">
-            <RouterLink to="/contact">
-              <i class="fa fa-circle-info"></i>
-              <span>Besoin d'aide</span>
-            </RouterLink>
-          </li>
-          <li v-if="userIdAdmin" class="li">
-            <RouterLink to="/admin">
-              <i class="fa fa-kitchen-set"></i>
-              <span>Admin</span>
-            </RouterLink>
-          </li>
-          <li>
-            <a href="#" @click="logout">
-              <i class="fa fa-door-open"></i>
-              <span>Se déconnecter</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+      <fwb-sidebar-item link="/dashboard">
+        <template #icon>
+          <i class="fa-solid fa-gauge-high"></i>
+        </template>
+        <template #default>Tableau de bord</template>
+      </fwb-sidebar-item>
+      <fwb-sidebar-dropdown-item>
+        <template #icon>
+          <i class="fa-solid fa-people-group"></i>
+        </template>
+        <template #trigger>Structures</template>
+        <template #default>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/structures"> Toutes les structures </fwb-sidebar-item>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/my-structures"> Mes structures </fwb-sidebar-item>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/structures/create"> Créer une structure </fwb-sidebar-item>
+        </template>
+      </fwb-sidebar-dropdown-item>
+      <fwb-sidebar-dropdown-item>
+        <template #icon>
+          <i class="fa-solid fa-gamepad"></i>
+        </template>
+        <template #trigger>Scrims</template>
+        <template #default>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/scrims"> Toutes les scrims </fwb-sidebar-item>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/my-scrims"> Mes scrims </fwb-sidebar-item>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/scrims/create"> Créer une scrim </fwb-sidebar-item>
+        </template>
+      </fwb-sidebar-dropdown-item>
+      <fwb-sidebar-dropdown-item>
+        <template #icon>
+          <i class="fa-solid fa-trophy"></i>
+        </template>
+        <template #trigger>Tournois</template>
+        <template #default>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/tournaments"> Tous les tournois </fwb-sidebar-item>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/my-tournaments"> Mes tournois </fwb-sidebar-item>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/tournaments/create"> Créer un tournoi </fwb-sidebar-item>
+        </template>
+      </fwb-sidebar-dropdown-item>
+      <fwb-sidebar-item link="/dashboard/players">
+        <template #icon>
+          <i class="fa-solid fa-headset"></i>
+        </template>
+        <template #default>Joueurs</template>
+      </fwb-sidebar-item>
+      <fwb-sidebar-item link="/dashboard/production" v-if="userIdAdmin">
+        <template #icon>
+          <i class="fa-solid fa-satellite-dish"></i>
+        </template>
+        <template #default>Production</template>
+      </fwb-sidebar-item>
+      <fwb-sidebar-dropdown-item>
+        <template #icon>
+          <i class="fa-solid fa-bag-shopping"></i>
+        </template>
+        <template #trigger>Abonnement</template>
+        <template #default>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/subscriptions"> Offres d'abonnement </fwb-sidebar-item>
+          <fwb-sidebar-item class="pl-11" link="/dashboard/my-subscription"> Gérer mon abonnement </fwb-sidebar-item>
+        </template>
+      </fwb-sidebar-dropdown-item>
+      <fwb-sidebar-item link="/contact">
+        <template #icon>
+          <i class="fa-regular fa-circle-question"></i>
+        </template>
+        <template #default>Besoin d'aide</template>
+      </fwb-sidebar-item>
+      <fwb-sidebar-item link="/admin" v-if="userIdAdmin">
+        <template #icon>
+          <i class="fa-solid fa-hammer"></i>
+        </template>
+        <template #default>Admin</template>
+      </fwb-sidebar-item>
+      <li class="list-none">
+        <a href="#" @click="logout" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span class="ms-3">Se déconnecter</span>
+        </a>
+      </li>
+    </fwb-sidebar>
+
+    <!-- Overlay pour fermer la sidebar sur mobile -->
+    <div 
+      v-if="isSidebarOpen && isMobile" 
+      class="fixed inset-0 bg-gray-900 opacity-50"
+      @click="toggleSidebar"
+    ></div>
   </div>
 </template>
 
 <script setup>
-import { defineComponent, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useNotification } from '@kyvg/vue3-notification'
-import { useStore } from 'vuex'
+import { ref, computed, defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
+import { useNotification } from '@kyvg/vue3-notification';
+import { useStore } from 'vuex';
+import { FwbSidebar, FwbSidebarItem, FwbSidebarDropdownItem } from 'flowbite-vue'
 
 defineComponent({
   name: 'SidebarComponent'
-});
-
-const isSidebarHidden = ref(false);
-
-function toggleSidebar() {
-  isSidebarHidden.value = !isSidebarHidden.value;
-}
+})
 
 const router = useRouter();
 const { notify } = useNotification();
 const userIdAdmin = ref(localStorage.getItem('roles').includes('ROLE_ADMIN'));
+
+const store = useStore();
+
+const isSidebarOpen = ref(false);  // Variable pour gérer l'ouverture de la sidebar
+
+function toggleSidebar() {
+  isSidebarOpen.value = !isSidebarOpen.value;
+}
+
+// Détecter si l'utilisateur est sur mobile
+const isMobile = computed(() => window.innerWidth < 640);
+
 function logout() {
   localStorage.clear();
   notify({
@@ -115,122 +145,4 @@ function logout() {
   });
   router.push('/');
 }
-
-const store = useStore();
 </script>
-
-<style lang="scss" scoped>
-.sidebar {
-  padding: 1rem 0;
-  background-color: #F1F2F7;
-  height: 100vh;
-  transition: transform 0.3s ease;
-  transform: translateX(0);
-
-  &.hidden {
-    transform: translateX(-100%);
-  }
-
-  .profile {
-    a {
-      display: flex;
-      flex-flow: column;
-      align-items: center;
-      font-weight: 400;
-      .avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        overflow: hidden;
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-
-      div:last-of-type {
-        display: none;
-        @media screen and (min-width: 768px) {
-          display: block;
-          text-align: center;
-          color: #28536B;
-        }
-      }
-    }
-  }
-
-  nav {
-    @media screen and (min-width: 768px) {
-      padding: 1rem;
-    }
-    ul {
-      display: flex;
-      flex-flow: column;
-      align-items: center;
-      @media screen and (min-width: 1400px) {
-        align-items: start;
-        gap: 1rem;
-      }
-      li {
-        padding: .8rem;
-        a {
-          @media screen and (min-width: 768px) {
-            display: flex;
-            flex-flow: column;
-            align-items: center;
-            text-align: center;
-            @media screen and (min-width: 1400px) {
-              flex-flow: row;
-              gap: .5rem;
-            }
-            color: #28536B;
-            font-weight: 400;
-            &:hover {
-              transition: all .5s;
-              color: #9DD9D2;
-            }
-          }
-          i {
-            font-size: 1.3rem;
-          }
-          span {
-            display: none;
-            @media screen and (min-width: 768px) {
-              display: flex;
-              gap: .4rem;
-              align-items: center;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.toggle-sidebar {
-  display: none;
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  background-color: #28536B;
-  color: #fff;
-  border: none;
-  padding: 0.5rem;
-  cursor: pointer;
-  z-index: 1000;
-
-  @media screen and (max-width: 768px) {
-    display: block;
-  }
-  
-  &.close-btn {
-    margin-left: 80px;
-  }
-
-  i {
-    font-size: 1.5rem;
-  }
-}
-</style>

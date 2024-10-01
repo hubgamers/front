@@ -19,6 +19,18 @@
         <router-link to="/admin/tag">Gérer les tags</router-link>
       </button>
       <button class="info">
+        <router-link to="/admin/bo-format">Gérer les formats BO</router-link>
+      </button>
+      <button class="info">
+        <router-link to="/admin/platform">Gérer les plateformes</router-link>
+      </button>
+      <button class="info">
+        <router-link to="/admin/tier">Gérer les tiers</router-link>
+      </button>
+      <button class="info">
+        <router-link to="/admin/game">Gérer les jeux</router-link>
+      </button>
+      <button class="info">
         <router-link to="/admin/invitation">Gérer les invitations</router-link>
       </button>
     </div>

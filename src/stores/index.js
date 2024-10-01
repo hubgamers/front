@@ -9,6 +9,10 @@ import userModule from '@/stores/modules/userModule.js'
 import tournamentModule from '@/stores/modules/tournamentModule.js'
 import tagModule from '@/stores/modules/tagModule.js'
 import invitationModule from '@/stores/modules/invitationModule.js'
+import tierModule from './modules/tierModule';
+import boFormatModule from './modules/boFormatModule';
+import platformModule from './modules/platformModule';
+import scrimModule from './modules/scrimModule';
 
 export default createStore({
   state() {
@@ -49,8 +53,10 @@ export default createStore({
               localStorage.setItem('roles', response.data.data.roles);
               localStorage.setItem('jwtToken', response.data.data.jwtToken);
               localStorage.setItem('userId', response.data.data.userId);
+              resolve(response.data.data);
+            } else if (response.status === 401) {
+              reject(response);
             }
-            resolve(response.data.data);
           })
           .catch((error) => {
             reject(error.response.data.error);
@@ -101,6 +107,10 @@ export default createStore({
     structureModule,
     teamRosterModule,
     tournamentModule,
-    userModule
+    userModule,
+    tierModule,
+    boFormatModule,
+    platformModule,
+    scrimModule
   }
 });

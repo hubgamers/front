@@ -9,8 +9,8 @@
           <li class="mb-2" v-for="(invitation, key) in store.getters.getInvitationsByPlayerId.filter((invitation) => invitation.status === 'PENDING')" :key="key">
             <span>{{invitation.title}}</span>
             <div class="flex gap-1">
-              <button class="info" @click="acceptInvitation(invitation.id)">Accepter</button>
-              <button class="warning" @click="declineInvitation(invitation.id)">Refuser</button>
+              <fwb-button color="default" @click="acceptInvitation(invitation.id)">Accepter</fwb-button>
+              <fwb-button color="red" @click="declineInvitation(invitation.id)">Refuser</fwb-button>
             </div>
           </li>
         </ul>
@@ -53,6 +53,8 @@ import { useRouter } from 'vue-router'
 import PlayerModeComponent from '@/views/dashboard/components/PlayerModeComponent.vue'
 import InputText from '@/components/InputText.vue'
 import { notify } from '@kyvg/vue3-notification'
+import { FwbButton } from 'flowbite-vue'
+
 defineComponent({
   name: 'ProfilePage'
 })

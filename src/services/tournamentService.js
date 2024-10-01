@@ -28,15 +28,15 @@ export default {
   addParticipant(tournamentId, participant) {
     return axiosCustom.post(`/tournament/addParticipant/${tournamentId}`, JSON.stringify(participant));
   },
-  uploadTournamentBanner(teamId, file) {
+  uploadTournamentBanner(structureId, file) {
     let formData = new FormData();
     formData.append("file", file);
-    return axiosCustom.post("/tournament/banner/upload/" + teamId, formData);
+    return axiosCustom.post("/tournament/banner/upload/" + structureId, formData);
   },
-  uploadTournamentLogo(teamId, file) {
+  uploadTournamentLogo(structureId, file) {
     let formData = new FormData();
     formData.append("file", file);
-    return axiosCustom.post("/tournament/logo/upload/" + teamId, formData);
+    return axiosCustom.post("/tournament/logo/upload/" + structureId, formData);
   },
   updateTournament(tournament) {
     return axiosCustom.put("/tournament/update", tournament);

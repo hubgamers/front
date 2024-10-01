@@ -26,7 +26,7 @@ const mutations = {
   updateStructureColumns(state, columns) {
     state.structureColumns = columns;
   },
-  updatemyStructures(state, structures) {
+  updateMyStructures(state, structures) {
     state.myStructures = structures;
   },
   updateStructureList(state, structures) {
@@ -70,7 +70,7 @@ const actions = {
       structureService.getAllMyStructures()
       .then((response) => {
         resolve(response.data.data);
-        commit('updatemyStructures', response.data.data);
+        commit('updateMyStructures', response.data.data);
       })
       .catch((error) => {
         reject(error.response.data.error);
@@ -125,9 +125,9 @@ const actions = {
       });
     });
   },
-  createStructure({ commit }, team) {
+  createStructure({ commit }, structure) {
     return new Promise((resolve, reject) => {
-      structureService.createStructure(team)
+      structureService.createStructure(structure)
       .then((response) => {
         resolve(response.data.data);
         commit('updateStructure', response.data.data);
@@ -161,9 +161,9 @@ const actions = {
       });
     });
   },
-  updateStructure({ commit }, team) {
+  updateStructure({ commit }, structure) {
     return new Promise((resolve, reject) => {
-      structureService.updateStructure(team)
+      structureService.updateStructure(structure)
       .then((response) => {
         resolve(response.data.data);
         commit('updateStructure', response.data.data);

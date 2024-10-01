@@ -3,9 +3,7 @@
     <div>
       <h4>{{title}}</h4>
       <p>{{content}}</p>
-      <button class="green">
-        <RouterLink to="/dashboard">{{buttonText}}</RouterLink>
-      </button>
+      <fwb-button color="default"><RouterLink to="/dashboard">{{buttonText}}</RouterLink></fwb-button>
     </div>
     <div v-if="imgUrl" class="image">
       <img :src="imgUrl" alt="Bg">
@@ -15,6 +13,7 @@
 
 <script setup>
 import { defineComponent } from 'vue'
+import { FwbButton } from 'flowbite-vue'
 
 defineComponent({
   name: 'LargeComponent'

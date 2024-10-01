@@ -1,16 +1,29 @@
 <template>
-  <div>
-    <div class="bg" @click="close"></div>
-    <div class="content">
-      <Topbar :title="title" :subtitle="subtitle" />
+  <fwb-modal :size="size" @close="closeModal">
+    <template #header>
+      <div class="flex items-center text-lg">
+        {{title}}
+      </div>
+    </template>
+    <template #body>
       <slot></slot>
-    </div>
-  </div>
+    </template>
+    <template #footer>
+      <div class="flex justify-between">
+        <fwb-button @click="closeModal" color="alternative">
+          Fermer
+        </fwb-button>
+        <fwb-button v-if="successTextButton" @click="successModal" color="green">
+          {{ successTextButton }}
+        </fwb-button>
+      </div>
+    </template>
+  </fwb-modal>
 </template>
 
 <script setup>
 import { defineComponent } from 'vue'
-import Topbar from '@/views/dashboard/components/Topbar.vue'
+import { FwbButton, FwbModal } from 'flowbite-vue'
 
 defineComponent({
   name: 'ModalComponent'
@@ -18,12 +31,21 @@ defineComponent({
 
 defineProps({
   title: String,
-  subtitle: String
+  subtitle: String,
+  successTextButton: String,
+  size: {
+    type: String,
+    default: 'xl'
+  }
 })
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'success'])
 
-function close() {
+function closeModal() {
   emit('close')
+}
+
+function successModal() {
+  emit('success')
 }
 </script>
 
