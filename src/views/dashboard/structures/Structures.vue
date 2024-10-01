@@ -16,23 +16,29 @@
           </div>
         </form>
       <div class="flex flex-wrap flex-row gap-5 mt-2">
-        <StructureCardComponent />
+        <StructureCardComponent v-if="!isLoading" :options="store.getters.getStructures" />
+        <Loading v-else />
       </div>
   </DashboardLayout>
 </template>
 <script setup>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import StructureCardComponent from '../components/StructureCardComponent.vue';
+import Loading from '../components/Loading.vue';
 
 defineComponent({
   name: 'StructuresPage'
 })
 
 const store = useStore()
-store.dispatch('getStructureColumns')
-store.dispatch('getAllPlayers')
+let isLoading = ref(true)
+onBeforeMount(async () => {
+  await store.dispatch('getAllPlayers')
+  await store.dispatch('getAllPublicStructures')
+  isLoading.value = false;
+})
 
 let search = ref('')
 

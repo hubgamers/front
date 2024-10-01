@@ -65,7 +65,7 @@
         </template>
         <template #default>Joueurs</template>
       </fwb-sidebar-item>
-      <fwb-sidebar-item link="/dashboard/production">
+      <fwb-sidebar-item link="/dashboard/production" v-if="userIdAdmin">
         <template #icon>
           <i class="fa-solid fa-satellite-dish"></i>
         </template>

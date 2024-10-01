@@ -1,6 +1,6 @@
 <template>
   <fwb-card
-    v-for="(structure, key) in structures"
+    v-for="(structure, key) in options"
     :key="key"
   >
     <div class="relative">
@@ -25,31 +25,16 @@
 </template>
 
 <script setup>
-import { computed, defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import { FwbCard, FwbButton, FwbButtonGroup, FwbBadge } from 'flowbite-vue'
-import { useStore } from 'vuex';
 
 defineComponent({
   name: 'StructureCardComponent',
 });
-const props = defineProps({
-  isMyStructures: {
-    type: Boolean,
-    default: false,
+defineProps({
+  options: {
+    type: Array,
+    required: true,
   },
 });
-
-const store = useStore()
-
-const structures = computed(() => {
-  return props.isMyStructures
-    ? store.getters.getMyStructures
-    : store.getters.getStructures;
-});
-
-if (props.isMyStructures) {
-  store.dispatch('getAllMyStructures')
-} else {
-  store.dispatch('getAllPublicStructures')
-}
 </script>

@@ -16,8 +16,8 @@
               <ul class="flex items-center justify-item-around gap-2">
                 <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Informations'">Informations</RouterLink></li>
                 <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Teams'">Equipes</RouterLink></li>
-                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Tournaments'">Tournois</RouterLink></li>
-                <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Twitch'">Chaine Twitch</RouterLink></li>
+                <!-- <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Tournaments'">Tournois</RouterLink></li> -->
+                <!-- <li><RouterLink :to="'/dashboard/structures/' + store.getters.getStructure.id + '?tab=Twitch'">Chaine Twitch</RouterLink></li> -->
               </ul>
             </div>
           </div>

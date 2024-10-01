@@ -8,20 +8,25 @@
       ]"
       >
       <div class="flex flex-wrap flex-row gap-5 mt-2">
-        <StructureCardComponent :isMyStructures="true" />
+        <StructureCardComponent v-if="!isLoading" :options="store.getters.getMyStructures" />
+        <Loading v-else />
       </div>
   </DashboardLayout>
 </template>
 <script setup>
-import { defineComponent } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import StructureCardComponent from '../components/StructureCardComponent.vue';
+import Loading from '../components/Loading.vue';
 defineComponent({
   name: 'MyStructuresPage'
 })
 
 const store = useStore()
-store.dispatch('getAllMyStructures')
-store.dispatch('getStructureColumns')
+let isLoading = ref(true)
+onBeforeMount(async () => {
+  await store.dispatch('getAllMyStructures')
+  isLoading.value = false
+})
 </script>

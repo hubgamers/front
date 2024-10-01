@@ -1,6 +1,6 @@
 <template>
     <fwb-card
-        v-for="(scrim, key) in scrims"
+        v-for="(scrim, key) in options"
         :key="key"
       >
         <div class="relative">
@@ -36,33 +36,18 @@
 </template>
 
 <script setup>
-import { computed, defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import { FwbCard, FwbBadge, FwbButton } from 'flowbite-vue'
-import { useStore } from 'vuex';
 import moment from 'moment';
 
 defineComponent({
   name: 'ScrimCardComponent'
 })
 
-const props = defineProps({
-    isMyScrims: {
-    type: Boolean,
-    default: false,
-  },
+defineProps({
+    options: {
+        type: Array,
+        default: () => [],
+    }
 })
-
-const store = useStore()
-
-const scrims = computed(() => {
-  return props.isMyScrims
-    ? store.getters.getMyScrims
-    : store.getters.getScrims;
-});
-
-if (props.isMyScrims) {
-  store.dispatch('getMyScrims')
-} else {
-  store.dispatch('getAllScrims')
-}
 </script>

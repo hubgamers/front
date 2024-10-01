@@ -28,9 +28,9 @@
           <span>{{feat.content}}</span>
         </li>
       </ul>
-      <button v-if="!isConnected" class="green" @click="goRegister">Se connecter</button>
-      <button v-else-if="stripeSessionId" class="green" @click="editPlan">Modifier mon abonnement</button>
-      <button v-else class="green" @click="subscribe">Souscrire</button>
+      <fwb-button v-if="!isConnected" color="default" @click="goRegister">Se connecter</fwb-button>
+      <fwb-button v-else-if="stripeSessionId" color="default" @click="editPlan">Se connecter</fwb-button>
+      <fwb-button v-else color="default" @click="subscribe">Souscrire</fwb-button>
     </div>
   </div>
 </template>
@@ -39,6 +39,7 @@
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { FwbButton } from 'flowbite-vue'
 
 defineComponent({
   name: 'PricingTable'

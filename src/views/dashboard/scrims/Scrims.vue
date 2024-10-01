@@ -13,22 +13,28 @@
       </div>
     </form>
     <div class="flex flex-wrap flex-row gap-5 mt-2">
-      <ScrimCardComponent />
+      <ScrimCardComponent v-if="!isLoading" :options="store.getters.getScrims" />
+      <Loading v-else />
     </div>
   </DashboardLayout>
 </template>
 <script setup>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useStore } from 'vuex'
 import DashboardLayout from '@/layout/DashboardLayout.vue'
 import ScrimCardComponent from '../components/ScrimCardComponent.vue';
+import Loading from '../components/Loading.vue';
 
 defineComponent({
   name: 'ScrimsPage'
 })
 
 const store = useStore()
-store.dispatch('getScrimsColumns')
+let isLoading = ref(true)
+onBeforeMount(async () => {
+  await store.dispatch('getAllScrims')
+  isLoading.value = false
+})
 
 let search = ref('');
 function searchInScrims() {
