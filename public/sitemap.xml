@@ -1,135 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap-image/1.1">
-    <url>
-        <loc>https://dashboard-hubgamers.alexisbriet.fr/</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-    </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap-image/1.1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap-image/1.1 http://www.sitemaps.org/schemas/sitemap-image/1.1/sitemap-image.xsd">
+
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/features</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/pricing</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/about</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/contact</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/my-structures</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures/create</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures/edit/:id</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures/edit/</loc>
     </url>
     <url>
-        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures/:id</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures/</loc>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/players</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/players/:id</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/players/</loc>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/my-tournaments</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments/create</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments/edit/:id</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments/edit/</loc>
     </url>
     <url>
-        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments/:id</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments/</loc>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/my-scrims</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims/create</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims/edit/:id</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims/edit/</loc>
     </url>
     <url>
-        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims/:id</loc>
-        <lastmod>2024-10-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims/</loc>
     </url>
 </urlset>
