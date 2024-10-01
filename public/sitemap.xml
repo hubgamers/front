@@ -1,69 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap-image/1.1"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap-image/1.1 http://www.sitemaps.org/schemas/sitemap-image/1.1/sitemap-image.xsd">
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/features</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/pricing</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/about</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/contact</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/my-structures</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures/create</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures/edit/</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/structures/</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/players</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/players/</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/my-tournaments</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments/create</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments/edit/</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/tournaments/</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/my-scrims</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims/create</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims/edit/</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
     <url>
         <loc>https://dashboard-hubgamers.alexisbriet.fr/dashboard/scrims/</loc>
+        <lastmod>2024-10-01</lastmod>
     </url>
 </urlset>
