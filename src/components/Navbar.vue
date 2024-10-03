@@ -10,6 +10,9 @@
           <li>
             <a href="https://hubgamers.alexisbriet.fr">Retourner sur l'accueil</a>
           </li>
+          <li v-if="isConnected">
+            <a href="#" @click="logout">Déconnexion</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -17,7 +20,9 @@
 </template>
 
 <script setup>
+import { notify } from '@kyvg/vue3-notification';
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router';
 
 defineComponent({
   name: 'NavbarComponent',
@@ -32,6 +37,17 @@ if (localStorage.getItem('userId')) {
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value;
+}
+
+const router = useRouter();
+function logout() {
+  localStorage.clear();
+  notify({
+    type: 'info',
+    title: 'Déconnexion',
+    text: 'Vous avez été déconnecté avec succès.'
+  });
+  router.push('/login');
 }
 </script>
 

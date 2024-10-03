@@ -44,7 +44,7 @@ const store = useStore();
 const router = useRouter();
 onBeforeMount(() => {
   if (!localStorage.getItem('userId')) {
-    router.push('/auth/login')
+    router.push('/login')
   }
 })
 store.dispatch('getUserById', localStorage.getItem('userId'))
