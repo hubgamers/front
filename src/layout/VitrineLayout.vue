@@ -10,8 +10,9 @@
 
 <script setup>
 import { defineComponent } from 'vue'
-import Navbar from '@/components/Navbar.vue'
 import FooterComponent from '@/components/Footer.vue'
+import Navbar from '@/components/Navbar.vue';
+
 defineComponent({
   name: 'VitrineLayout'
 })
@@ -19,8 +20,8 @@ defineComponent({
 
 <style>
   .body {
-    background: #1C1C1C;
     min-height: 100vh;
+    background-color: #f9fafb;
   }
   .wrap {
     display: flex;
@@ -28,6 +29,7 @@ defineComponent({
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
+    padding: 2rem 0;
   }
 
   h1, h2, h3, h4, p, i {

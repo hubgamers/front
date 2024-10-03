@@ -2,8 +2,9 @@
   <div class="row align-items-center justify-between py-10 px-4">
     <p>&copy; 2024 - Tous les droits réservés</p>
     <ul>
-      <li><RouterLink to="/legals">Mentions légales</RouterLink></li>
-      <li><RouterLink to="/cgu">Conditions Générales d'Utilisation</RouterLink></li>
+      <li><a href="https://hubgamers.alexisbriet.fr/legals" target="_blank">Mentions légales</a></li>
+      <li><a href="https://hubgamers.alexisbriet.fr/cgu" target="_blank">Conditions Générales d'Utilisation</a></li>
+      <li><a href="https://hubgamers.alexisbriet.fr/cgv" target="_blank">Conditions Générales des Ventes</a></li>
     </ul>
   </div>
 </template>
