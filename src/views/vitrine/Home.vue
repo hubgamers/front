@@ -28,13 +28,13 @@
 </template>
 
 <script setup>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import VitrineLayout from '@/layout/VitrineLayout.vue'
 import InputText from '@/components/InputText.vue'
 import { FwbButton } from 'flowbite-vue'
 import { useStore } from 'vuex';
 import { notify } from '@kyvg/vue3-notification';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 defineComponent({
   name: 'HomePage'
@@ -58,6 +58,15 @@ const loginForm = ref({
 
 const store = useStore();
 const router = useRouter();
+const route = useRoute();
+onBeforeMount(() => {
+  if (route.name === 'Login') {
+    stateForm.value = 'login';
+  } else {
+    stateForm.value = 'register';
+  }
+})
+
 const isSubmitted = ref(false);
 function submitForm() {
   console.log('submit form')

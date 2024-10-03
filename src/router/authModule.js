@@ -1,13 +1,13 @@
 export default [
     {
-        path: '/auth/login',
+        path: '/login',
         name: 'Login',
-        component: () => import('@/views/Auth.vue')
+        component: () => import('@/views/vitrine/Home.vue'),
     },
     {
-        path: '/auth/register',
+        path: '/register',
         name: 'Register',
-        component: () => import('@/views/Auth.vue')
+        component: () => import('@/views/vitrine/Home.vue'),
     }
   ];
   
