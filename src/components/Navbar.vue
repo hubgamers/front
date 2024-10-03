@@ -8,64 +8,16 @@
       <nav :class="{ 'is-open': isMenuOpen }">
         <ul>
           <li>
-            <RouterLink to="/" @click="closeMenu">Accueil</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/features" @click="closeMenu">Fonctionnalités</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/pricing" @click="closeMenu">Tarifs</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/about" @click="closeMenu">A propos</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/contact" @click="closeMenu">Contactez-nous</RouterLink>
-          </li>
-          <li class="is-mobile-link" v-if="!isConnected">
-            <RouterLink to="/auth/login" @click="closeMenu">Connexion</RouterLink>
-          </li>
-          <li class="is-mobile-link" v-if="!isConnected">
-            <RouterLink to="/auth/register" @click="closeMenu">Inscription</RouterLink>
-          </li>
-          <li class="is-mobile-link" v-if="isConnected">
-            <RouterLink to="/dashboard" @click="closeMenu">Tableau de bord</RouterLink>
+            <a href="https://hubgamers.alexisbriet.fr">Retourner sur l'accueil</a>
           </li>
         </ul>
       </nav>
-    </div>
-    <div class="actions">
-      <template v-if="isConnected">
-        <fwb-button color="default"><RouterLink to="/dashboard">Tableau de bord</RouterLink></fwb-button>
-        <fwb-button color="default" @click="logout">Déconnexion</fwb-button>
-      </template>
-      <fwb-button v-else color="default"><RouterLink to="/auth/register">S'inscrire gratuitement</RouterLink></fwb-button>
-      <ul class="socials">
-        <li>
-          <a href="https://linkedin.com/in/alexis-briet" target="_blank">
-            <i class="fa-brands fa-linkedin"></i>
-          </a>
-        </li>
-        <li>
-          <a href="https://x.com" target="_blank">
-            <i class="fa-brands fa-x-twitter"></i>
-          </a>
-        </li>
-        <li>
-          <a href="https://twitch.tv" target="_blank">
-            <i class="fa-brands fa-twitch"></i>
-          </a>
-        </li>
-      </ul>
     </div>
   </header>
 </template>
 
 <script setup>
-import { useNotification } from '@kyvg/vue3-notification';
 import { defineComponent, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { FwbButton } from 'flowbite-vue'
 
 defineComponent({
   name: 'NavbarComponent',
@@ -78,24 +30,8 @@ if (localStorage.getItem('userId')) {
   isConnected.value = true
 }
 
-const router = useRouter();
-const { notify } = useNotification();
-function logout() {
-  localStorage.clear();
-  notify({
-    type: 'info',
-    title: 'Déconnexion',
-    text: 'Vous avez été déconnecté avec succès.'
-  });
-  router.push('/auth/login');
-}
-
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value;
-}
-
-function closeMenu() {
-  isMenuOpen.value = false;
 }
 </script>
 
@@ -113,7 +49,7 @@ header {
     gap: 2rem;
 
     h2 {
-      color: #FFFFFF;
+      color: #339CA9;
       font-size: 1.5rem;
       font-weight: 700;
       margin: inherit;
@@ -126,8 +62,11 @@ header {
       display: none;
       background: none;
       border: none;
-      color: #FFFFFF;
+      color: #339CA9;
       font-size: 1.5rem;
+      i {
+        color: #339CA9;
+      }
     }
 
     nav {
@@ -137,9 +76,11 @@ header {
 
         li a {
           font-weight: 700;
-          color: #FFFFFF;
+          color: #000;
+          transition: all .5s ease;
 
           &:hover, &:focus, &:active {
+            transition: all .5s ease;
             color: #9DD9D2;
           }
         }
@@ -147,32 +88,6 @@ header {
 
       &.is-open {
         display: block;
-      }
-    }
-  }
-
-  .actions {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-
-    a {
-      color: #000;
-      &:hover {
-        color: #FFF;
-      }
-    }
-
-    ul {
-      display: flex;
-      gap: 1rem;
-
-      li a i {
-        color: #FFFFFF;
-
-        &:hover, &:focus, &:active {
-          color: #9DD9D2;
-        }
       }
     }
   }
@@ -210,15 +125,6 @@ header {
             }
           }
         }
-      }
-    }
-
-    .actions {
-      display: none;
-      @media screen and (min-width: 768px){
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
       }
     }
   }
