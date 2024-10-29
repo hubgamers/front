@@ -182,6 +182,14 @@ nav.tabs .active {
     }
 }
 
+.bg-blue {
+    background-color: var(--color-primary)!important;
+}
+
+.bg-black {
+    background-color: var(--color-secondary)!important;
+}
+
 label {
     color: var(--color-primary)!important;
     span {

@@ -21,7 +21,7 @@
        :subtitle="store.getters.getStripeProduct.name"
        btnUri="/dashboard/subscriptions"
        btnText="Voir mon abonnement"
-       bg-color="green"
+       bg-color="black"
        type="large"
      />
      <CardActionDashboardComponent
@@ -30,7 +30,7 @@
        subtitle="Non abonné"
        btnUri="/dashboard/subscriptions"
        btnText="M'abonner"
-       bg-color="green"
+       bg-color="black"
        type="large"
      />
    </div>

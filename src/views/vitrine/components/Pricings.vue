@@ -11,18 +11,18 @@
     <div class="row gap-2">
       <PricingTable
         :period="period"
-        title-price="Silver"
+        title-price="Pro"
         description="L’abonnement simple pour commencer."
-        price-strip-id="silver"
+        price-strip-id="pro"
         :stripeSessionId="stripeSessionId"
         :new-stripe-price-id="stripePriceId"
         :current-price="{
-            monthly: 7,
-            yearly: 70
+            monthly: 15,
+            yearly: 100
           }"
         :old-price="{
-              monthly: 10,
-              yearly: 100
+              monthly: 20,
+              yearly: 150
           }"
         :feats="[
             {
@@ -45,18 +45,18 @@
       />
       <PricingTable
         :period="period"
-        title-price="Gold"
+        title-price="Elite"
         description="L’abonnement complet pour les équipes ambitieuses."
-        price-strip-id="gold"
+        price-strip-id="elite"
         :stripeSessionId="stripeSessionId"
         :new-stripe-price-id="stripePriceId"
         :current-price="{
-            monthly: 10,
-            yearly: 100
+            monthly: 30,
+            yearly: 250
           }"
         :old-price="{
-              monthly: 15,
-              yearly: 150
+              monthly: 35,
+              yearly: 300
           }"
         :feats="[
             {
@@ -73,44 +73,6 @@
             },
             {
               content: 'Organiser des évènements',
-              ok: true
-            }
-          ]"
-      />
-      <PricingTable
-        :period="period"
-        title-price="Platinum"
-        description="L’abonnement ultime pour les équipes professionnelles."
-        price-strip-id="platinum"
-        :stripeSessionId="stripeSessionId"
-        :new-stripe-price-id="stripePriceId"
-        :current-price="{
-            monthly: 16,
-            yearly: 160
-          }"
-        :old-price="{
-              monthly: 20,
-              yearly: 200
-          }"
-        :feats="[
-            {
-              content: 'Créer une équipe',
-              ok: true
-            },
-            {
-              content: 'Rejoindre une équipe',
-              ok: true
-            },
-            {
-              content: 'Participer aux tournois',
-              ok: true
-            },
-            {
-              content: 'Organiser des évènements',
-              ok: true
-            },
-            {
-              content: 'Accès à la production de tournois',
               ok: true
             }
           ]"

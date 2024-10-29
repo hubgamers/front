@@ -81,8 +81,11 @@ const store = useStore();
 const isConnected = ref(localStorage.getItem('userId'));
 function subscribe() {
   let priceStripId = props.priceStripId
-  if (props.period === 'yearly') {
+  let period = props.period
+  if (period === 'yearly') {
     priceStripId += '_yearly'
+  } else {
+    priceStripId += '_monthly'
   }
   store.dispatch('createCheckoutSession', priceStripId).then((response) => {
     window.location.href = response
